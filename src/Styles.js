@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledHeader = styled.div`
+
 `
 
 export const StyledNav = styled.div`
@@ -11,4 +12,8 @@ export const StyledNav = styled.div`
 
 export const StyledBtns = styled.div`
    textDecoration: none;
+`
+
+export const StyledForm = styled.div`
+
 `
