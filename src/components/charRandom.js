@@ -177,7 +177,144 @@ export default function CharRandomizer() {
                   />
                </label>
             </div>
-
+            <div className='charClass'>
+               <label>
+                  Alignment
+                  <select
+                     name='alignment'
+                     id='char-alignment'
+                  // value={}
+                  // onChange={}
+                  >
+                     <option value='You may select an alignment'>Select Alignment</option>
+                     {/* Want to map through the alignment array to get the different options */}
+                  </select>
+                  <input
+                     type='button'
+                     id='alignment random-btn'
+                     name='alignment'
+                     value='Randomize'
+                  //onChange={}
+                  />
+               </label>
+            </div>
+            <div className='charStats'>
+               <div className='strength-div'>
+                  <label>
+                     Strength
+                     <input
+                        type='number'
+                        id='strength random-btn'
+                        name='strength'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='strength random-btn'
+                        name='strength'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+               <div className='dexterity-div'>
+                  <label>
+                     Dexterity
+                     <input
+                        type='number'
+                        id='dexterity random-btn'
+                        name='dexterity'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='dexterity random-btn'
+                        name='dexterity'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+               <div className='constitution-div'>
+                  <label>
+                     Constitution
+                     <input
+                        type='number'
+                        id='constitution random-btn'
+                        name='strength'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='constitution random-btn'
+                        name='constitution'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+               <div className='intelligence-div'>
+                  <label>
+                     Intelligence
+                     <input
+                        type='number'
+                        id='intelligence random-btn'
+                        name='intelligence'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='intelligence random-btn'
+                        name='intelligence'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+               <div className='wisdom-div'>
+                  <label>
+                     Wisdom
+                     <input
+                        type='number'
+                        id='wisdom random-btn'
+                        name='wisdom'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='wisdom random-btn'
+                        name='wisdom'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+               <div className='charisma-div'>
+                  <label>
+                     Charisma
+                     <input
+                        type='number'
+                        id='charisma random-btn'
+                        name='charisma'
+                     // value={}
+                     //onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='charisma random-btn'
+                        name='charisma'
+                        value='Randomize'
+                     // onChange={ }
+                     />
+                  </label>
+               </div>
+            </div>
+            {/* Stopped here - need to continue form options */}
          </form>
 
          <footer>
