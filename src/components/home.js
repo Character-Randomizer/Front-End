@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+import { StyledBtns, StyledNav } from '../Styles';
+
 export default function Home() {
    return (
       <>
@@ -8,23 +10,33 @@ export default function Home() {
             <h1>Randomized Character Creator</h1>
 
             <nav>
-               <div className='top-btns'>
-                  <NavLink to={`/`} id='home link'>
-                     <div className='home btn'>Home</div>
-                  </NavLink>
-                  <NavLink to={`/character-randomizer`} id='randomizer link'>
-                     <div className='randomizer btn'>Randomizer</div>
-                  </NavLink>
-                  <NavLink to={`/about`} id='about link'>
-                     <div className='about btn'>About</div>
-                  </NavLink>
-                  <NavLink to={`/contact`} id='contact link'>
-                     <div className='contact btn'>Contact</div>
-                  </NavLink>
-                  <NavLink to={`/login`} id='login link'>
-                     <div className='login btn'>Login</div>
-                  </NavLink>
-               </div>
+               <StyledNav>
+                  <StyledBtns>
+                     <NavLink to={`/`} id='home link'>
+                        <div className='home btn'>Home</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/character-randomizer`} id='randomizer link'>
+                        <div className='randomizer btn'>Randomizer</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/about`} id='about link'>
+                        <div className='about btn'>About</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/contact`} id='contact link'>
+                        <div className='contact btn'>Contact</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/login`} id='login link'>
+                        <div className='login btn'>Login</div>
+                     </NavLink>
+                  </StyledBtns>
+               </StyledNav>
             </nav>
          </header>
 
@@ -59,7 +71,7 @@ export default function Home() {
 
 
             <h2>Saving Characters</h2>
-            <p class="saving">
+            <p className="saving">
                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt incidunt quae, nihil reiciendis aliquid in
                saepe alias voluptates, accusamus sed dolor velit nisi iusto aliquam odio, eius debitis assumenda soluta.
                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere alias nobis incidunt laboriosam voluptas
@@ -81,23 +93,33 @@ export default function Home() {
 
          <footer>
             <nav>
-               <div className='btm-btns'>
-                  <NavLink to={`/`} id='home link'>
-                     <div className='home btn'>Home</div>
-                  </NavLink>
-                  <NavLink to={`/character-randomizer`} id='randomizer link'>
-                     <div className='randomizer btn'>Randomizer</div>
-                  </NavLink>
-                  <NavLink to={`/about`} id='about link'>
-                     <div className='about btn'>About</div>
-                  </NavLink>
-                  <NavLink to={`/contact`} id='contact link'>
-                     <div className='contact btn'>Contact</div>
-                  </NavLink>
-                  <NavLink to={`/login`} id='login link'>
-                     <div className='login btn'>Login</div>
-                  </NavLink>
-               </div>
+               <StyledNav>
+                  <StyledBtns>
+                     <NavLink to={`/`} id='home link'>
+                        <div className='home btn'>Home</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/character-randomizer`} id='randomizer link'>
+                        <div className='randomizer btn'>Randomizer</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/about`} id='about link'>
+                        <div className='about btn'>About</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/contact`} id='contact link'>
+                        <div className='contact btn'>Contact</div>
+                     </NavLink>
+                  </StyledBtns>
+                  <StyledBtns>
+                     <NavLink to={`/login`} id='login link'>
+                        <div className='login btn'>Login</div>
+                     </NavLink>
+                  </StyledBtns>
+               </StyledNav>
             </nav>
             <div className="copyright">
                <p>&copy Copyright Character Randomizer</p>
