@@ -1,8 +1,15 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Routes, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
+
+import Home from './components/home'
+import About from './components/about'
+import Login from './components/login'
+import SignUp from './components/signup'
+import CharRandomizer from './components/charRandom'
+import Contact from './components/contact'
 
 const initialCharValues = {
   first_name: '',
@@ -62,29 +69,16 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header">
-        <h1>Randomized Character Creator</h1>
 
-        <nav>
-          <div className='top-btns'>
-            <Link to={`/`} id='home link'>
-              <div className='home btn'>Home</div>
-            </Link>
-            <Link to={`/character-randomizer`} id='randomizer link'>
-              <div className='randomizer btn'>Randomizer</div>
-            </Link>
-            <Link to={`/about`} id='about link'>
-              <div className='about btn'>About</div>
-            </Link>
-            <Link to={`/contact`} id='contact link'>
-              <div className='contact btn'>Contact</div>
-            </Link>
-            <Link to={`/login`} id='login link'>
-              <div className='login btn'>Login</div>
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <Routes>
+        <Route path={`/login/signup`} element={<SignUp />} />
+        <Route path={`/login`} element={<Login />} />
+        <Route path={`/contact`} element={<Contact />} />
+        <Route path={`/about`} element={<About />} />
+        <Route path={`/character-randomizer`} element={<CharRandomizer />} />
+        <Route exact path={`/`} element={<Home />} />
+      </Routes>
+
     </div>
   );
 }
