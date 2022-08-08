@@ -66,6 +66,7 @@ export default function Home() {
             <div className="image">
                <img srcSet="images/home-page-npcs.webp" alt="Multiple headshots of different characters" />
             </div>
+            {/* eslint-disable-next-line */}
             <p className="img-text">Picture from <a href="https://thenerdd.com/2021/01/15/7-steps-to-make-a-dd-npc"
                target="_blank">thenerdd.com</a></p>
 

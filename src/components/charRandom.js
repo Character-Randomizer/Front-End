@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 import { StyledBtns, StyledNav } from '../Styles';
 //will use the data below to map through the arrays and get the options in the array
-import { raceOptions, classOptions } from './randomizer-Data';
+// import { raceOptions, classOptions } from './randomizer-Data';
 
 
 export default function CharRandomizer() {
