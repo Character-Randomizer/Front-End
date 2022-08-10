@@ -50,10 +50,11 @@ export default function Login(props) {
                   <p>
                      If you would like to save your characters and/or NPCs, please sign up to create an account.
                   </p>
-                  {/* Will make this button go to the sign up page once clicked */}
-                  <button
-                  // onChange={}
-                  > Sign Up </button>
+                  <NavLink to={`/login/signup`} id='signup link'>
+                     <button>
+                        Sign Up
+                     </button>
+                  </NavLink>
                </div>
             </form>
 
