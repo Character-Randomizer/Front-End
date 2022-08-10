@@ -9,10 +9,6 @@ export default function Login(props) {
    const onChangeLogin = event => {
       const { name, value } = event.target
 
-      console.log(`Seeing what event.target is:`, event.target)
-      console.log(`name:`, name)
-      console.log(`value:`, value)
-
       changeLogin(name, value)
    }
 

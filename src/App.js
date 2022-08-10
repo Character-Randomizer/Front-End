@@ -12,7 +12,7 @@ import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
 import Account from './components/account'
 
-import { formSchemaUsers, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchema'
+import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchema'
 
 const initialCharValues = {
   first_name: '',
@@ -75,26 +75,27 @@ function App() {
   const [charErrors, setCharErrors] = useState(initialCharValues)
 
   const [users, setUsers] = useState(initialUsers)
-  const [userFormValues, setUserFormValues] = useState(initialUserValues)
-  const [userErrors, setUserErrors] = useState(initialUserValues)
+
+  const [signupFormValues, setSignupFormValues] = useState(initialUserValues)
+  const [signupErrors, setSignupErrors] = useState(initialUserValues)
 
   const [contactForm, setContactForm] = useState(initialContactForm)
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
 
-  const changeInputUsers = (name, value) => {
+  const changeInputSignup = (name, value) => {
     yup
-      .reach(formSchemaUsers, name)
+      .reach(formSchemaSignup, name)
       .validate(value)
       .then(() => {
-        setUserErrors({ ...userErrors, [name]: '' })
+        setSignupErrors({ ...signupErrors, [name]: '' })
       })
       .catch(err => {
-        setUserErrors({ ...userErrors, [name]: err.errors })
+        setSignupErrors({ ...signupErrors, [name]: err.errors })
       })
 
-    setUserFormValues({ ...userFormValues, [name]: value })
+    setSignupFormValues({ ...signupFormValues, [name]: value })
   }
 
   // Trying to see if making the login it's own special array of objects if that fixes the value [object object] issue
@@ -144,7 +145,7 @@ function App() {
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputUsers} valuesSignup={userFormValues} />} />
+        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} />} />
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} />} />
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />

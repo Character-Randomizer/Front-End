@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-const formSchemaUsers = yup.object().shape({
+const formSchemaSignup = yup.object().shape({
    first_name: yup.string()
       .min(1, 'first name must be at least 1 character')
       .required('first name is required'),
@@ -128,4 +128,4 @@ const formSchemaLogin = yup.object().shape({
       .required('a password is required')
 })
 
-export { formSchemaUsers, formSchemaRandom, formSchemaContact, formSchemaLogin }
+export { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin }
