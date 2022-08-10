@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 import { StyledBtns, StyledNav } from '../Styles';
 
-export default function Contact() {
+export default function Contact(props) {
+   const { changeContact, valuesContact } = props
+
    return (
       <>
          <header className="header">

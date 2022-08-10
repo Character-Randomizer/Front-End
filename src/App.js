@@ -10,6 +10,7 @@ import Login from './components/login'
 import SignUp from './components/signup'
 import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
+import Account from './components/account'
 
 import { formSchemaUsers, formSchemaRandom, formSchemaContact } from './validation/formSchema'
 
@@ -61,65 +62,72 @@ const initialContactForm = []
 
 
 function App() {
-  const [charFormValues, setCharFormValues] = useState(initialCharValues)
-  const [userFormValues, setUserFormValues] = useState(initialUserValues)
-  const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [characters, setCharacters] = useState(initialCharacters)
+  const [charFormValues, setCharFormValues] = useState(initialCharValues)
+  const [charErrors, setCharErrors] = useState(initialCharValues)
+
   const [users, setUsers] = useState(initialUsers)
+  const [userFormValues, setUserFormValues] = useState(initialUserValues)
+  const [userErrors, setUserErrors] = useState(initialUserValues)
+
   const [contactForm, setContactForm] = useState(initialContactForm)
+  const [contactFormValues, setContactFormValues] = useState(initialContactValues)
+  const [contactErrors, setContactErrors] = useState(initialContactValues)
 
-  // Cannot use the code below b/c need to set up form schema's for users, randomizer, and contact form + the error useStates
-  // const changeInputUsers = (name, value) => {
-  //   yup
-  //     .reach(formSchemaUsers, name)
-  //     .validate(value)
-  //     .then(() => {
-  //       setErrorsUsers({ ...errors, [name]: '' })
-  //     })
-  //     .catch(err => {
-  //       setErrorsUsers({ ...errors, [name]: err.errors })
-  //     })
 
-  //   setUserFormValues(...userFormValues, [name]: value)
-  // }
+  const changeInputUsers = (name, value) => {
+    yup
+      .reach(formSchemaUsers, name)
+      .validate(value)
+      .then(() => {
+        setUserErrors({ ...userErrors, [name]: '' })
+      })
+      .catch(err => {
+        setUserErrors({ ...userErrors, [name]: err.errors })
+      })
 
-  // const changeInputRandomizer = (name, value) => {
-  //   yup
-  //     .reach(formSchemaRandom, name)
-  //     .validate(value)
-  //     .then(() => {
-  //       setErrorsChar({ ...errors, [name]: '' })
-  //     })
-  //     .catch(err => {
-  //       setErrorsChar({ ...errors, [name]: err.errors })
-  //     })
+    setUserFormValues({ ...userFormValues, [name]: value })
+  }
 
-  //   setCharFormValues(...charFormValues, [name]: value)
-  // }
+  const changeInputRandomizer = (name, value) => {
+    yup
+      .reach(formSchemaRandom, name)
+      .validate(value)
+      .then(() => {
+        setCharErrors({ ...charErrors, [name]: '' })
+      })
+      .catch(err => {
+        setCharErrors({ ...charErrors, [name]: err.charErrors })
+      })
 
-  // const changeInputContact = (name, value) => {
-  //   yup
-  //     .reach(formSchemaContact, name)
-  //     .validate(value)
-  //     .then(() => {
-  //       setErrorsContact({ ...errors, [name]: '' })
-  //     })
-  //     .catch(err => {
-  //       setErrorsContact({ ...errors, [name]: err.errors })
-  //     })
+    setCharFormValues({ ...charFormValues, [name]: value })
+  }
 
-  //   setContactForm(...contactForm, [name]: value)
-  // }
+  const changeInputContact = (name, value) => {
+    yup
+      .reach(formSchemaContact, name)
+      .validate(value)
+      .then(() => {
+        setContactErrors({ ...contactErrors, [name]: '' })
+      })
+      .catch(err => {
+        setContactErrors({ ...contactErrors, [name]: err.contactErrors })
+      })
+
+    setContactForm({ ...contactForm, [name]: value })
+  }
 
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp />} />
-        <Route path={`/login`} element={<Login />} />
-        <Route path={`/contact`} element={<Contact />} />
+        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputUsers} valuesSignup={userFormValues} />} />
+        <Route path={`/login`} element={<Login changeLogin={changeInputUsers} valuesLogin={userFormValues} />} />
+        {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+        <Route path={`/account`} element={<Account />} />
+        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} />} />
         <Route path={`/about`} element={<About />} />
-        <Route path={`/character-randomizer`} element={<CharRandomizer />} />
+        <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
         <Route exact path={`/`} element={<Home />} />
       </Routes>
 

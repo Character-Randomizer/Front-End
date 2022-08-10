@@ -1,75 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 
-import { StyledBtns, StyledNav } from '../Styles'
+import { StyledBtns, StyledNav } from '../Styles';
 
-export default function Login(props) {
-   const { changeLogin, valuesLogin } = props
-
-   console.log(valuesLogin)
-
-   const onChangeLogin = event => {
-      const { name, value } = event.target
-
-      console.log(event.target)
-
-      changeLogin(name, value)
-   }
-
+export default function Account() {
    return (
       <>
          <header className="header">
             <h1>Randomized Character Creator</h1>
-
-            <form id='login-form' onSubmit={null}>
-               <div className='login-div'>
-                  <h2>
-                     Login
-                  </h2>
-                  <div className='login-un'>
-                     <label>
-                        Username
-                        <input
-                           type='text'
-                           id='input-un'
-                           name='username'
-                           value={valuesLogin}
-                           onChange={onChangeLogin}
-                        />
-                     </label>
-                  </div>
-                  <div className='login-pass'>
-                     <label>
-                        Password
-                        <input
-                           type='text'
-                           id='input-pass'
-                           name='password'
-                           value={valuesLogin}
-                           onChange={onChangeLogin}
-                        />
-                     </label>
-                  </div>
-                  <NavLink to={`/account`} id='login-account link'>
-                     <button>
-                        Login
-                     </button>
-                  </NavLink>
-               </div>
-               <div className='signup-div'>
-                  <h2>
-                     Sign Up
-                  </h2>
-                  <p>
-                     If you would like to save your characters and/or NPCs, please sign up to create an account.
-                  </p>
-                  <NavLink to={`/login/signup`} id='signup link'>
-                     <button>
-                        Sign Up
-                     </button>
-                  </NavLink>
-               </div>
-            </form>
 
             <nav>
                <StyledNav>
@@ -101,6 +39,8 @@ export default function Login(props) {
                </StyledNav>
             </nav>
          </header>
+
+         <h1>This page is under construction.</h1>
 
          <footer>
             <nav>

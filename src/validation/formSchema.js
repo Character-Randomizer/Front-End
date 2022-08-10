@@ -116,3 +116,5 @@ const formSchemaContact = yup.object().shape({
       .max(1000, 'the message must be between 1 - 1,000 characters long')
       .required('a message is required')
 })
+
+export { formSchemaUsers, formSchemaRandom, formSchemaContact }

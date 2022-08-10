@@ -6,7 +6,9 @@ import { StyledBtns, StyledNav } from '../Styles';
 import { raceOptions, classOptions } from './randomizer-Data';
 
 
-export default function CharRandomizer() {
+export default function CharRandomizer(props) {
+   const { changeRand, valuesRand } = props
+
    return (
       <>
          <header className="header">

@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 
 import { StyledBtns, StyledNav } from '../Styles';
 
-export default function SignUp() {
+export default function SignUp(props) {
+   const { changeSignup, valuesLogin } = props
+
    return (
       <>
          <header className="header">
