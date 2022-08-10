@@ -117,4 +117,15 @@ const formSchemaContact = yup.object().shape({
       .required('a message is required')
 })
 
-export { formSchemaUsers, formSchemaRandom, formSchemaContact }
+const formSchemaLogin = yup.object().shape({
+   username: yup.string()
+      .min(5, 'username must be at least 5 characters long')
+      .required('username is required'),
+
+   password: yup.string()
+      .matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+         "The password must contain at least 8 characters, one uppercase, one number and one special case character")
+      .required('a password is required')
+})
+
+export { formSchemaUsers, formSchemaRandom, formSchemaContact, formSchemaLogin }
