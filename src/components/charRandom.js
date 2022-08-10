@@ -177,7 +177,7 @@ export default function CharRandomizer() {
                   />
                </label>
             </div>
-            <div className='charClass'>
+            <div className='charAlignment'>
                <label>
                   Alignment
                   <select
@@ -313,8 +313,130 @@ export default function CharRandomizer() {
                      />
                   </label>
                </div>
+               <div className='charGender'>
+                  <label>
+                     Gender
+                     <select
+                        name='gender'
+                        id='char-gender'
+                     // value={}
+                     // onChange={}
+                     >
+                        <option value='You may select a gender'>Select Gender</option>
+                        <option value='female'>Female</option>
+                        <option value='male'>Male</option>
+                        <option value='nonbinary'>Nonbinary</option>
+
+                     </select>
+                     <input
+                        type='button'
+                        id='alignment random-btn'
+                        name='alignment'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               <div className='charHeight'>
+                  <label>
+                     Height
+                     <input
+                        // Or should type be number? (ex: 5'6'' or 5.6)
+                        type='text'
+                        id='char-height'
+                        name='height'
+                     // value={}
+                     // onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='height random-btn'
+                        name='height'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               <div className='charAge'>
+                  <label>
+                     Age
+                     <input
+                        type='number'
+                        id='char-age'
+                        name='age'
+                     // value={}
+                     // onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='age random-btn'
+                        name='age'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               <div className='charWeight'>
+                  <label>
+                     Weight
+                     <input
+                        type='number'
+                        id='char-weight'
+                        name='weight'
+                     // value={}
+                     // onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='weight random-btn'
+                        name='weight'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               <div className='charPhysicalDescription'>
+                  <label>
+                     Physical Description
+                     {/* Want to make the input a text box that can expand */}
+                     <input
+                        type='text'
+                        id='char-phys-description'
+                        name='physical_description'
+                     // value={}
+                     // onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='physical-description random-btn'
+                        name='physical_description'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               <div className='charBackground'>
+                  <label>
+                     Background
+                     {/* This should be a select with it's own databse - but for right now I am making it a text field for simplicity */}
+                     <input
+                        type='text'
+                        id='char-background'
+                        name='background'
+                     // value={}
+                     // onChange={}
+                     />
+                     <input
+                        type='button'
+                        id='background random-btn'
+                        name='background'
+                        value='Randomize'
+                     //onChange={}
+                     />
+                  </label>
+               </div>
+               {/* Stopped here - need to continue form options */}
             </div>
-            {/* Stopped here - need to continue form options */}
          </form>
 
          <footer>
