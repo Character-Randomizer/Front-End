@@ -13,7 +13,7 @@ export default function Login(props) {
          <header className="header">
             <h1>Randomized Character Creator</h1>
 
-            <form id='login' onSubmit={null}>
+            <form id='login-form' onSubmit={null}>
                <div className='login-div'>
                   <h2>
                      Login

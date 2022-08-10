@@ -11,7 +11,7 @@ import SignUp from './components/signup'
 import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
 
-import formSchema from './validation/formSchema'
+import { formSchemaUsers, formSchemaRandom, formSchemaContact } from './validation/formSchema'
 
 const initialCharValues = {
   first_name: '',
@@ -40,6 +40,7 @@ const initialUserValues = {
   last_name: '',
   username: '',
   password: '',
+  confirm_password: '',
   email: '',
   terms: false,
   dob: 1 / 1 / 1900

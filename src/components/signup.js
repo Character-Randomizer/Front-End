@@ -40,7 +40,7 @@ export default function SignUp() {
             </nav>
          </header>
 
-         <form id='signup' onSubmit={null}>
+         <form id='signup-form' onSubmit={null}>
             <div className='signup-div'>
                <h2>
                   Sign Up
