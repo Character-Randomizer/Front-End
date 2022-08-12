@@ -54,7 +54,6 @@ const initialContactValues = {
   first_name: '',
   last_name: '',
   username: '',
-  email: '',
   subject: '',
   message: ''
 }
@@ -111,7 +110,7 @@ function App() {
   }, [loginValues])
 
 
-  //Validation Errors for Sign Up Page - need to work on:
+  //Validation Errors for Sign Up Page:
   const changeInputSignup = (name, value) => {
     yup
       .reach(formSchemaSignup, name)
@@ -132,7 +131,7 @@ function App() {
     })
   }, [signupFormValues])
 
-  //Validation Errors for Randomizer Page - need to work on:
+  //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
     yup
       .reach(formSchemaRandom, name)
@@ -153,7 +152,7 @@ function App() {
     })
   }, [charFormValues])
 
-  //Validation Errors for Contact Page - need to work on:
+  //Validation Errors for Contact Page:
   const changeInputContact = (name, value) => {
     yup
       .reach(formSchemaContact, name)
@@ -165,7 +164,7 @@ function App() {
         setContactErrors({ ...contactErrors, [name]: err.errors })
       })
 
-    setContactForm({ ...contactForm, [name]: value })
+    setContactFormValues({ ...contactFormValues, [name]: value })
   }
 
   useEffect(() => {
@@ -243,7 +242,7 @@ function App() {
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />
 
-        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} />} />
+        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
 
         <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
 

@@ -3,7 +3,13 @@ import React from 'react';
 import { Header, Footer } from './header-footer'
 
 export default function Contact(props) {
-   const { changeContact, valuesContact } = props
+   const { changeContact, valuesContact, contactErrors } = props
+
+   const onChangeContact = event => {
+      const { name, value } = event.target
+
+      changeContact(name, value)
+   }
 
    return (
       <>
@@ -18,26 +24,32 @@ export default function Contact(props) {
                   If you would like to get in touch with the team, feel free to fill out the form below.
                </p>
                <div className='contact-first-name'>
+                  <div className='errors'>
+                     {contactErrors.first_name}
+                  </div>
                   <label>
                      First Name
                      <input
                         type='text'
                         id='input-first-name'
                         name='first_name'
-                     // value={}
-                     // onChange={}
+                        value={valuesContact.first_name}
+                        onChange={onChangeContact}
                      />
                   </label>
                </div>
                <div className='contact-last-name'>
+                  <div className='errors'>
+                     {contactErrors.last_name}
+                  </div>
                   <label>
                      Last Name
                      <input
                         type='text'
                         id='input-last-name'
                         name='last_name'
-                     // value={}
-                     // onChange={}
+                        value={valuesContact.last_name}
+                        onChange={onChangeContact}
                      />
                   </label>
                </div>
@@ -48,47 +60,42 @@ export default function Contact(props) {
                         type='text'
                         id='input-un'
                         name='username'
-                     // value={}
-                     // onChange={}
-                     />
-                  </label>
-               </div>
-               <div className='contact-email'>
-                  <label>
-                     Email
-                     <input
-                        type='text'
-                        id='input-email'
-                        name='email'
-                     // value={}
-                     // onChange={}
+                        value={valuesContact.username}
+                        onChange={onChangeContact}
                      />
                   </label>
                </div>
                <div className='contact-subject'>
+                  <div className='errors'>
+                     {contactErrors.subject}
+                  </div>
                   <label>
-                     Email
+                     Subject
                      <input
                         type='text'
                         id='input-subject'
                         name='subject'
-                     // value={}
-                     // onChange={}
+                        value={valuesContact.subject}
+                        onChange={onChangeContact}
                      />
                   </label>
                </div>
                <div className='contact-message'>
+                  <div className='errors'>
+                     {contactErrors.message}
+                  </div>
                   <label>
                      Message
                      <input
                         type='text'
                         id='input-message'
                         name='message'
-                     // value={}
-                     // onChange={}
+                        value={valuesContact.message}
+                        onChange={onChangeContact}
                      />
                   </label>
                </div>
+               <button>Submit</button>
             </div>
          </form>
 

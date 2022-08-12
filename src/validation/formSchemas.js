@@ -106,11 +106,7 @@ const formSchemaContact = yup.object().shape({
       .required('last name is required'),
 
    username: yup.string()
-      .min(5, 'username must be at least 5 characters long'),
-
-   email: yup.string()
-      .email('enter a valid email')
-      .required('you must enter an email'),
+      .min(5, 'username must be at least 5 characters long').required('username is required'),
 
    subject: yup.string().required('enter a subject'),
 
