@@ -5,7 +5,7 @@ import { Header, Footer } from './header-footer'
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors } = props
+   const { changeSignup, valuesSignup, signupErrors, submitNewUser } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -20,7 +20,7 @@ export default function SignUp(props) {
       <>
          <Header />
 
-         <form id='signup-form' onSubmit={null}>
+         <form id='signup-form' onSubmit={submitNewUser}>
             <div className='signup-div'>
                <h2>
                   Sign Up
@@ -158,7 +158,7 @@ export default function SignUp(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               <Link className='signup-btn' to={`/account`}>
+               <Link className='signup-btn' to={`/login/signup`}>
                   <button>Sign Up</button>
                </Link>
             </div>

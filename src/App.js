@@ -171,11 +171,43 @@ function App() {
     })
   }, [contactFormValues])
 
+
+  //Posting a new user to the Users api when Signing Up
+  const postNewUser = (newUser) => {
+    axios
+      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+      .then(res => {
+        console.log(res)
+        setUsers(...users, res.data)
+      })
+      .finally(setSignupFormValues(initialUsers))
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const submitNewUser = event => {
+    event.preventDefault()
+
+    const newUser = {
+      first_name: users.first_name.trim().toLowerCase(),
+      last_name: users.last_name.trim().toLowerCase(),
+      username: users.username.trim(),
+      password: users.password,
+      confirm_password: users.confirm_password,
+      email: users.email.trim().toLowerCase(),
+      terms: users.terms,
+      dob: users.dob
+    }
+
+    postNewUser(newUser)
+  }
+
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} />} />
+        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
 
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} loginErrors={loginErrors} />} />
 
