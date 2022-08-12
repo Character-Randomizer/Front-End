@@ -180,32 +180,28 @@ function App() {
     console.log(`PostNewUser - newUser:`, newUser)
 
     axios
-      .get('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
         console.log(`Response:`, res)
         setUsers([...users, res.data.user])
       })
-      // .finally(setSignupFormValues(initialUserValues))
       .catch(err => {
         console.log(err)
       })
+      .finally(setSignupFormValues(initialUserValues))
   }
 
   const submitNewUser = event => {
     event.preventDefault()
 
     const newUser = {
-      user_id: '2',
       first_name: signupFormValues.first_name,
       last_name: signupFormValues.last_name,
       username: signupFormValues.username,
       password: signupFormValues.password,
-      confirm_password: signupFormValues.confirm_password,
       email: signupFormValues.email,
-      terms: signupFormValues.terms,
+      accepted_terms: signupFormValues.terms,
       dob: signupFormValues.dob,
-      created_at: new Date().toJSON().slice(0, 10),
-      updated_at: signupFormValues.updated_at
     }
 
     postNewUser(newUser)
