@@ -11,7 +11,7 @@ import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
 import Account from './components/account'
 
-import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchema'
+import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
 const initialCharValues = {
   first_name: '',
@@ -63,6 +63,7 @@ const initialLoginValues = {
 const initialCharacters = []
 const initialUsers = []
 const initialContactForm = []
+const initialDisabled = true
 
 
 function App() {
@@ -82,7 +83,31 @@ function App() {
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
+  const [disabled, setDisabled] = useState(initialDisabled)
 
+  //Validation Errors for Login Page - finished:
+  const changeInputLogin = (name, value) => {
+    yup
+      .reach(formSchemaLogin, name)
+      .validate(value)
+      .then(() => {
+        setLoginErrors({ ...loginErrors, [name]: '' })
+      })
+      .catch(err => {
+        setLoginErrors({ ...loginErrors, [name]: err.errors })
+      })
+
+    setLoginValues({ ...loginValues, [name]: value })
+  }
+
+  useEffect(() => {
+    formSchemaLogin.isValid(loginValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [loginValues])
+
+
+  //Validation Errors for Sign Up Page - need to work on:
   const changeInputSignup = (name, value) => {
     yup
       .reach(formSchemaSignup, name)
@@ -97,21 +122,7 @@ function App() {
     setSignupFormValues({ ...signupFormValues, [name]: value })
   }
 
-  // Trying to see if making the login it's own special array of objects if that fixes the value [object object] issue
-  const changeInputLogin = (name, value) => {
-    yup
-      .reach(formSchemaLogin, name)
-      .validate(value)
-      .then(() => {
-        setLoginErrors({ ...loginErrors, [name]: '' })
-      })
-      .catch(err => {
-        setLoginErrors({ ...loginErrors, [name]: err.loginErrors })
-      })
-
-    setLoginValues({ ...loginValues, [name]: value })
-  }
-
+  //Validation Errors for Randomizer Page - need to work on:
   const changeInputRandomizer = (name, value) => {
     yup
       .reach(formSchemaRandom, name)
@@ -126,6 +137,7 @@ function App() {
     setCharFormValues({ ...charFormValues, [name]: value })
   }
 
+  //Validation Errors for Contact Page - need to work on:
   const changeInputContact = (name, value) => {
     yup
       .reach(formSchemaContact, name)
@@ -145,11 +157,16 @@ function App() {
 
       <Routes>
         <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} />} />
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} />} />
+
+        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} loginErrors={loginErrors} />} />
+
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />
+
         <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} />} />
+
         <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
+
         <Route exact path={`/`} element={<Home />} />
       </Routes>
 

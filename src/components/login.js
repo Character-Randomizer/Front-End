@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { StyledBtns, StyledNav } from '../Styles'
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin, userArr } = props
+   const { changeLogin, valuesLogin, userArr, loginErrors } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -12,7 +12,11 @@ export default function Login(props) {
       changeLogin(name, value)
    }
 
-   // I want to make it so that when an user inputs either the wrong information or is not an user, the login button will give an error. If the information provided is an user in the userArr, then it will go to their account page.
+
+   /* I want to make it so that when an user inputs either the wrong information or is not an user, the login button will give an error. If the information provided is an user in the userArr, then it will go to their account page.
+
+   Possibly make a function with the disabled property
+   */
    // const loginButton = () => {
    //    if ()
    // }
@@ -59,6 +63,7 @@ export default function Login(props) {
                   Login
                </h2>
                <div className='login-un'>
+                  <div className='errors'>{loginErrors.username}</div>
                   <label>
                      Username
                      <input
@@ -71,6 +76,7 @@ export default function Login(props) {
                   </label>
                </div>
                <div className='login-pass'>
+                  <div className='errors'>{loginErrors.password}</div>
                   <label>
                      Password
                      <input
@@ -82,9 +88,12 @@ export default function Login(props) {
                      />
                   </label>
                </div>
-               {/* Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up */}
+               {/*Stretch: Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up 
+               
+               Possibly make a function with the disabled property
+               */}
 
-               <NavLink to={`/login`} id='login-account link'>
+               <NavLink to={`/account`} id='login-account link'>
                   <button>
                      Login
                   </button>
