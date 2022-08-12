@@ -37,6 +37,7 @@ const initialCharValues = {
 }
 
 const initialUserValues = {
+  user_id: '',
   first_name: '',
   last_name: '',
   username: '',
@@ -44,7 +45,9 @@ const initialUserValues = {
   confirm_password: '',
   email: '',
   terms: false,
-  dob: ""
+  dob: '',
+  created_at: '',
+  updated_at: null
 }
 
 const initialContactValues = {
@@ -174,13 +177,15 @@ function App() {
 
   //Posting a new user to the Users api when Signing Up
   const postNewUser = (newUser) => {
+    console.log(`PostNewUser - newUser:`, newUser)
+
     axios
-      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+      .get('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        console.log(res)
-        setUsers(...users, res.data)
+        console.log(`Response:`, res)
+        setUsers([...users, res.data.user])
       })
-      .finally(setSignupFormValues(initialUsers))
+      // .finally(setSignupFormValues(initialUserValues))
       .catch(err => {
         console.log(err)
       })
@@ -190,14 +195,17 @@ function App() {
     event.preventDefault()
 
     const newUser = {
-      first_name: users.first_name.trim().toLowerCase(),
-      last_name: users.last_name.trim().toLowerCase(),
-      username: users.username.trim(),
-      password: users.password,
-      confirm_password: users.confirm_password,
-      email: users.email.trim().toLowerCase(),
-      terms: users.terms,
-      dob: users.dob
+      user_id: '2',
+      first_name: signupFormValues.first_name,
+      last_name: signupFormValues.last_name,
+      username: signupFormValues.username,
+      password: signupFormValues.password,
+      confirm_password: signupFormValues.confirm_password,
+      email: signupFormValues.email,
+      terms: signupFormValues.terms,
+      dob: signupFormValues.dob,
+      created_at: new Date().toJSON().slice(0, 10),
+      updated_at: signupFormValues.updated_at
     }
 
     postNewUser(newUser)
@@ -209,7 +217,7 @@ function App() {
       <Routes>
         <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
 
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} loginErrors={loginErrors} />} />
+        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />

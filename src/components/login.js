@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Header, Footer } from './header-footer'
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin, userArr, loginErrors } = props
+   const { changeLogin, valuesLogin, loginErrors } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target

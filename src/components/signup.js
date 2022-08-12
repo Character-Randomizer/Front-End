@@ -158,9 +158,9 @@ export default function SignUp(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               <Link className='signup-btn' to={`/login/signup`}>
-                  <button>Sign Up</button>
-               </Link>
+               {/* <Link className='signup-btn' to={`/account`}> */}
+               <button>Sign Up</button>
+               {/* </Link> */}
             </div>
          </form>
 
