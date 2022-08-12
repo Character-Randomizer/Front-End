@@ -4,13 +4,18 @@ import { NavLink } from 'react-router-dom'
 import { StyledBtns, StyledNav } from '../Styles'
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin } = props
+   const { changeLogin, valuesLogin, userArr } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
 
       changeLogin(name, value)
    }
+
+   // I want to make it so that when an user inputs either the wrong information or is not an user, the login button will give an error. If the information provided is an user in the userArr, then it will go to their account page.
+   // const loginButton = () => {
+   //    if ()
+   // }
 
    return (
       <>
@@ -78,11 +83,14 @@ export default function Login(props) {
                   </label>
                </div>
                {/* Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up */}
-               <NavLink to={`/account`} id='login-account link'>
+
+               <NavLink to={`/login`} id='login-account link'>
                   <button>
                      Login
                   </button>
                </NavLink>
+
+
             </div>
             <div className='signup-div'>
                <h2>

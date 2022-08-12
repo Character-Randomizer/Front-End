@@ -5,7 +5,6 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 import Home from './components/home'
-import About from './components/about'
 import Login from './components/login'
 import SignUp from './components/signup'
 import CharRandomizer from './components/charRandom'
@@ -146,11 +145,10 @@ function App() {
 
       <Routes>
         <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} />} />
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} />} />
+        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} />} />
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />
         <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} />} />
-        <Route path={`/about`} element={<About />} />
         <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
         <Route exact path={`/`} element={<Home />} />
       </Routes>
