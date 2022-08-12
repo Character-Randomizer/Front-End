@@ -13,7 +13,6 @@ export default function SignUp(props) {
       const valueUsed = type === 'checkbox' ? checked : value;
 
       changeSignup(name, valueUsed)
-
    }
 
    return (

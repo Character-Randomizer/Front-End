@@ -177,8 +177,6 @@ function App() {
 
   //Posting a new user to the Users api when Signing Up
   const postNewUser = (newUser) => {
-    console.log(`PostNewUser - newUser:`, newUser)
-
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
@@ -207,13 +205,40 @@ function App() {
     postNewUser(newUser)
   }
 
+  const getPastUser = pastUser => {
+    console.log(`User Credentials:`, pastUser)
+
+    axios
+      .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
+      .then(res => {
+        console.log(`Response:`, res.data)
+
+      })
+      .catch(err => {
+        console.log(`Error:`, err)
+      })
+    // .finally(loginValues(initialLoginValues))
+  }
+
+  const loginSubmit = event => {
+    console.log(event)
+    event.preventDefault()
+
+    const pastUser = {
+      username: loginValues.username,
+      password: loginValues.password
+    }
+
+    getPastUser(pastUser)
+  }
+
   return (
     <div className="App">
 
       <Routes>
         <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
 
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} />} />
+        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Header, Footer } from './header-footer'
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin, loginErrors } = props
+   const { changeLogin, valuesLogin, loginErrors, submitLogin } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -25,7 +25,7 @@ export default function Login(props) {
       <>
          <Header />
 
-         <form id='login-form' onSubmit={null}>
+         <form id='login-form' onSubmit={submitLogin}>
             <div className='login-div'>
                <h2>
                   Login
@@ -66,28 +66,27 @@ export default function Login(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               <Link to={`/account`} id='login-account link'>
-                  <button>
-                     Login
-                  </button>
-               </Link>
-
-
-            </div>
-            <div className='signup-div'>
-               <h2>
-                  Sign Up
-               </h2>
-               <p>
-                  If you would like to save your characters and/or NPCs, please sign up to create an account.
-               </p>
-               <Link to={`/login/signup`} id='signup link'>
-                  <button>
-                     Sign Up
-                  </button>
-               </Link>
+               {/* <Link to={`/login`} id='login-account link'> */}
+               <button>
+                  Login
+               </button>
+               {/* </Link> */}
             </div>
          </form>
+
+         <div className='signup-div'>
+            <h2>
+               Sign Up
+            </h2>
+            <p>
+               If you would like to save your characters and/or NPCs, please sign up to create an account.
+            </p>
+            <Link to={`/login/signup`} id='signup link'>
+               <button>
+                  Sign Up
+               </button>
+            </Link>
+         </div>
 
          <Footer />
       </>
