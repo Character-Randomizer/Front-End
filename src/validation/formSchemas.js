@@ -31,6 +31,8 @@ const formSchemaSignup = yup.object().shape({
 
    // DOB will be in the form of "month/day/year 00/00/000", not sure right now how to do this as a validation - possibly with .date() like below, but unsure if this is exactly what I want, need to verify later
    dob: yup.date()
+      .min('1900-01-01', 'If you are in fact older than 122, please contact the developers. Otherwise, please enter your birthdate.')
+      .max('2016-01-01', 'Are you under 6 years old? If so, are you a genius and please contact the developers. Otherwise please enter your birthdate. ')
       .required('please enter your date of birth')
 })
 

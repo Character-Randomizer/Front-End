@@ -13,6 +13,7 @@ import Account from './components/account'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
+
 const initialCharValues = {
   first_name: '',
   last_name: '',
@@ -43,7 +44,7 @@ const initialUserValues = {
   confirm_password: '',
   email: '',
   terms: false,
-  dob: 1 / 1 / 1900
+  dob: ""
 }
 
 const initialContactValues = {
@@ -122,6 +123,12 @@ function App() {
     setSignupFormValues({ ...signupFormValues, [name]: value })
   }
 
+  useEffect(() => {
+    formSchemaSignup.isValid(signupFormValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [signupFormValues])
+
   //Validation Errors for Randomizer Page - need to work on:
   const changeInputRandomizer = (name, value) => {
     yup
@@ -131,11 +138,17 @@ function App() {
         setCharErrors({ ...charErrors, [name]: '' })
       })
       .catch(err => {
-        setCharErrors({ ...charErrors, [name]: err.charErrors })
+        setCharErrors({ ...charErrors, [name]: err.errors })
       })
 
     setCharFormValues({ ...charFormValues, [name]: value })
   }
+
+  useEffect(() => {
+    formSchemaRandom.isValid(charFormValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [charFormValues])
 
   //Validation Errors for Contact Page - need to work on:
   const changeInputContact = (name, value) => {
@@ -146,17 +159,23 @@ function App() {
         setContactErrors({ ...contactErrors, [name]: '' })
       })
       .catch(err => {
-        setContactErrors({ ...contactErrors, [name]: err.contactErrors })
+        setContactErrors({ ...contactErrors, [name]: err.errors })
       })
 
     setContactForm({ ...contactForm, [name]: value })
   }
 
+  useEffect(() => {
+    formSchemaContact.isValid(contactFormValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [contactFormValues])
+
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} />} />
+        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} />} />
 
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} loginErrors={loginErrors} />} />
 

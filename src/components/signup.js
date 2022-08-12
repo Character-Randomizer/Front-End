@@ -1,10 +1,19 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 import { StyledBtns, StyledNav } from '../Styles';
 
 export default function SignUp(props) {
-   const { changeSignup, valuesLogin } = props
+   const { changeSignup, valuesSignup, signupErrors } = props
+
+   const onChangeSignup = event => {
+      const { name, value, checked, type } = event.target
+
+      const valueUsed = type === 'checkbox' ? checked : value;
+
+      changeSignup(name, valueUsed)
+
+   }
 
    return (
       <>
@@ -48,78 +57,99 @@ export default function SignUp(props) {
                   Sign Up
                </h2>
                <div className='signup-first-name'>
+                  <div className='errors'>
+                     {signupErrors.first_name}
+                  </div>
                   <label>
                      First Name
                      <input
                         type='text'
                         id='input-first-name'
                         name='first_name'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.first_name}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-last-name'>
+                  <div className='errors'>
+                     {signupErrors.last_name}
+                  </div>
                   <label>
                      Last Name
                      <input
                         type='text'
                         id='input-last-name'
                         name='last_name'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.last_name}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-un'>
+                  <div className='errors'>
+                     {signupErrors.username}
+                  </div>
                   <label>
                      Username
                      <input
                         type='text'
                         id='input-un'
                         name='username'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.username}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-pass'>
+                  <div className='errors'>
+                     {signupErrors.password}
+                  </div>
                   <label>
                      Password
                      <input
                         type='text'
                         id='input-pass'
                         name='password'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.password}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-confirm-pass'>
+                  <div className='errors'>
+                     {signupErrors.confirm_password}
+                  </div>
                   <label>
                      Confirm Password
                      <input
                         type='text'
                         id='input-confirm-pass'
                         name='confirm_password'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.confirm_password}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-email'>
+                  <div className='errors'>
+                     {signupErrors.email}
+                  </div>
                   <label>
                      Email
                      <input
                         type='email'
                         id='input-email'
                         name='email'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.email}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-terms'>
+                  <div className='errors'>
+                     {signupErrors.terms}
+                  </div>
                   <label>
                      Terms of Service
                      <div className='p-terms'>
@@ -128,27 +158,40 @@ export default function SignUp(props) {
                         </p>
                      </div>
                      <input
-                        type='button'
+                        type='checkbox'
                         id='input-terms'
                         name='terms'
-                     // value={}
-                     // onChange={}
+                        value={valuesSignup.terms}
+                        onChange={onChangeSignup}
                      />
                   </label>
                </div>
                <div className='signup-dob'>
+                  <div className='errors'>
+                     {signupErrors.dob}
+                  </div>
                   <label>
                      Date of Birth
                   </label>
-                  {/* Will need to make the validation fit only a certain input (00/00/0000 - month/day/year) */}
                   <input
-                     type='text'
+                     type='date'
                      id='input-dob'
                      name='dob'
-                  // value={}
-                  // onChange={}
+                     min='1900-01-01'
+                     value={valuesSignup.dob}
+                     onChange={onChangeSignup}
                   />
                </div>
+
+               {/*Stretch: Sign Up button needs to go through the array of known users and either 1) create the new user and then go to the new user's created character page or 2) throw an error that the user has an account
+               
+               Possibly make a function with the disabled property
+               */}
+
+               {/* Need to make the to={link} for the specified user account */}
+               <Link className='signup-btn' to={`/account`}>
+                  <button>Sign Up</button>
+               </Link>
             </div>
          </form>
 
