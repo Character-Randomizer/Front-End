@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 
-import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledNav, StyledFooter, StyledTopBtnDiv, StyledBtmBtnDiv, StyledH1 } from '../styles/header-footerStyles';
+import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFooterNav, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP } from '../styles/header-footerStyles';
 
 function Header() {
    return (
@@ -9,28 +9,28 @@ function Header() {
          <StyledHeader>
             <StyledH1>Randomized Character Creator</StyledH1>
 
-            <StyledNav>
+            <StyledHeaderNav>
                <StyledTopBtns>
-                  <NavLink to={`/`} className='home link'>
+                  <NavLink to={`/`}>
                      <StyledTopBtnDiv>Home</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
                <StyledTopBtns>
-                  <NavLink to={`/character-randomizer`} className='randomizer link'>
+                  <NavLink to={`/character-randomizer`}>
                      <StyledTopBtnDiv>Randomizer</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
                <StyledTopBtns>
-                  <NavLink to={`/contact`} className='contact link'>
+                  <NavLink to={`/contact`}>
                      <StyledTopBtnDiv>Contact</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
                <StyledTopBtns>
-                  <NavLink to={`/login`} className='login link'>
+                  <NavLink to={`/login`}>
                      <StyledTopBtnDiv>Login</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
-            </StyledNav>
+            </StyledHeaderNav>
          </StyledHeader>
       </>
    )
@@ -41,31 +41,31 @@ function Footer() {
    return (
       <>
          <StyledFooter>
-            <StyledNav>
+            <StyledFooterNav>
                <StyledBtmBtns>
-                  <NavLink to={`/`} id='home link'>
-                     <StyledBtmBtnDiv>Home</StyledBtmBtnDiv>
+                  <NavLink to={`/`} className='home btmLink'>
+                     <div>Home</div>
                   </NavLink>
                </StyledBtmBtns>
                <StyledBtmBtns>
-                  <NavLink to={`/character-randomizer`} id='randomizer link'>
-                     <StyledBtmBtnDiv>Randomizer</StyledBtmBtnDiv>
+                  <NavLink to={`/character-randomizer`} className='randomizer btmLink'>
+                     <div>Randomizer</div>
                   </NavLink>
                </StyledBtmBtns>
                <StyledBtmBtns>
-                  <NavLink to={`/contact`} id='contact link'>
-                     <StyledBtmBtnDiv>Contact</StyledBtmBtnDiv>
+                  <NavLink to={`/contact`} className='contact btmLink'>
+                     <div>Contact</div>
                   </NavLink>
                </StyledBtmBtns>
                <StyledBtmBtns>
-                  <NavLink to={`/login`} id='login link'>
-                     <StyledBtmBtnDiv>Login</StyledBtmBtnDiv>
+                  <NavLink to={`/login`} className='login btmLink'>
+                     <div>Login</div>
                   </NavLink>
                </StyledBtmBtns>
-            </StyledNav>
-            <div className="copyright">
-               <p>&copy Copyright Character Randomizer</p>
-            </div>
+            </StyledFooterNav>
+            <StyledCopyrightDiv className="copyright">
+               <StyledCopyrightP>&copy; Copyright Character Randomizer</StyledCopyrightP>
+            </StyledCopyrightDiv>
          </StyledFooter>
       </>
    )

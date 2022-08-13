@@ -21,20 +21,28 @@ const StyledFooter = styled.footer`
    background-color: #C8B0CF;
 `
 
-const StyledNav = styled.nav`
+const StyledHeaderNav = styled.nav`
    width: 100%;
    display: flex;
    justify-content: space-evenly;
    background-color: #846B8A;
 `
-// Need to make two styled navs: one for the header background color and one for the footer background color
+
+const StyledFooterNav = styled.nav`
+   width: 50%;
+   display: flex;
+   justify-content: space-evenly;
+   background-color: #C8B0CF;
+   padding: 6% 0 2% 0;
+`
 
 const StyledTopBtns = styled.div`
    display:flex;
    justify-content: center;
    textDecoration: none;
-   background-color: #C8B0CF;
+   background-color: #846B8A;
    flex-flow: row wrap;
+   padding: 1%;
 `
 
 const StyledTopBtnDiv = styled.div`
@@ -49,10 +57,16 @@ const StyledBtmBtns = styled.div`
    textDecoration: none;
    background-color: #C8B0CF;
    flex-flow: row wrap;
+   width: 50%;
 `
 
-const StyledBtmBtnDiv = styled.div`
-   
-   `
+const StyledCopyrightDiv = styled.div`
+   width: 100%;
+`
 
-export { StyledHeader, StyledNav, StyledTopBtns, StyledBtmBtns, StyledFooter, StyledTopBtnDiv, StyledBtmBtnDiv, StyledH1 }
+const StyledCopyrightP = styled.p`
+   padding: 2%;
+   padding-top: 3%;
+`
+
+export { StyledHeader, StyledHeaderNav, StyledFooterNav, StyledTopBtns, StyledBtmBtns, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP }
