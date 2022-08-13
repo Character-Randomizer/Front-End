@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
+import { StyledLoginForm, StyledLabels, StyledH2 } from '../styles/login-signupStyles'
+import StyledButtons from '../styles/buttonStyles'
 
 export default function Login(props) {
    const { changeLogin, valuesLogin, loginErrors, submitLogin } = props
@@ -25,16 +27,16 @@ export default function Login(props) {
       <>
          <Header />
 
-         <form id='login-form' onSubmit={submitLogin}>
+         <StyledLoginForm onSubmit={submitLogin}>
             <div className='login-div'>
-               <h2>
+               <StyledH2>
                   Login
-               </h2>
+               </StyledH2>
                <div className='login-un'>
                   <div className='errors'>
                      {loginErrors.username}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Username
                      <input
                         type='text'
@@ -43,13 +45,13 @@ export default function Login(props) {
                         value={valuesLogin.username}
                         onChange={onChangeLogin}
                      />
-                  </label>
+                  </StyledLabels>
                </div>
                <div className='login-pass'>
                   <div className='errors'>
                      {loginErrors.password}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Password
                      <input
                         type='text'
@@ -58,7 +60,7 @@ export default function Login(props) {
                         value={valuesLogin.password}
                         onChange={onChangeLogin}
                      />
-                  </label>
+                  </StyledLabels>
                </div>
                {/*Stretch: Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up 
                
@@ -66,25 +68,25 @@ export default function Login(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               {/* <Link to={`/login`} id='login-account link'> */}
-               <button>
-                  Login
-               </button>
-               {/* </Link> */}
+               <Link to={`/login`} className='loginLink'>
+                  <StyledButtons>
+                     Login
+                  </StyledButtons>
+               </Link>
             </div>
-         </form>
+         </StyledLoginForm>
 
          <div className='signup-div'>
-            <h2>
+            <StyledH2>
                Sign Up
-            </h2>
+            </StyledH2>
             <p>
                If you would like to save your characters and/or NPCs, please sign up to create an account.
             </p>
-            <Link to={`/login/signup`} id='signup link'>
-               <button>
+            <Link to={`/login/signup`} className='signUpLink'>
+               <StyledButtons>
                   Sign Up
-               </button>
+               </StyledButtons>
             </Link>
          </div>
 

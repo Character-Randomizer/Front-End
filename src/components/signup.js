@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
+import StyledButtons from '../styles/buttonStyles';
 
 
 export default function SignUp(props) {
@@ -158,7 +159,7 @@ export default function SignUp(props) {
 
                {/* Need to make the to={link} for the specified user account */}
                {/* <Link className='signup-btn' to={`/account`}> */}
-               <button>Sign Up</button>
+               <StyledButtons>Sign Up</StyledButtons>
                {/* </Link> */}
             </div>
          </form>

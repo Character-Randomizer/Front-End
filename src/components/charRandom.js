@@ -1,8 +1,7 @@
 import React from 'react';
 
-//will use the data below to map through the arrays and get the options in the array
-import { raceOptions, classOptions } from './randomizer-Data';
 import { Header, Footer } from './header-footer'
+import StyledButtons from '../styles/buttonStyles'
 
 
 export default function CharRandomizer(props) {

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header, Footer } from './header-footer'
+import StyledButtons from '../styles/buttonStyles'
+
 
 export default function Home() {
    return (
@@ -53,9 +55,9 @@ export default function Home() {
 
             <div className="button">
                <Link to={`/login/signup`}>
-                  <button className="signup">
+                  <StyledButtons className="signup">
                      Sign Up
-                  </button>
+                  </StyledButtons>
                </Link>
             </div>
          </div>

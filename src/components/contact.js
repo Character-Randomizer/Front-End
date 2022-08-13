@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header, Footer } from './header-footer'
+import StyledButtons from '../styles/buttonStyles'
 
 export default function Contact(props) {
    const { changeContact, valuesContact, contactErrors } = props
@@ -95,7 +96,7 @@ export default function Contact(props) {
                      />
                   </label>
                </div>
-               <button>Submit</button>
+               <StyledButtons>Submit</StyledButtons>
             </div>
          </form>
 
