@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 import { StyledBtns, StyledNav } from '../Styles'
 
@@ -63,7 +63,9 @@ export default function Login(props) {
                   Login
                </h2>
                <div className='login-un'>
-                  <div className='errors'>{loginErrors.username}</div>
+                  <div className='errors'>
+                     {loginErrors.username}
+                  </div>
                   <label>
                      Username
                      <input
@@ -76,7 +78,9 @@ export default function Login(props) {
                   </label>
                </div>
                <div className='login-pass'>
-                  <div className='errors'>{loginErrors.password}</div>
+                  <div className='errors'>
+                     {loginErrors.password}
+                  </div>
                   <label>
                      Password
                      <input
@@ -93,11 +97,12 @@ export default function Login(props) {
                Possibly make a function with the disabled property
                */}
 
-               <NavLink to={`/account`} id='login-account link'>
+               {/* Need to make the to={link} for the specified user account */}
+               <Link to={`/account`} id='login-account link'>
                   <button>
                      Login
                   </button>
-               </NavLink>
+               </Link>
 
 
             </div>
@@ -108,11 +113,11 @@ export default function Login(props) {
                <p>
                   If you would like to save your characters and/or NPCs, please sign up to create an account.
                </p>
-               <NavLink to={`/login/signup`} id='signup link'>
+               <Link to={`/login/signup`} id='signup link'>
                   <button>
                      Sign Up
                   </button>
-               </NavLink>
+               </Link>
             </div>
          </form>
 
