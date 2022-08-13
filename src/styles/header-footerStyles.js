@@ -27,6 +27,7 @@ const StyledNav = styled.nav`
    justify-content: space-evenly;
    background-color: #846B8A;
 `
+// Need to make two styled navs: one for the header background color and one for the footer background color
 
 const StyledTopBtns = styled.div`
    display:flex;
@@ -51,8 +52,7 @@ const StyledBtmBtns = styled.div`
 `
 
 const StyledBtmBtnDiv = styled.div`
-   color: #f5f0f6;
-   background-color: #846B8A;
-`
+   
+   `
 
 export { StyledHeader, StyledNav, StyledTopBtns, StyledBtmBtns, StyledFooter, StyledTopBtnDiv, StyledBtmBtnDiv, StyledH1 }
