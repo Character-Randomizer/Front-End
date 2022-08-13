@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
+import { StyledH2 } from '../styles/homeStyles'
 
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
          <Header />
 
          <div className="middle">
-            <h2>What the Randomizer Does</h2>
+            <StyledH2>What the Randomizer Does</StyledH2>
             <p className="product">
                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia porro, commodi explicabo incidunt
                doloremque dicta ipsa expedita aperiam nostrum ad libero harum aliquam officia, alias tenetur optio
@@ -41,7 +42,7 @@ export default function Home() {
                target="_blank">thenerdd.com</a></p>
 
 
-            <h2>Saving Characters</h2>
+            <StyledH2>Saving Characters</StyledH2>
             <p className="saving">
                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt incidunt quae, nihil reiciendis aliquid in
                saepe alias voluptates, accusamus sed dolor velit nisi iusto aliquam odio, eius debitis assumenda soluta.

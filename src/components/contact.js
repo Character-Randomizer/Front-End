@@ -96,7 +96,9 @@ export default function Contact(props) {
                      />
                   </label>
                </div>
-               <StyledButtons>Submit</StyledButtons>
+               <div className="button">
+                  <StyledButtons>Submit</StyledButtons>
+               </div>
             </div>
          </form>
 

@@ -405,6 +405,10 @@ export default function CharRandomizer(props) {
                </div>
                {/* Stopped here - need to continue form options */}
             </div>
+
+            <div className="button">
+               <StyledButtons>Submit</StyledButtons>
+            </div>
          </form>
 
          <Footer />
