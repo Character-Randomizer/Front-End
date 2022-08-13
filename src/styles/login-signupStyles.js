@@ -9,11 +9,28 @@ const StyledLoginForm = styled.form`
 const StyledH2 = styled.h2`
    font-size: 4rem;
    font-weight: 600;
-   padding: 1%;
+   padding-bottom: 4%;
 `
 
 const StyledLabels = styled.label`
    font-size: 2rem;
+   padding: 1%;
+   display: flex;
+   align-content: flex-start;
 `
 
-export { StyledLoginForm, StyledLabels, StyledH2 }
+const StyledLoginSignupBtnDiv = styled.div`
+   padding: 6% 0 2% 0;
+`
+
+const StyledInputs = styled.input`
+   margin-left: 3%;
+   width: 35%;
+   display: flex;
+   align-items: flex-end;
+   height: 4vh;
+   font-size: 1.8rem;
+`
+
+
+export { StyledLoginForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }

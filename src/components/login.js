@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
-import { StyledLoginForm, StyledLabels, StyledH2 } from '../styles/login-signupStyles'
+import { StyledLoginForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/login-signupStyles'
 import StyledButtons from '../styles/buttonStyles'
 
 export default function Login(props) {
@@ -32,35 +32,37 @@ export default function Login(props) {
                <StyledH2>
                   Login
                </StyledH2>
-               <div className='login-un'>
+               <div className='loginDivInput'>
                   <div className='errors'>
                      {loginErrors.username}
                   </div>
                   <StyledLabels>
                      Username
-                     <input
-                        type='text'
-                        id='input-un'
-                        name='username'
-                        value={valuesLogin.username}
-                        onChange={onChangeLogin}
-                     />
                   </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-un'
+                     name='username'
+                     value={valuesLogin.username}
+                     onChange={onChangeLogin}
+                  />
+
                </div>
-               <div className='login-pass'>
+               <div className='loginDivInput'>
                   <div className='errors'>
                      {loginErrors.password}
                   </div>
                   <StyledLabels>
                      Password
-                     <input
-                        type='text'
-                        id='input-pass'
-                        name='password'
-                        value={valuesLogin.password}
-                        onChange={onChangeLogin}
-                     />
                   </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-pass'
+                     name='password'
+                     value={valuesLogin.password}
+                     onChange={onChangeLogin}
+                  />
+
                </div>
                {/*Stretch: Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up 
                
@@ -68,26 +70,32 @@ export default function Login(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               <Link to={`/login`} className='loginLink'>
-                  <StyledButtons>
-                     Login
-                  </StyledButtons>
-               </Link>
+               <StyledLoginSignupBtnDiv>
+                  <Link to={`/login`} className='loginLink'>
+                     <StyledButtons>
+                        Login
+                     </StyledButtons>
+                  </Link>
+               </StyledLoginSignupBtnDiv>
             </div>
          </StyledLoginForm>
 
-         <div className='signup-div'>
-            <StyledH2>
-               Sign Up
-            </StyledH2>
-            <p>
-               If you would like to save your characters and/or NPCs, please sign up to create an account.
-            </p>
-            <Link to={`/login/signup`} className='signUpLink'>
-               <StyledButtons>
+         <div className='signUp'>
+            <div className='signup-div'>
+               <StyledH2>
                   Sign Up
-               </StyledButtons>
-            </Link>
+               </StyledH2>
+               <p className='signup-p'>
+                  If you would like to save your characters and/or NPCs, please sign up to create an account.
+               </p>
+               <StyledLoginSignupBtnDiv>
+                  <Link to={`/login/signup`} className='signUpLink'>
+                     <StyledButtons>
+                        Sign Up
+                     </StyledButtons>
+                  </Link>
+               </StyledLoginSignupBtnDiv>
+            </div>
          </div>
 
          <Footer />

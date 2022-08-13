@@ -1,3 +1,32 @@
 .App {
   text-align: center;
 }
+
+.login-div,
+.signup-div {
+  width: 50%;
+}
+
+.signUp {
+  display: flex;
+  justify-content: center;
+  padding: 2% 0 4% 0;
+}
+
+.signup-p {
+  padding: 0 10% 0 10%;
+}
+
+.loginDivInput {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.errors {
+  font-size: 1.8rem;
+  color: darkred;
+  width: 100%;
+  padding: 1% 8% 1% 8%;
+}
