@@ -2,8 +2,9 @@
   text-align: center;
 }
 
+/* Login Page */
 .login-div,
-.signup-div {
+.signup-div.loginPage {
   width: 50%;
 }
 
@@ -22,13 +23,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-
-.errors {
-  font-size: 1.8rem;
-  color: darkred;
-  width: 100%;
-  padding: 1% 8% 1% 8%;
 }
 
 .button {
@@ -94,4 +88,20 @@
   align-content: center;
   padding-bottom: 5%;
   padding-top: 1%;
+}
+
+/* Sign Up Page */
+.signup-div.signupPage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 60%
+}
+
+/* All Error Messages */
+.errors {
+  font-size: 1.8rem;
+  color: darkred;
+  width: 100%;
+  padding: 1% 8% 1% 8%;
 }

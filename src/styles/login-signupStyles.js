@@ -32,5 +32,4 @@ const StyledInputs = styled.input`
    font-size: 1.8rem;
 `
 
-
 export { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }

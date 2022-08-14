@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles';
-import { StyledForm } from '../styles/login-signupStyles'
+import { StyledForm, StyledInputs, StyledLabels } from '../styles/login-signupStyles'
+import { StyledH2, StyledDivWidth50, StyledDivWidth100 } from '../styles/signup-page'
 
 
 export default function SignUp(props) {
@@ -22,128 +23,128 @@ export default function SignUp(props) {
          <Header />
 
          <StyledForm onSubmit={submitNewUser}>
-            <div className='signup-div'>
-               <h2>
+            <div className='signup-div signupPage'>
+               <StyledH2>
                   Sign Up
-               </h2>
-               <div className='signup-first-name'>
+               </StyledH2>
+               <StyledDivWidth50>
                   <div className='errors'>
                      {signupErrors.first_name}
                   </div>
-                  <label>
+                  <StyledLabels>
                      First Name
-                     <input
-                        type='text'
-                        id='input-first-name'
-                        name='first_name'
-                        value={valuesSignup.first_name}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-last-name'>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-first-name'
+                     name='first_name'
+                     value={valuesSignup.first_name}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth50>
                   <div className='errors'>
                      {signupErrors.last_name}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Last Name
-                     <input
-                        type='text'
-                        id='input-last-name'
-                        name='last_name'
-                        value={valuesSignup.last_name}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-un'>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-last-name'
+                     name='last_name'
+                     value={valuesSignup.last_name}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth50>
                   <div className='errors'>
                      {signupErrors.username}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Username
-                     <input
-                        type='text'
-                        id='input-un'
-                        name='username'
-                        value={valuesSignup.username}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-pass'>
-                  <div className='errors'>
-                     {signupErrors.password}
-                  </div>
-                  <label>
-                     Password
-                     <input
-                        type='text'
-                        id='input-pass'
-                        name='password'
-                        value={valuesSignup.password}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-confirm-pass'>
-                  <div className='errors'>
-                     {signupErrors.confirm_password}
-                  </div>
-                  <label>
-                     Confirm Password
-                     <input
-                        type='text'
-                        id='input-confirm-pass'
-                        name='confirm_password'
-                        value={valuesSignup.confirm_password}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-email'>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-un'
+                     name='username'
+                     value={valuesSignup.username}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth50>
                   <div className='errors'>
                      {signupErrors.email}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Email
-                     <input
-                        type='email'
-                        id='input-email'
-                        name='email'
-                        value={valuesSignup.email}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-terms'>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='email'
+                     id='input-email'
+                     name='email'
+                     value={valuesSignup.email}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth50>
+                  <div className='errors'>
+                     {signupErrors.password}
+                  </div>
+                  <StyledLabels>
+                     Password
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-pass'
+                     name='password'
+                     value={valuesSignup.password}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth50>
+                  <div className='errors'>
+                     {signupErrors.confirm_password}
+                  </div>
+                  <StyledLabels>
+                     Confirm Password
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-confirm-pass'
+                     name='confirm_password'
+                     value={valuesSignup.confirm_password}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth50>
+               <StyledDivWidth100>
                   <div className='errors'>
                      {signupErrors.terms}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Terms of Service
-                     <div className='p-terms'>
-                        <p>
-                           Lorem ipsum terms
-                        </p>
-                     </div>
-                     <input
-                        type='checkbox'
-                        id='input-terms'
-                        name='terms'
-                        value={valuesSignup.terms}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-dob'>
+                  </StyledLabels>
+                  <div className='p-terms'>
+                     <p>
+                        Lorem ipsum terms
+                     </p>
+                  </div>
+                  <StyledInputs
+                     type='checkbox'
+                     id='input-terms'
+                     name='terms'
+                     value={valuesSignup.terms}
+                     onChange={onChangeSignup}
+                  />
+               </StyledDivWidth100>
+               <StyledDivWidth100>
                   <div className='errors'>
                      {signupErrors.dob}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Date of Birth
-                  </label>
-                  <input
+                  </StyledLabels>
+                  <StyledInputs
                      type='date'
                      id='input-dob'
                      name='dob'
@@ -151,7 +152,7 @@ export default function SignUp(props) {
                      value={valuesSignup.dob}
                      onChange={onChangeSignup}
                   />
-               </div>
+               </StyledDivWidth100>
 
                {/*Stretch: Sign Up button needs to go through the array of known users and either 1) create the new user and then go to the new user's created character page or 2) throw an error that the user has an account
                

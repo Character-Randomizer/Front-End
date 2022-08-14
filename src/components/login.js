@@ -81,7 +81,7 @@ export default function Login(props) {
          </StyledForm>
 
          <div className='signUp'>
-            <div className='signup-div'>
+            <div className='signup-div loginPage'>
                <StyledH2>
                   Sign Up
                </StyledH2>
