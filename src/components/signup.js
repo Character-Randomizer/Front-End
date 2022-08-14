@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles';
+import { StyledForm } from '../styles/login-signupStyles'
 
 
 export default function SignUp(props) {
@@ -20,7 +21,7 @@ export default function SignUp(props) {
       <>
          <Header />
 
-         <form id='signup-form' onSubmit={submitNewUser}>
+         <StyledForm onSubmit={submitNewUser}>
             <div className='signup-div'>
                <h2>
                   Sign Up
@@ -162,7 +163,7 @@ export default function SignUp(props) {
                <StyledButtons>Sign Up</StyledButtons>
                {/* </Link> */}
             </div>
-         </form>
+         </StyledForm>
 
          <Footer />
       </>

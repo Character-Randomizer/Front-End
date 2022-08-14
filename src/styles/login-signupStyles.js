@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLoginForm = styled.form`
+const StyledForm = styled.form`
    display: flex;
    justify-content: center;
    padding: 4% 0 2% 0;
@@ -33,4 +33,4 @@ const StyledInputs = styled.input`
 `
 
 
-export { StyledLoginForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }
+export { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }

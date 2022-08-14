@@ -21,11 +21,6 @@ function Header() {
                   </NavLink>
                </StyledTopBtns>
                <StyledTopBtns>
-                  <NavLink to={`/contact`}>
-                     <StyledTopBtnDiv>Contact</StyledTopBtnDiv>
-                  </NavLink>
-               </StyledTopBtns>
-               <StyledTopBtns>
                   <NavLink to={`/login`}>
                      <StyledTopBtnDiv>Login</StyledTopBtnDiv>
                   </NavLink>

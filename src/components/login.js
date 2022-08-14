@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
-import { StyledLoginForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/login-signupStyles'
+import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/login-signupStyles'
 import StyledButtons from '../styles/buttonStyles'
 
 export default function Login(props) {
@@ -27,7 +27,7 @@ export default function Login(props) {
       <>
          <Header />
 
-         <StyledLoginForm onSubmit={submitLogin}>
+         <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>
                <StyledH2>
                   Login
@@ -78,7 +78,7 @@ export default function Login(props) {
                   </Link>
                </StyledLoginSignupBtnDiv>
             </div>
-         </StyledLoginForm>
+         </StyledForm>
 
          <div className='signUp'>
             <div className='signup-div'>
