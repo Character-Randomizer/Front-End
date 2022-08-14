@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
-import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/login-signupStyles'
+import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/loginPageStyles'
 import StyledButtons from '../styles/buttonStyles'
 
 export default function Login(props) {

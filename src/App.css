@@ -98,6 +98,21 @@
   width: 60%
 }
 
+.p-terms {
+  width: 80%;
+  height: 40vh;
+  padding: 0 5%;
+  border: 0.6vh solid #220C10;
+  overflow: auto;
+  text-indent: 6%;
+  text-align: justify;
+  margin: 2% 0;
+}
+
+.p-terms p {
+  padding: 2% 0;
+}
+
 /* All Error Messages */
 .errors {
   font-size: 1.8rem;

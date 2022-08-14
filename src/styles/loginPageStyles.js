@@ -25,11 +25,11 @@ const StyledLoginSignupBtnDiv = styled.div`
 
 const StyledInputs = styled.input`
    margin-left: 3%;
-   width: 35%;
+   width:35%;
    display: flex;
-   align-items: flex-end;
    height: 4vh;
    font-size: 1.8rem;
+   padding: 0.5% 1.5% 0.5% 1.5%;
 `
 
 export { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }
