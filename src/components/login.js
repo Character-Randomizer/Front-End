@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
+import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/loginPageStyles'
+import StyledButtons from '../styles/buttonStyles'
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin, userArr, loginErrors } = props
+   const { changeLogin, valuesLogin, loginErrors, submitLogin } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -25,40 +27,42 @@ export default function Login(props) {
       <>
          <Header />
 
-         <form id='login-form' onSubmit={null}>
+         <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>
-               <h2>
+               <StyledH2>
                   Login
-               </h2>
-               <div className='login-un'>
+               </StyledH2>
+               <div className='loginDivInput'>
                   <div className='errors'>
                      {loginErrors.username}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Username
-                     <input
-                        type='text'
-                        id='input-un'
-                        name='username'
-                        value={valuesLogin.username}
-                        onChange={onChangeLogin}
-                     />
-                  </label>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-un'
+                     name='username'
+                     value={valuesLogin.username}
+                     onChange={onChangeLogin}
+                  />
+
                </div>
-               <div className='login-pass'>
+               <div className='loginDivInput'>
                   <div className='errors'>
                      {loginErrors.password}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Password
-                     <input
-                        type='text'
-                        id='input-pass'
-                        name='password'
-                        value={valuesLogin.password}
-                        onChange={onChangeLogin}
-                     />
-                  </label>
+                  </StyledLabels>
+                  <StyledInputs
+                     type='text'
+                     id='input-pass'
+                     name='password'
+                     value={valuesLogin.password}
+                     onChange={onChangeLogin}
+                  />
+
                </div>
                {/*Stretch: Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up 
                
@@ -66,28 +70,33 @@ export default function Login(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
-               <Link to={`/account`} id='login-account link'>
-                  <button>
-                     Login
-                  </button>
-               </Link>
-
-
+               <StyledLoginSignupBtnDiv>
+                  <Link to={`/login`} className='loginLink'>
+                     <StyledButtons>
+                        Login
+                     </StyledButtons>
+                  </Link>
+               </StyledLoginSignupBtnDiv>
             </div>
-            <div className='signup-div'>
-               <h2>
+         </StyledForm>
+
+         <div className='signUp'>
+            <div className='signup-div loginPage'>
+               <StyledH2>
                   Sign Up
-               </h2>
-               <p>
+               </StyledH2>
+               <p className='signup-p'>
                   If you would like to save your characters and/or NPCs, please sign up to create an account.
                </p>
-               <Link to={`/login/signup`} id='signup link'>
-                  <button>
-                     Sign Up
-                  </button>
-               </Link>
+               <StyledLoginSignupBtnDiv>
+                  <Link to={`/signup`} className='signUpLink'>
+                     <StyledButtons>
+                        Sign Up
+                     </StyledButtons>
+                  </Link>
+               </StyledLoginSignupBtnDiv>
             </div>
-         </form>
+         </div>
 
          <Footer />
       </>

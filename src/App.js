@@ -44,14 +44,12 @@ const initialUserValues = {
   confirm_password: '',
   email: '',
   terms: false,
-  dob: ""
 }
 
 const initialContactValues = {
   first_name: '',
   last_name: '',
   username: '',
-  email: '',
   subject: '',
   message: ''
 }
@@ -62,7 +60,7 @@ const initialLoginValues = {
 }
 
 const initialCharacters = []
-const initialUsers = []
+const initialUser = {}
 const initialContactForm = []
 const initialDisabled = true
 
@@ -75,7 +73,7 @@ function App() {
   const [charFormValues, setCharFormValues] = useState(initialCharValues)
   const [charErrors, setCharErrors] = useState(initialCharValues)
 
-  const [users, setUsers] = useState(initialUsers)
+  const [user, setUser] = useState(initialUser)
 
   const [signupFormValues, setSignupFormValues] = useState(initialUserValues)
   const [signupErrors, setSignupErrors] = useState(initialUserValues)
@@ -108,7 +106,7 @@ function App() {
   }, [loginValues])
 
 
-  //Validation Errors for Sign Up Page - need to work on:
+  //Validation Errors for Sign Up Page:
   const changeInputSignup = (name, value) => {
     yup
       .reach(formSchemaSignup, name)
@@ -129,7 +127,7 @@ function App() {
     })
   }, [signupFormValues])
 
-  //Validation Errors for Randomizer Page - need to work on:
+  //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
     yup
       .reach(formSchemaRandom, name)
@@ -150,7 +148,7 @@ function App() {
     })
   }, [charFormValues])
 
-  //Validation Errors for Contact Page - need to work on:
+  //Validation Errors for Contact Page:
   const changeInputContact = (name, value) => {
     yup
       .reach(formSchemaContact, name)
@@ -162,7 +160,7 @@ function App() {
         setContactErrors({ ...contactErrors, [name]: err.errors })
       })
 
-    setContactForm({ ...contactForm, [name]: value })
+    setContactFormValues({ ...contactFormValues, [name]: value })
   }
 
   useEffect(() => {
@@ -171,18 +169,76 @@ function App() {
     })
   }, [contactFormValues])
 
+
+  //Posting a new user to the user api when Signing Up
+  const registerNewUser = (newUser) => {
+    axios
+      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+      .then(res => {
+        console.log(`Response:`, res)
+        setUser(res.data.user)
+        console.log(`User:`, res.data.user)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(setSignupFormValues(initialUserValues))
+  }
+
+  const submitNewUser = event => {
+    event.preventDefault()
+
+    const newUser = {
+      first_name: signupFormValues.first_name,
+      last_name: signupFormValues.last_name,
+      username: signupFormValues.username,
+      password: signupFormValues.password,
+      email: signupFormValues.email,
+      accepted_terms: signupFormValues.terms,
+      dob: signupFormValues.dob,
+    }
+
+    registerNewUser(newUser)
+  }
+
+  const loginUser = pastUser => {
+    console.log(`User Credentials:`, pastUser)
+
+    axios
+      .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
+      .then(res => {
+        console.log(`Response:`, res.data)
+      })
+      .catch(err => {
+        console.log(`Error:`, err)
+      })
+    // .finally(loginValues(initialLoginValues))
+  }
+
+  const loginSubmit = event => {
+    console.log(event)
+    event.preventDefault()
+
+    const pastUser = {
+      username: loginValues.username,
+      password: loginValues.password
+    }
+
+    loginUser(pastUser)
+  }
+
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} />} />
+        <Route path={`/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
 
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} userArr={users} loginErrors={loginErrors} />} />
+        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />
 
-        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} />} />
+        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
 
         <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
 

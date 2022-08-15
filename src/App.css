@@ -2,13 +2,121 @@
   text-align: center;
 }
 
-/* .top-btns,
-.btm-btns {
-  display: flex;
-  justify-content: space-evenly;
+/* Login Page */
+.login-div,
+.signup-div.loginPage {
+  width: 50%;
 }
 
-.btn,
-#link {
-  text-decoration: none;
-} */
+.signUp {
+  display: flex;
+  justify-content: center;
+  padding: 2% 0 4% 0;
+}
+
+.signup-p {
+  padding: 0 10% 0 10%;
+}
+
+.loginDivInput {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 2% 0 6% 0;
+}
+
+/* Home Page: */
+.middle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.middle h2 {
+  display: flex;
+  justify-content: center;
+  padding: 2% 0;
+  width: 100%;
+}
+
+.product,
+.saving {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 60%;
+}
+
+.product {
+  padding-bottom: 1%;
+}
+
+.saving {
+  padding-bottom: 1%;
+}
+
+.image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 2.5%;
+}
+
+.image img {
+  height: 75vh;
+}
+
+.img-text,
+.img-text a {
+  text-align: right;
+  font-size: 1.4rem;
+}
+
+.img-text {
+  padding-top: .5%;
+  width: 49%;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-bottom: 5%;
+  padding-top: 1%;
+}
+
+/* Sign Up Page */
+.signup-div.signupPage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 60%
+}
+
+.p-terms {
+  width: 80%;
+  height: 40vh;
+  padding: 0 5%;
+  border: 0.6vh solid #220C10;
+  overflow: auto;
+  text-indent: 6%;
+  text-align: justify;
+  margin: 2% 0;
+}
+
+.p-terms p {
+  padding: 2% 0;
+}
+
+/* All Error Messages */
+.errors {
+  font-size: 1.8rem;
+  color: darkred;
+  width: 100%;
+  padding: 1% 8% 1% 8%;
+}

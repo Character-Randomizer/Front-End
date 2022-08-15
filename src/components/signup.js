@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
+import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
+import StyledButtons from '../styles/buttonStyles';
+import { StyledForm } from '../styles/loginPageStyles'
+import { StyledH2, StyledDivWidth60, StyledDivWidth100, StyledTermLabel, StyledInputs, StyledTermInput, StyledDobInput, StyledLabels } from '../styles/signup-page'
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors } = props
+   const { changeSignup, valuesSignup, signupErrors, submitNewUser } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -13,136 +17,103 @@ export default function SignUp(props) {
       const valueUsed = type === 'checkbox' ? checked : value;
 
       changeSignup(name, valueUsed)
-
    }
 
    return (
       <>
          <Header />
 
-         <form id='signup-form' onSubmit={null}>
-            <div className='signup-div'>
-               <h2>
+         <StyledForm onSubmit={submitNewUser}>
+            <div className='signup-div signupPage'>
+               <StyledH2>
                   Sign Up
-               </h2>
-               <div className='signup-first-name'>
+               </StyledH2>
+               <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.first_name}
                   </div>
-                  <label>
-                     First Name
-                     <input
-                        type='text'
-                        id='input-first-name'
-                        name='first_name'
-                        value={valuesSignup.first_name}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-last-name'>
+                  <StyledInputs
+                     type='text'
+                     id='input-first-name'
+                     name='first_name'
+                     value={valuesSignup.first_name}
+                     onChange={onChangeSignup}
+                     placeholder='First Name'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.last_name}
                   </div>
-                  <label>
-                     Last Name
-                     <input
-                        type='text'
-                        id='input-last-name'
-                        name='last_name'
-                        value={valuesSignup.last_name}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-un'>
+                  <StyledInputs
+                     type='text'
+                     id='input-last-name'
+                     name='last_name'
+                     value={valuesSignup.last_name}
+                     onChange={onChangeSignup}
+                     placeholder='Last Name'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.username}
                   </div>
-                  <label>
-                     Username
-                     <input
-                        type='text'
-                        id='input-un'
-                        name='username'
-                        value={valuesSignup.username}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-pass'>
-                  <div className='errors'>
-                     {signupErrors.password}
-                  </div>
-                  <label>
-                     Password
-                     <input
-                        type='text'
-                        id='input-pass'
-                        name='password'
-                        value={valuesSignup.password}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-confirm-pass'>
-                  <div className='errors'>
-                     {signupErrors.confirm_password}
-                  </div>
-                  <label>
-                     Confirm Password
-                     <input
-                        type='text'
-                        id='input-confirm-pass'
-                        name='confirm_password'
-                        value={valuesSignup.confirm_password}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-email'>
+                  <StyledInputs
+                     type='text'
+                     id='input-un'
+                     name='username'
+                     value={valuesSignup.username}
+                     onChange={onChangeSignup}
+                     placeholder='Username'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.email}
                   </div>
-                  <label>
-                     Email
-                     <input
-                        type='email'
-                        id='input-email'
-                        name='email'
-                        value={valuesSignup.email}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-terms'>
+                  <StyledInputs
+                     type='email'
+                     id='input-email'
+                     name='email'
+                     value={valuesSignup.email}
+                     onChange={onChangeSignup}
+                     placeholder='Email'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth60>
                   <div className='errors'>
-                     {signupErrors.terms}
+                     {signupErrors.password}
                   </div>
-                  <label>
-                     Terms of Service
-                     <div className='p-terms'>
-                        <p>
-                           Lorem ipsum terms
-                        </p>
-                     </div>
-                     <input
-                        type='checkbox'
-                        id='input-terms'
-                        name='terms'
-                        value={valuesSignup.terms}
-                        onChange={onChangeSignup}
-                     />
-                  </label>
-               </div>
-               <div className='signup-dob'>
+                  <StyledInputs
+                     type='text'
+                     id='input-pass'
+                     name='password'
+                     value={valuesSignup.password}
+                     onChange={onChangeSignup}
+                     placeholder='Password'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth60>
+                  <div className='errors'>
+                     {signupErrors.confirm_password}
+                  </div>
+                  <StyledInputs
+                     type='text'
+                     id='input-confirm-pass'
+                     name='confirm_password'
+                     value={valuesSignup.confirm_password}
+                     onChange={onChangeSignup}
+                     placeholder='Confirm password'
+                  />
+               </StyledDivWidth60>
+               <StyledDivWidth100>
                   <div className='errors'>
                      {signupErrors.dob}
                   </div>
-                  <label>
+                  <StyledLabels>
                      Date of Birth
-                  </label>
-                  <input
+                  </StyledLabels>
+                  <StyledDobInput
                      type='date'
                      id='input-dob'
                      name='dob'
@@ -150,7 +121,41 @@ export default function SignUp(props) {
                      value={valuesSignup.dob}
                      onChange={onChangeSignup}
                   />
-               </div>
+               </StyledDivWidth100>
+               <StyledDivWidth100>
+                  <div className='errors'>
+                     {signupErrors.terms}
+                  </div>
+                  <StyledTermLabel>
+                     Terms of Service
+                  </StyledTermLabel>
+                  <div className='p-terms'>
+                     <p>
+                        {termsText1}
+                     </p>
+                     <p>
+                        {termsText2}
+                     </p>
+                     <p>
+                        {termsText3}
+                     </p>
+                     <p>
+                        {termsText4}
+                     </p>
+                     <p>
+                        {termsText5}
+                     </p>
+                  </div>
+                  <p>By clicking the box, I agree to the terms of service</p>
+                  <StyledTermInput
+                     type='checkbox'
+                     id='input-terms'
+                     name='terms'
+                     value={valuesSignup.terms}
+                     onChange={onChangeSignup}
+                  />
+
+               </StyledDivWidth100>
 
                {/*Stretch: Sign Up button needs to go through the array of known users and either 1) create the new user and then go to the new user's created character page or 2) throw an error that the user has an account
                
@@ -158,11 +163,13 @@ export default function SignUp(props) {
                */}
 
                {/* Need to make the to={link} for the specified user account */}
+
+               {/* The night up button also needs to not let an user go to the account page if they did not provide the required inputes */}
                <Link className='signup-btn' to={`/account`}>
-                  <button>Sign Up</button>
+                  <StyledButtons>Sign Up</StyledButtons>
                </Link>
             </div>
-         </form>
+         </StyledForm>
 
          <Footer />
       </>
