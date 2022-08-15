@@ -2,8 +2,11 @@ import React from 'react';
 
 import { Header, Footer } from './header-footer'
 
-export default function Account(props) {
+export default function CreatedCharPage(props) {
    const { user } = props
+
+   console.log(user)
+
    return (
       <>
          <Header />

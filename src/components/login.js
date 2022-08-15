@@ -19,9 +19,6 @@ export default function Login(props) {
 
    Possibly make a function with the disabled property
    */
-   // const loginButton = () => {
-   //    if ()
-   // }
 
    return (
       <>
@@ -71,11 +68,12 @@ export default function Login(props) {
 
                {/* Need to make the to={link} for the specified user account */}
                <StyledLoginSignupBtnDiv>
-                  <Link to={`/login`} className='loginLink'>
-                     <StyledButtons>
-                        Login
-                     </StyledButtons>
-                  </Link>
+                  <div className='errors'>
+                     {loginErrors.request_err}
+                  </div>
+                  <StyledButtons>
+                     Login
+                  </StyledButtons>
                </StyledLoginSignupBtnDiv>
             </div>
          </StyledForm>

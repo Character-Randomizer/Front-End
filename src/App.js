@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -10,6 +10,7 @@ import SignUp from './components/signup'
 import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
 import Account from './components/account'
+import CreatedCharPage from './components/createdCharPage'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
@@ -61,7 +62,7 @@ const initialLoginValues = {
 
 const initialCharacters = []
 const initialUser = {}
-const initialContactForm = []
+const initialContactForm = {}
 const initialDisabled = true
 
 
@@ -83,6 +84,8 @@ function App() {
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
   const [disabled, setDisabled] = useState(initialDisabled)
+
+  const navigate = useNavigate()
 
   //Validation Errors for Login Page - finished:
   const changeInputLogin = (name, value) => {
@@ -175,9 +178,7 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        console.log(`Response:`, res)
         setUser(res.data.user)
-        console.log(`User:`, res.data.user)
       })
       .catch(err => {
         console.log(err)
@@ -202,17 +203,19 @@ function App() {
   }
 
   const loginUser = pastUser => {
-    console.log(`User Credentials:`, pastUser)
-
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
-        console.log(`Response:`, res.data)
+        return (
+          navigate(`/${res.data.user.user_id}/created-characters`)
+        )
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`Error:`, err)
+
+        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
       })
-    // .finally(loginValues(initialLoginValues))
+      .finally(setLoginValues(initialLoginValues))
   }
 
   const loginSubmit = event => {
@@ -236,7 +239,10 @@ function App() {
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/account`} element={<Account />} />
+        <Route path={`/account`} element={<Account user={user} />} />
+
+        {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+        <Route path={`/:user_id/created-characters`} element={<CreatedCharPage user={user} />} />
 
         <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
 
