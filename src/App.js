@@ -178,9 +178,7 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        // console.log(`Response:`, res)
         setUser(res.data.user)
-        // console.log(`User:`, res.data.user)
       })
       .catch(err => {
         console.log(err)
@@ -205,32 +203,21 @@ function App() {
   }
 
   const loginUser = pastUser => {
-    console.log(`User Credentials:`, pastUser)
-
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
-
         if (res.data.message === "Welcome") {
           return (
             navigate(`/${res.data.user.user_id}/created-characters`)
           )
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`Error:`, err)
 
-        if (err) {
-          console.log('Invalid Credentials, please try again or sign up')
-
-          return (
-            <div className='errors'>
-              <p>Invalid Credentials, please try again or sign up</p>
-            </div>
-          )
-        }
+        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
       })
-    // .finally(loginValues(initialLoginValues))
+      .finally(setLoginValues(initialLoginValues))
   }
 
   const loginSubmit = event => {
@@ -254,10 +241,10 @@ function App() {
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/account`} element={<Account />} />
+        <Route path={`/account`} element={<Account user={user} />} />
 
         {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/:user_id/created-characters`} element={<CreatedCharPage />} />
+        <Route path={`/:user_id/created-characters`} element={<CreatedCharPage user={user} />} />
 
         <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
 

@@ -5,6 +5,8 @@ import { Header, Footer } from './header-footer'
 export default function CreatedCharPage(props) {
    const { user } = props
 
+   console.log(user)
+
    return (
       <>
          <Header />
