@@ -68,6 +68,8 @@ export default function Login(props) {
 
                {/* Need to make the to={link} for the specified user account */}
                <StyledLoginSignupBtnDiv>
+                  <div className='errors'>
+                  </div>
                   {/* <Link to={`/login`} className='loginLink'> */}
                   <StyledButtons>
                      Login

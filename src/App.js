@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -84,6 +84,8 @@ function App() {
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
   const [disabled, setDisabled] = useState(initialDisabled)
+
+  const navigate = useNavigate()
 
   //Validation Errors for Login Page - finished:
   const changeInputLogin = (name, value) => {
@@ -176,9 +178,9 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        console.log(`Response:`, res)
+        // console.log(`Response:`, res)
         setUser(res.data.user)
-        console.log(`User:`, res.data.user)
+        // console.log(`User:`, res.data.user)
       })
       .catch(err => {
         console.log(err)
@@ -208,16 +210,24 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
-        console.log(`Response:`, res.data)
 
         if (res.data.message === "Welcome") {
           return (
-            <Route path={`/:user_id/created-characters`} element={<CreatedCharPage />} />
+            navigate(`/${res.data.user.user_id}/created-characters`)
           )
         }
       })
       .catch(err => {
         console.log(`Error:`, err)
+
+        if (err) {
+          console.log('Invalid Credentials, please try again or sign up')
+          return (
+            <div className='errors'>
+              <p>Invalid Credentials, please try again or sign up</p>
+            </div>
+          )
+        }
       })
     // .finally(loginValues(initialLoginValues))
   }

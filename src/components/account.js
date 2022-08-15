@@ -2,11 +2,13 @@ import React from 'react';
 
 import { Header, Footer } from './header-footer'
 
-export default function Account() {
+export default function Account(props) {
+   const { user } = props
    return (
       <>
          <Header />
 
+         <h1>{user.first_name}</h1>
          <h1>This page is under construction.</h1>
 
          <Footer />
