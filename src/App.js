@@ -62,7 +62,7 @@ const initialLoginValues = {
 
 const initialCharacters = []
 const initialUser = {}
-const initialContactForm = []
+const initialContactForm = {}
 const initialDisabled = true
 
 
@@ -222,6 +222,7 @@ function App() {
 
         if (err) {
           console.log('Invalid Credentials, please try again or sign up')
+
           return (
             <div className='errors'>
               <p>Invalid Credentials, please try again or sign up</p>
