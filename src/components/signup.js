@@ -165,9 +165,12 @@ export default function SignUp(props) {
                {/* Need to make the to={link} for the specified user account */}
 
                {/* The night up button also needs to not let an user go to the account page if they did not provide the required inputes */}
-               <Link className='signup-btn' to={`/account`}>
-                  <StyledButtons>Sign Up</StyledButtons>
-               </Link>
+               <div className='errors'>
+                  {signupErrors.request_err}
+               </div>
+               <StyledButtons>
+                  Sign Up
+               </StyledButtons>
             </div>
          </StyledForm>
 

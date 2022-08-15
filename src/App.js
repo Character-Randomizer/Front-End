@@ -179,11 +179,16 @@ function App() {
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
         setUser(res.data.user)
+
+        console.log('CHECK:', res.data.user)
+        // if(res.data.message === '')
       })
       .catch(err => {
         console.log(err)
+
+        setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
       })
-      .finally(setSignupFormValues(initialUserValues))
+    // .finally(setSignupFormValues(initialUserValues))
   }
 
   const submitNewUser = event => {
