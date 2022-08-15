@@ -89,7 +89,7 @@ export default function Login(props) {
                   If you would like to save your characters and/or NPCs, please sign up to create an account.
                </p>
                <StyledLoginSignupBtnDiv>
-                  <Link to={`/login/signup`} className='signUpLink'>
+                  <Link to={`/signup`} className='signUpLink'>
                      <StyledButtons>
                         Sign Up
                      </StyledButtons>

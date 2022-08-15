@@ -5,8 +5,4 @@ const StyledH2 = styled.h2`
    width: 100%;
 `
 
-const StyledHomeDiv = styled.div`
-   
-`
-
-export { StyledH2, StyledHomeDiv }
+export { StyledH2 }

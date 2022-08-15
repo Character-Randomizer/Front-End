@@ -37,7 +37,6 @@ const initialCharValues = {
 }
 
 const initialUserValues = {
-  user_id: '',
   first_name: '',
   last_name: '',
   username: '',
@@ -45,9 +44,6 @@ const initialUserValues = {
   confirm_password: '',
   email: '',
   terms: false,
-  dob: '',
-  created_at: '',
-  updated_at: null
 }
 
 const initialContactValues = {
@@ -64,7 +60,7 @@ const initialLoginValues = {
 }
 
 const initialCharacters = []
-const initialUsers = []
+const initialUser = {}
 const initialContactForm = []
 const initialDisabled = true
 
@@ -77,7 +73,7 @@ function App() {
   const [charFormValues, setCharFormValues] = useState(initialCharValues)
   const [charErrors, setCharErrors] = useState(initialCharValues)
 
-  const [users, setUsers] = useState(initialUsers)
+  const [user, setUser] = useState(initialUser)
 
   const [signupFormValues, setSignupFormValues] = useState(initialUserValues)
   const [signupErrors, setSignupErrors] = useState(initialUserValues)
@@ -174,13 +170,14 @@ function App() {
   }, [contactFormValues])
 
 
-  //Posting a new user to the Users api when Signing Up
-  const postNewUser = (newUser) => {
+  //Posting a new user to the user api when Signing Up
+  const registerNewUser = (newUser) => {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
         console.log(`Response:`, res)
-        setUsers([...users, res.data.user])
+        setUser(res.data.user)
+        console.log(`User:`, res.data.user)
       })
       .catch(err => {
         console.log(err)
@@ -201,17 +198,16 @@ function App() {
       dob: signupFormValues.dob,
     }
 
-    postNewUser(newUser)
+    registerNewUser(newUser)
   }
 
-  const getPastUser = pastUser => {
+  const loginUser = pastUser => {
     console.log(`User Credentials:`, pastUser)
 
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
         console.log(`Response:`, res.data)
-
       })
       .catch(err => {
         console.log(`Error:`, err)
@@ -228,14 +224,14 @@ function App() {
       password: loginValues.password
     }
 
-    getPastUser(pastUser)
+    loginUser(pastUser)
   }
 
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/login/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
+        <Route path={`/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
 
         <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
 
