@@ -1,4 +1,3 @@
-import { userInfo } from 'os';
 import React from 'react';
 
 import { Header, Footer } from './header-footer'

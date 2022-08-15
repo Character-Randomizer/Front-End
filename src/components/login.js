@@ -19,9 +19,6 @@ export default function Login(props) {
 
    Possibly make a function with the disabled property
    */
-   // const loginButton = () => {
-   //    if ()
-   // }
 
    return (
       <>
