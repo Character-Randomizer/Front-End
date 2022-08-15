@@ -10,6 +10,7 @@ import SignUp from './components/signup'
 import CharRandomizer from './components/charRandom'
 import Contact from './components/contact'
 import Account from './components/account'
+import CreatedCharPage from './components/createdCharPage'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
@@ -208,6 +209,12 @@ function App() {
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
         console.log(`Response:`, res.data)
+
+        if (res.data.message === "Welcome") {
+          return (
+            <Route path={`/:user_id/created-characters`} element={<CreatedCharPage />} />
+          )
+        }
       })
       .catch(err => {
         console.log(`Error:`, err)
@@ -237,6 +244,9 @@ function App() {
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
         <Route path={`/account`} element={<Account />} />
+
+        {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+        <Route path={`/:user_id/created-characters`} element={<CreatedCharPage />} />
 
         <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
 

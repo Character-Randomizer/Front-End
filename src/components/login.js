@@ -71,11 +71,11 @@ export default function Login(props) {
 
                {/* Need to make the to={link} for the specified user account */}
                <StyledLoginSignupBtnDiv>
-                  <Link to={`/login`} className='loginLink'>
-                     <StyledButtons>
-                        Login
-                     </StyledButtons>
-                  </Link>
+                  {/* <Link to={`/login`} className='loginLink'> */}
+                  <StyledButtons>
+                     Login
+                  </StyledButtons>
+                  {/* </Link> */}
                </StyledLoginSignupBtnDiv>
             </div>
          </StyledForm>
