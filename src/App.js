@@ -206,11 +206,9 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
-        if (res.data.message === "Welcome") {
-          return (
-            navigate(`/${res.data.user.user_id}/created-characters`)
-          )
-        }
+        return (
+          navigate(`/${res.data.user.user_id}/created-characters`)
+        )
       })
       .catch((err) => {
         console.log(`Error:`, err)
