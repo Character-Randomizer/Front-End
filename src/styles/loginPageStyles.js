@@ -4,6 +4,7 @@ const StyledForm = styled.form`
    display: flex;
    justify-content: center;
    padding: 4% 0 2% 0;
+   flex-wrap: wrap;
 `
 
 const StyledH2 = styled.h2`

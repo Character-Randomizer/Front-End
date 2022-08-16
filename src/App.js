@@ -60,9 +60,9 @@ const initialLoginValues = {
   password: '',
 }
 
-const initialCharacters = []
+// const initialCharacters = []
 const initialUser = {}
-const initialContactForm = {}
+// const initialContactForm = {}
 const initialDisabled = true
 
 
@@ -178,9 +178,11 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
       .then(res => {
-        return (
-          navigate(`/${res.data.user.user_id}/created-characters`)
-        )
+        setUser(res.data.user)
+
+        navigate(`/${res.data.user.user_id}/created-characters`)
+
+        return user
       })
       .catch(err => {
         console.log(err)
@@ -210,9 +212,16 @@ function App() {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
       .then(res => {
-        return (
-          navigate(`/${res.data.user.user_id}/created-characters`)
-        )
+        setUser(res.data.user)
+
+        if (res.data.message === "Welcome") {
+          return (
+            navigate(`/${res.data.user.user_id}/created-characters`)
+          )
+        }
+
+        return user
+
       })
       .catch((err) => {
         console.log(`Error:`, err)
