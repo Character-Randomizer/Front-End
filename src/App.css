@@ -130,6 +130,12 @@
   padding: 2%;
 }
 
+.contact-p {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 /* All Error Messages */
 .errors {
   font-size: 1.8rem;
