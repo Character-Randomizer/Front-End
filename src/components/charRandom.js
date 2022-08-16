@@ -410,7 +410,7 @@ export default function CharRandomizer(props) {
             </div>
 
             <div className="button">
-               <StyledButtons>Submit</StyledButtons>
+               <StyledButtons>Create Character</StyledButtons>
             </div>
          </StyledForm>
 
