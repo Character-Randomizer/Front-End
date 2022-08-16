@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
-// const StyledRandForm = styled.form`
+const StyledInputDivs = styled.div`
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 100%;
+`
 
-// `
-
-// export { StyledRandForm }
+export { StyledInputDivs }
