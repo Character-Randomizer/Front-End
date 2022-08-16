@@ -113,6 +113,20 @@
   padding: 2% 0;
 }
 
+/* Contact Form */
+.contact-button {
+  width: 100%;
+  margin-top: 5%;
+}
+
+.contact-message {
+  width: 100%;
+}
+
+.message-input {
+  width: 40%;
+}
+
 /* All Error Messages */
 .errors {
   font-size: 1.8rem;
