@@ -221,6 +221,7 @@ function App() {
         }
 
         return user
+
       })
       .catch((err) => {
         console.log(`Error:`, err)
