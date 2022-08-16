@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-//May not need:
-const StyledContactForm = styled.form`
-   display: flex;
-   justify-content: center;
-   padding: 4% 0 2% 0;
-`
-
 const StyledH2 = styled.h2`
    font-size: 4rem;
    font-weight: 600;
@@ -19,7 +12,7 @@ const StyledFormDiv = styled.div`
    justify-content: space-around;
    flex-wrap: wrap;
    width: 60%;
-   border: 5px solid black;
+   border: 2px solid black;
    margin: 2% 0 2% 0;
    padding: 2%;
 `

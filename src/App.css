@@ -124,7 +124,10 @@
 }
 
 .message-input {
-  width: 40%;
+  width: 80%;
+  max-width: 90%;
+  height: 30vh;
+  padding: 2%;
 }
 
 /* All Error Messages */

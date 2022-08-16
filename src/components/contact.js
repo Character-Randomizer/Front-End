@@ -83,8 +83,8 @@ export default function Contact(props) {
                   <StyledContactLabels>
                      Message
                   </StyledContactLabels>
-                  <StyledInputs
-                     type='text'
+                  <textarea
+                     type='text area'
                      className='message-input'
                      name='message'
                      value={valuesContact.message}
