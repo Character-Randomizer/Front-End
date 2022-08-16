@@ -70,7 +70,7 @@ function App() {
   const [loginValues, setLoginValues] = useState(initialLoginValues)
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
-  const [characters, setCharacters] = useState(initialCharacters)
+  // const [characters, setCharacters] = useState(initialCharacters)
   const [charFormValues, setCharFormValues] = useState(initialCharValues)
   const [charErrors, setCharErrors] = useState(initialCharValues)
 
@@ -79,7 +79,7 @@ function App() {
   const [signupFormValues, setSignupFormValues] = useState(initialUserValues)
   const [signupErrors, setSignupErrors] = useState(initialUserValues)
 
-  const [contactForm, setContactForm] = useState(initialContactForm)
+  // const [contactForm, setContactForm] = useState(initialContactForm)
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
