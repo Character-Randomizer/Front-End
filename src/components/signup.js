@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
@@ -157,14 +156,6 @@ export default function SignUp(props) {
 
                </StyledDivWidth100>
 
-               {/*Stretch: Sign Up button needs to go through the array of known users and either 1) create the new user and then go to the new user's created character page or 2) throw an error that the user has an account
-               
-               Possibly make a function with the disabled property
-               */}
-
-               {/* Need to make the to={link} for the specified user account */}
-
-               {/* The night up button also needs to not let an user go to the account page if they did not provide the required inputes */}
                <div className='errors'>
                   {signupErrors.request_err}
                </div>

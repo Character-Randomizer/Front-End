@@ -14,12 +14,6 @@ export default function Login(props) {
       changeLogin(name, value)
    }
 
-
-   /* I want to make it so that when an user inputs either the wrong information or is not an user, the login button will give an error. If the information provided is an user in the userArr, then it will go to their account page.
-
-   Possibly make a function with the disabled property
-   */
-
    return (
       <>
          <Header />
@@ -61,12 +55,7 @@ export default function Login(props) {
                   />
 
                </div>
-               {/*Stretch: Login button needs to go through the array of known users and either 1) go to the known user's created character page or 2) throw an error that the user has not signed up 
-               
-               Possibly make a function with the disabled property
-               */}
 
-               {/* Need to make the to={link} for the specified user account */}
                <StyledLoginSignupBtnDiv>
                   <div className='errors'>
                      {loginErrors.request_err}
