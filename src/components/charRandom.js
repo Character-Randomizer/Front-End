@@ -5,7 +5,7 @@ import StyledButtons from '../styles/buttonStyles'
 
 
 export default function CharRandomizer(props) {
-   const { changeRand, valuesRand } = props
+   // const { changeRand, valuesRand } = props
 
    return (
       <>
