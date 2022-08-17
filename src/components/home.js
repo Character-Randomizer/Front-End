@@ -57,7 +57,7 @@ export default function Home() {
             </p>
 
             <div className="button">
-               <Link to={`/login/signup`}>
+               <Link to={`/signup`}>
                   <StyledButtons className="signup">
                      Sign Up
                   </StyledButtons>
