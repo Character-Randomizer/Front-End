@@ -13,11 +13,10 @@ export default function CharRandomizer(props) {
       <>
          <Header />
 
-         <StyledH2>
-            Character Creation Randomizer
-         </StyledH2>
-
          <StyledForm className='randomizer-form' onSubmit={null}>
+            <StyledH2>
+               Character Creation Randomizer
+            </StyledH2>
             <p className='randomizer-prompt'>Use the prompts below and click Create to get your randomized (or not) character!</p>
             <StyledInputDivs className='charFirstName'>
                <StyledLabels>
