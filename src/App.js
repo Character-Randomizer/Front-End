@@ -45,6 +45,8 @@ const initialUserValues = {
   confirm_password: '',
   email: '',
   terms: false,
+  showPass: false,
+  showConfirm: false
 }
 
 const initialContactValues = {
@@ -58,6 +60,7 @@ const initialContactValues = {
 const initialLoginValues = {
   username: '',
   password: '',
+  showPass: false
 }
 
 // const initialCharacters = []
@@ -244,23 +247,61 @@ function App() {
     loginUser(pastUser)
   }
 
+  // //For "blurring" out the passwords for login/sign up pages:
+  const handleShowPassLogin = () => {
+    setLoginValues({ ...loginValues, showPass: !loginValues.showPass })
+  }
+
+  const handleShowPassSignup = () => {
+    setSignupFormValues({ ...signupFormValues, showPass: !signupFormValues.showPass })
+  }
+
+  const handleShowConfirmPassSignup = () => {
+    setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
+  }
   return (
     <div className="App">
 
       <Routes>
-        <Route path={`/signup`} element={<SignUp changeSignup={changeInputSignup} valuesSignup={signupFormValues} signupErrors={signupErrors} submitNewUser={submitNewUser} />} />
+        <Route path={`/signup`}
+          element={<SignUp
+            changeSignup={changeInputSignup}
+            valuesSignup={signupFormValues}
+            signupErrors={signupErrors}
+            submitNewUser={submitNewUser}
+            handleShowPass={handleShowPassSignup}
+            handleShowConfirm={handleShowConfirmPassSignup}
+          />} />
 
-        <Route path={`/login`} element={<Login changeLogin={changeInputLogin} valuesLogin={loginValues} loginErrors={loginErrors} submitLogin={loginSubmit} />} />
+        <Route path={`/login`}
+          element={<Login
+            changeLogin={changeInputLogin}
+            valuesLogin={loginValues}
+            loginErrors={loginErrors}
+            submitLogin={loginSubmit}
+            handleShowPass={handleShowPassLogin}
+          />} />
 
         {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/account`} element={<Account user={user} />} />
+        <Route path={`/account`}
+          element={<Account
+            user={user} />} />
 
         {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/:user_id/created-characters`} element={<CreatedCharPage user={user} />} />
+        <Route path={`/:user_id/created-characters`}
+          element={<CreatedCharPage
+            user={user} />} />
 
-        <Route path={`/contact`} element={<Contact changeContact={changeInputContact} valuesContact={contactFormValues} contactErrors={contactErrors} />} />
+        <Route path={`/contact`}
+          element={<Contact
+            changeContact={changeInputContact}
+            valuesContact={contactFormValues}
+            contactErrors={contactErrors} />} />
 
-        <Route path={`/character-randomizer`} element={<CharRandomizer changeRand={changeInputRandomizer} valuesRand={charFormValues} />} />
+        <Route path={`/character-randomizer`}
+          element={<CharRandomizer
+            changeRand={changeInputRandomizer}
+            valuesRand={charFormValues} />} />
 
         <Route exact path={`/`} element={<Home />} />
       </Routes>

@@ -3,12 +3,16 @@ import React from 'react';
 import { Header, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
 import StyledButtons from '../styles/buttonStyles';
-import { StyledForm } from '../styles/loginPageStyles'
+import { StyledForm, VisibilityDiv } from '../styles/loginPageStyles'
 import { StyledH2, StyledDivWidth60, StyledDivWidth100, StyledTermLabel, StyledInputs, StyledTermInput, StyledDobInput, StyledLabels } from '../styles/signup-page'
+
+//Icons for showing or not showing password:
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors, submitNewUser } = props
+   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -16,6 +20,10 @@ export default function SignUp(props) {
       const valueUsed = type === 'checkbox' ? checked : value;
 
       changeSignup(name, valueUsed)
+   }
+
+   const handleMouseDownPass = (event) => {
+      event.preventDefault()
    }
 
    return (
@@ -29,7 +37,7 @@ export default function SignUp(props) {
                </StyledH2>
                <p className='signup-p'>
                   If you would like to save your characters and/or NPCs, sign up to create an account.
-                  <br /> It's free!
+                  <br />
                </p>
                <StyledDivWidth60>
                   <div className='errors'>
@@ -88,26 +96,38 @@ export default function SignUp(props) {
                      {signupErrors.password}
                   </div>
                   <StyledInputs
-                     type='text'
+                     type={valuesSignup.showPass ? 'text' : 'password'}
                      id='input-pass'
                      name='password'
                      value={valuesSignup.password}
                      onChange={onChangeSignup}
                      placeholder='Password'
                   />
+                  <VisibilityDiv
+                     onClick={handleShowPass}
+                     onMouseDown={handleMouseDownPass}
+                  >
+                     {valuesSignup.showPass ? <VisibilityOff /> : <Visibility />}
+                  </VisibilityDiv>
                </StyledDivWidth60>
                <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.confirm_password}
                   </div>
                   <StyledInputs
-                     type='text'
+                     type={valuesSignup.showConfirm ? 'text' : 'password'}
                      id='input-confirm-pass'
                      name='confirm_password'
                      value={valuesSignup.confirm_password}
                      onChange={onChangeSignup}
                      placeholder='Confirm password'
                   />
+                  <VisibilityDiv
+                     onClick={handleShowConfirm}
+                     onMouseDown={handleMouseDownPass}
+                  >
+                     {valuesSignup.showConfirm ? <VisibilityOff /> : <Visibility />}
+                  </VisibilityDiv>
                </StyledDivWidth60>
                <StyledDivWidth100>
                   <div className='errors'>

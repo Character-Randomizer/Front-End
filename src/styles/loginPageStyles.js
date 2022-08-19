@@ -33,4 +33,7 @@ const StyledInputs = styled.input`
    padding: 0.5% 1.5% 0.5% 1.5%;
 `
 
-export { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs }
+const VisibilityDiv = styled.div`
+`
+
+export { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs, VisibilityDiv }
