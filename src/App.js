@@ -87,7 +87,7 @@ function App() {
 
   const navigate = useNavigate()
 
-  //Validation Errors for Login Page - finished:
+  //Validation Errors for Login Page:
   const changeInputLogin = (name, value) => {
     yup
       .reach(formSchemaLogin, name)
@@ -208,6 +208,7 @@ function App() {
     registerNewUser(newUser)
   }
 
+  //Logging in the user with backend api:
   const loginUser = pastUser => {
     axios
       .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
