@@ -27,6 +27,10 @@ export default function SignUp(props) {
                <StyledH2>
                   Sign Up
                </StyledH2>
+               <p className='signup-p'>
+                  If you would like to save your characters and/or NPCs, sign up to create an account.
+                  <br /> It's free!
+               </p>
                <StyledDivWidth60>
                   <div className='errors'>
                      {signupErrors.first_name}

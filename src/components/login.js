@@ -69,11 +69,8 @@ export default function Login(props) {
 
          <div className='signUp'>
             <div className='signup-div loginPage'>
-               <StyledH2>
-                  Sign Up
-               </StyledH2>
                <p className='signup-p'>
-                  If you would like to save your characters and/or NPCs, please sign up to create an account.
+                  If you can't login and would like to save your characters and/or NPCs, hit the sign up button to create an account!
                </p>
                <StyledLoginSignupBtnDiv>
                   <Link to={`/signup`} className='signUpLink'>
