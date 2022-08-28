@@ -2,16 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
-import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs } from '../styles/loginPageStyles'
+import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs, VisibilityDiv } from '../styles/loginPageStyles'
 import StyledButtons from '../styles/buttonStyles'
 
+//Icons for showing or not showing password:
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 export default function Login(props) {
-   const { changeLogin, valuesLogin, loginErrors, submitLogin } = props
+   const { changeLogin, valuesLogin, loginErrors, submitLogin, handleShowPass } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
 
       changeLogin(name, value)
+   }
+
+   const handleMouseDownPass = (event) => {
+      event.preventDefault()
    }
 
    return (
@@ -47,13 +55,18 @@ export default function Login(props) {
                      Password
                   </StyledLabels>
                   <StyledInputs
-                     type='text'
+                     type={valuesLogin.showPass ? 'text' : 'password'}
                      id='input-pass'
                      name='password'
                      value={valuesLogin.password}
                      onChange={onChangeLogin}
                   />
-
+                  <VisibilityDiv
+                     onClick={handleShowPass}
+                     onMouseDown={handleMouseDownPass}
+                  >
+                     {valuesLogin.showPass ? <VisibilityOff /> : <Visibility />}
+                  </VisibilityDiv>
                </div>
 
                <StyledLoginSignupBtnDiv>
@@ -69,11 +82,8 @@ export default function Login(props) {
 
          <div className='signUp'>
             <div className='signup-div loginPage'>
-               <StyledH2>
-                  Sign Up
-               </StyledH2>
                <p className='signup-p'>
-                  If you would like to save your characters and/or NPCs, please sign up to create an account.
+                  If you can't login and would like to save your characters and/or NPCs, hit the sign up button to create an account!
                </p>
                <StyledLoginSignupBtnDiv>
                   <Link to={`/signup`} className='signUpLink'>

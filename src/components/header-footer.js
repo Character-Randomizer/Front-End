@@ -25,6 +25,11 @@ function Header() {
                      <StyledTopBtnDiv>Login</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
+               <StyledTopBtns>
+                  <NavLink to={`/signup`}>
+                     <StyledTopBtnDiv>Sign Up</StyledTopBtnDiv>
+                  </NavLink>
+               </StyledTopBtns>
             </StyledHeaderNav>
          </StyledHeader>
       </>
@@ -55,6 +60,11 @@ function Footer() {
                <StyledBtmBtns>
                   <NavLink to={`/login`} className='login btmLink'>
                      <div>Login</div>
+                  </NavLink>
+               </StyledBtmBtns>
+               <StyledBtmBtns>
+                  <NavLink to={`/signup`}>
+                     <div>Sign Up</div>
                   </NavLink>
                </StyledBtmBtns>
             </StyledFooterNav>
