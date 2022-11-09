@@ -79,7 +79,7 @@ function UserHeader() {
 }
 
 
-function Footer() {
+function NonUserFooter() {
    return (
       <>
          <StyledFooter>
@@ -110,6 +110,7 @@ function Footer() {
                   </NavLink>
                </StyledBtmBtns>
             </StyledFooterNav>
+
             <StyledCopyrightDiv className="copyright">
                <StyledCopyrightP>&copy; Copyright Character Randomizer</StyledCopyrightP>
             </StyledCopyrightDiv>
@@ -118,4 +119,39 @@ function Footer() {
    )
 }
 
-export { NonUserHeader, UserHeader, Footer }
+function UserFooter() {
+   return (
+      <>
+         <StyledFooter>
+            <StyledFooterNav>
+               <StyledBtmBtns>
+                  <NavLink to={`/`} className='home btmLink'>
+                     <div>Home</div>
+                  </NavLink>
+               </StyledBtmBtns>
+               <StyledBtmBtns>
+                  <NavLink to={`/character-randomizer`} className='randomizer btmLink'>
+                     <div>Randomizer</div>
+                  </NavLink>
+               </StyledBtmBtns>
+               <StyledBtmBtns>
+                  <NavLink to={`/contact`} className='contact btmLink'>
+                     <div>Contact</div>
+                  </NavLink>
+               </StyledBtmBtns>
+               <StyledBtmBtns>
+                  <NavLink to={`/account`} className='contact btmLink'>
+                     <div>Account</div>
+                  </NavLink>
+               </StyledBtmBtns>
+            </StyledFooterNav>
+
+            <StyledCopyrightDiv className="copyright">
+               <StyledCopyrightP>&copy; Copyright Character Randomizer</StyledCopyrightP>
+            </StyledCopyrightDiv>
+         </StyledFooter>
+      </>
+   )
+}
+
+export { NonUserHeader, UserHeader, NonUserFooter, UserFooter }

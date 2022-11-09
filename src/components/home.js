@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { NonUserHeader, Footer } from './header-footer'
+import { NonUserHeader, NonUserFooter } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledH2 } from '../styles/homeStyles'
 
@@ -65,7 +65,7 @@ export default function Home() {
             </div>
          </div>
 
-         <Footer />
+         <NonUserFooter />
       </>
    )
 }

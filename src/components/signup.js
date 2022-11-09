@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NonUserHeader, Footer } from './header-footer'
+import { NonUserHeader, NonUserFooter } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
 import StyledButtons from '../styles/buttonStyles';
 import { StyledForm, VisibilityDiv } from '../styles/loginPageStyles'
@@ -189,7 +189,7 @@ export default function SignUp(props) {
             </div>
          </StyledForm>
 
-         <Footer />
+         <NonUserFooter />
       </>
    )
 }

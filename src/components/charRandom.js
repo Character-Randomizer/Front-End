@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NonUserHeader, Footer } from './header-footer'
+import { NonUserHeader, NonUserFooter } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 
 
@@ -411,7 +411,7 @@ export default function CharRandomizer(props) {
             </div>
          </form>
 
-         <Footer />
+         <NonUserFooter />
       </>
    )
 }

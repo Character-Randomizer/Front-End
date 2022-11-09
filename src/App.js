@@ -14,6 +14,7 @@ import CreatedCharPage from './components/createdCharPage'
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
 import axiosWithAuth from './authorization/axiosWithAuth';
+import PrivateRoute from './authorization/privateRoutes';
 
 
 const initialCharValues = {
@@ -290,15 +291,22 @@ function App() {
             handleShowPass={handleShowPassLogin}
           />} />
 
-        {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/account`}
-          element={<Account
-            user={user} />} />
+        <Route element={<PrivateRoute />}>
+          {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+          <Route path={`/account`}
+            element={
+              <Account
+                user={user} />
+            } />
 
-        {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/:user_id/created-characters`}
-          element={<CreatedCharPage
-            user={user} />} />
+          {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+          < Route path={`/:user_id/created-characters`}
+            element={
+              <CreatedCharPage
+                user={user} />
+            } />
+
+        </Route>
 
         <Route path={`/contact`}
           element={<Contact
