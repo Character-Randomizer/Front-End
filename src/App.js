@@ -13,7 +13,7 @@ import CreatedCharPage from './components/createdCharPage'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
-import axiosWithAuth from './axiosAuth/auth';
+import axiosWithAuth from './authorization/axiosWithAuth';
 
 
 const initialCharValues = {
