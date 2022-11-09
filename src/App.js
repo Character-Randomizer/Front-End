@@ -14,6 +14,8 @@ import CreatedCharPage from './components/createdCharPage'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
+import axiosWithAuth from './axiosAuth/auth';
+
 
 const initialCharValues = {
   first_name: '',
@@ -213,8 +215,8 @@ function App() {
 
   //Logging in the user with backend api:
   const loginUser = pastUser => {
-    axios
-      .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
+    axiosWithAuth()
+      .post(`auth/login`, pastUser)
       .then(res => {
         setUser(res.data.user)
 
