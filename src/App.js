@@ -91,7 +91,7 @@ function App() {
 
   const navigate = useNavigate()
   // Keeping for now in case I need it - will delete later if not needed
-  // const redirectLogin = () => {return navigate('/login')}
+  // const redirectLogin = () => { return navigate('/login') }
   // const redirectSignUp = () => {return nagivate('/signup')}
 
   //Validation Errors for Login Page:

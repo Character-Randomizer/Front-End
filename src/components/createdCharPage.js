@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router';
 
-import { Header, Footer } from './header-footer'
+import { UserHeader, Footer } from './header-footer'
 
 export default function CreatedCharPage(props) {
    const { user } = props
@@ -16,7 +16,7 @@ export default function CreatedCharPage(props) {
 
    return (
       <>
-         <Header />
+         <UserHeader />
 
          <h1>{user.first_name},</h1>
          <h1>This page is under construction.</h1>

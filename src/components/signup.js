@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer } from './header-footer'
+import { NonUserHeader, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
 import StyledButtons from '../styles/buttonStyles';
 import { StyledForm, VisibilityDiv } from '../styles/loginPageStyles'
@@ -28,7 +28,7 @@ export default function SignUp(props) {
 
    return (
       <>
-         <Header />
+         <NonUserHeader />
 
          <StyledForm onSubmit={submitNewUser}>
             <div className='signup-div signupPage'>

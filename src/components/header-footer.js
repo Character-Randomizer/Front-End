@@ -1,9 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFooterNav, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP } from '../styles/header-footerStyles';
 
-function Header() {
+
+function NonUserHeader() {
    return (
       <>
          <StyledHeader>
@@ -29,6 +30,47 @@ function Header() {
                   <NavLink to={`/signup`}>
                      <StyledTopBtnDiv>Sign Up</StyledTopBtnDiv>
                   </NavLink>
+               </StyledTopBtns>
+            </StyledHeaderNav>
+         </StyledHeader>
+      </>
+   )
+}
+
+
+function UserHeader() {
+   const navigate = useNavigate()
+   const redirectLogin = () => { return navigate('/login') }
+
+   //Logging out the user:
+   const logout = () => {
+      localStorage.removeItem('token')
+      redirectLogin()
+   }
+
+   return (
+      <>
+         <StyledHeader>
+            <StyledH1>Randomized Character Creator</StyledH1>
+
+            <StyledHeaderNav>
+               <StyledTopBtns>
+                  <NavLink to={`/`}>
+                     <StyledTopBtnDiv>Home</StyledTopBtnDiv>
+                  </NavLink>
+               </StyledTopBtns>
+               <StyledTopBtns>
+                  <NavLink to={`/character-randomizer`}>
+                     <StyledTopBtnDiv>Randomizer</StyledTopBtnDiv>
+                  </NavLink>
+               </StyledTopBtns>
+               <StyledTopBtns>
+                  <NavLink to={`/account`}>
+                     <StyledTopBtnDiv>Account</StyledTopBtnDiv>
+                  </NavLink>
+               </StyledTopBtns>
+               <StyledTopBtns>
+                  <StyledTopBtnDiv id='logout' onClick={logout}>Logout</StyledTopBtnDiv>
                </StyledTopBtns>
             </StyledHeaderNav>
          </StyledHeader>
@@ -76,4 +118,4 @@ function Footer() {
    )
 }
 
-export { Header, Footer }
+export { NonUserHeader, UserHeader, Footer }

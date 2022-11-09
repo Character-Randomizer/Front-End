@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer } from './header-footer'
+import { NonUserHeader, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, StyledH2 } from '../styles/contactFormStyles';
 import { StyledForm } from '../styles/loginPageStyles'
@@ -16,7 +16,7 @@ export default function Contact(props) {
 
    return (
       <>
-         <Header />
+         <NonUserHeader />
 
          <StyledForm onSubmit={null}>
             <StyledH2>

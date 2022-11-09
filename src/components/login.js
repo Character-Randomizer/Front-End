@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-import { Header, Footer } from './header-footer'
+import { NonUserHeader, Footer } from './header-footer'
 import { StyledForm, StyledLabels, StyledH2, StyledLoginSignupBtnDiv, StyledInputs, VisibilityDiv } from '../styles/loginPageStyles'
 import StyledButtons from '../styles/buttonStyles'
 
@@ -24,7 +24,7 @@ export default function Login(props) {
 
    return (
       <>
-         <Header />
+         <NonUserHeader />
 
          <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>

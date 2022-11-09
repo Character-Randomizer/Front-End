@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Header, Footer } from './header-footer'
+import { NonUserHeader, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledH2 } from '../styles/homeStyles'
 
@@ -11,7 +11,7 @@ import npcs from '../images/npcs.jpeg'
 export default function Home() {
    return (
       <>
-         <Header />
+         <NonUserHeader />
 
          <div className="middle">
             <StyledH2>What the Randomizer Does</StyledH2>

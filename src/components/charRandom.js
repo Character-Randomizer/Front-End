@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer } from './header-footer'
+import { NonUserHeader, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 
 
@@ -9,7 +9,7 @@ export default function CharRandomizer(props) {
 
    return (
       <>
-         <Header />
+         <NonUserHeader />
 
          <h2>Character Creation Randomizer</h2>
 
