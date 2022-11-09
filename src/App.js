@@ -91,9 +91,6 @@ function App() {
   const [disabled, setDisabled] = useState(initialDisabled)
 
   const navigate = useNavigate()
-  // Keeping for now in case I need it - will delete later if not needed
-  // const redirectLogin = () => { return navigate('/login') }
-  // const redirectSignUp = () => {return nagivate('/signup')}
 
   //Validation Errors for Login Page:
   const changeInputLogin = (name, value) => {
@@ -291,6 +288,7 @@ function App() {
             handleShowPass={handleShowPassLogin}
           />} />
 
+        {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
         <Route element={<PrivateRoute />}>
           {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
           <Route path={`/account`}
