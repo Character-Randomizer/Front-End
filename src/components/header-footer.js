@@ -54,7 +54,7 @@ function Header(user) {
                         </NavLink>
                      </StyledTopBtns>
                      <StyledTopBtns>
-                        <NavLink to={`/account`}>
+                        <NavLink to={`/users/${user.user.user_id}`}>
                            <StyledTopBtnDiv>Account</StyledTopBtnDiv>
                         </NavLink>
                      </StyledTopBtns>
@@ -113,7 +113,7 @@ function Footer(user) {
                         </NavLink>
                      </StyledBtmBtns>
                      <StyledBtmBtns>
-                        <NavLink to={`/account`} className='contact btmLink'>
+                        <NavLink to={`/users/${user.user.user_id}`} className='contact btmLink'>
                            <div>Account</div>
                         </NavLink>
                      </StyledBtmBtns>

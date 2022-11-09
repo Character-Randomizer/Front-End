@@ -179,9 +179,9 @@ function App() {
 
 
   //Logging in the user with backend api:
-  const loginUser = user => {
+  const loginUser = userInfo => {
     axiosWithAuth()
-      .post(`auth/login`, user)
+      .post(`auth/login`, userInfo)
       .then(res => {
         setUser(res.data.user)
         localStorage.setItem('token', res.data.token)
@@ -191,8 +191,6 @@ function App() {
             navigate(`/${res.data.user.user_id}/created-characters`)
           )
         }
-
-        return user
       })
       .catch((err) => {
         console.log(`Login Error:`, err)
@@ -293,7 +291,7 @@ function App() {
         {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
         <Route element={<PrivateRoute />}>
           {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-          <Route path={`/account`}
+          <Route path={`/users/:user_id`}
             element={
               <Account
                 user={user} />
