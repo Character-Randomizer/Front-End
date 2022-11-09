@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NonUserHeader, NonUserFooter } from './header-footer'
+import { Header, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
 import StyledButtons from '../styles/buttonStyles';
 import { StyledForm, VisibilityDiv } from '../styles/loginPageStyles'
@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm } = props
+   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm, user } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -28,7 +28,7 @@ export default function SignUp(props) {
 
    return (
       <>
-         <NonUserHeader />
+         <Header user={user} />
 
          <StyledForm onSubmit={submitNewUser}>
             <div className='signup-div signupPage'>
@@ -189,7 +189,7 @@ export default function SignUp(props) {
             </div>
          </StyledForm>
 
-         <NonUserFooter />
+         <Footer user={user} />
       </>
    )
 }

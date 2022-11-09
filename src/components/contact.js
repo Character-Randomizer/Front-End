@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { NonUserHeader, NonUserFooter } from './header-footer'
+import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, StyledH2 } from '../styles/contactFormStyles';
 import { StyledForm } from '../styles/loginPageStyles'
 
 export default function Contact(props) {
-   const { changeContact, valuesContact, contactErrors } = props
+   const { changeContact, valuesContact, contactErrors, user } = props
 
    const onChangeContact = event => {
       const { name, value } = event.target
@@ -16,7 +16,7 @@ export default function Contact(props) {
 
    return (
       <>
-         <NonUserHeader />
+         <Header user={user} />
 
          <StyledForm onSubmit={null}>
             <StyledH2>
@@ -100,7 +100,7 @@ export default function Contact(props) {
             </StyledFormDiv>
          </StyledForm>
 
-         <NonUserFooter />
+         <Footer user={user} />
       </>
    )
 }

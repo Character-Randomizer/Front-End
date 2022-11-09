@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { NonUserHeader, NonUserFooter } from './header-footer'
+import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 
 
 export default function CharRandomizer(props) {
-   // const { changeRand, valuesRand } = props
+   const { changeRand, valuesRand, user } = props
 
    return (
       <>
-         <NonUserHeader />
+         <Header user={user} />
 
          <h2>Character Creation Randomizer</h2>
 
@@ -411,7 +411,7 @@ export default function CharRandomizer(props) {
             </div>
          </form>
 
-         <NonUserFooter />
+         <Footer user={user} />
       </>
    )
 }

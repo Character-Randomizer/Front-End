@@ -179,9 +179,9 @@ function App() {
 
 
   //Logging in the user with backend api:
-  const loginUser = pastUser => {
+  const loginUser = user => {
     axiosWithAuth()
-      .post(`auth/login`, pastUser)
+      .post(`auth/login`, user)
       .then(res => {
         setUser(res.data.user)
         localStorage.setItem('token', res.data.token)
@@ -206,12 +206,12 @@ function App() {
   const loginSubmit = event => {
     event.preventDefault()
 
-    const pastUser = {
+    const user = {
       username: loginValues.username,
       password: loginValues.password
     }
 
-    loginUser(pastUser)
+    loginUser(user)
   }
 
 
@@ -277,6 +277,7 @@ function App() {
             submitNewUser={submitNewUser}
             handleShowPass={handleShowPassSignup}
             handleShowConfirm={handleShowConfirmPassSignup}
+            user={user}
           />} />
 
         <Route path={`/login`}
@@ -286,6 +287,7 @@ function App() {
             loginErrors={loginErrors}
             submitLogin={loginSubmit}
             handleShowPass={handleShowPassLogin}
+            user={user}
           />} />
 
         {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
@@ -310,14 +312,16 @@ function App() {
           element={<Contact
             changeContact={changeInputContact}
             valuesContact={contactFormValues}
-            contactErrors={contactErrors} />} />
+            contactErrors={contactErrors}
+            user={user} />} />
 
         <Route path={`/character-randomizer`}
           element={<CharRandomizer
             changeRand={changeInputRandomizer}
-            valuesRand={charFormValues} />} />
+            valuesRand={charFormValues}
+            user={user} />} />
 
-        <Route exact path={`/`} element={<Home />} />
+        <Route exact path={`/`} element={<Home user={user} />} />
       </Routes>
 
     </div>

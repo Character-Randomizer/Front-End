@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { NonUserHeader, NonUserFooter } from './header-footer'
+import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledH2 } from '../styles/homeStyles'
 
 import npcs from '../images/npcs.jpeg'
 
 
-export default function Home() {
+export default function Home(props) {
+   const { user } = props
+
    return (
       <>
-         <NonUserHeader />
+         <Header user={user} />
 
          <div className="middle">
             <StyledH2>What the Randomizer Does</StyledH2>
@@ -65,7 +67,7 @@ export default function Home() {
             </div>
          </div>
 
-         <NonUserFooter />
+         <Footer user={user} />
       </>
    )
 }
