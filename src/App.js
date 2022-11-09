@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import * as yup from 'yup';
 
 import Home from './components/home'
@@ -91,6 +90,9 @@ function App() {
   const [disabled, setDisabled] = useState(initialDisabled)
 
   const navigate = useNavigate()
+  // Keeping for now in case I need it - will delete later if not needed
+  // const redirectLogin = () => {return navigate('/login')}
+  // const redirectSignUp = () => {return nagivate('/signup')}
 
   //Validation Errors for Login Page:
   const changeInputLogin = (name, value) => {
@@ -178,12 +180,50 @@ function App() {
   }, [contactFormValues])
 
 
-  //Posting a new user to the user api when Signing Up
-  const registerNewUser = (newUser) => {
-    axios
-      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+  //Logging in the user with backend api:
+  const loginUser = pastUser => {
+    axiosWithAuth()
+      .post(`auth/login`, pastUser)
       .then(res => {
         setUser(res.data.user)
+        localStorage.setItem('token', res.data.token)
+
+        if (res.data.message === "Welcome") {
+          return (
+            navigate(`/${res.data.user.user_id}/created-characters`)
+          )
+        }
+
+        return user
+      })
+      .catch((err) => {
+        console.log(`Login Error:`, err)
+
+        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
+      })
+      //Do I need this?
+      .finally(setLoginValues(initialLoginValues))
+  }
+
+  const loginSubmit = event => {
+    event.preventDefault()
+
+    const pastUser = {
+      username: loginValues.username,
+      password: loginValues.password
+    }
+
+    loginUser(pastUser)
+  }
+
+
+  //Posting a new user to the user api when Signing Up
+  const registerNewUser = (newUser) => {
+    axiosWithAuth()
+      .post('auth/register', newUser)
+      .then(res => {
+        setUser(res.data.user)
+        localStorage.setItem('token', res.data.token)
 
         navigate(`/${res.data.user.user_id}/created-characters`)
 
@@ -213,41 +253,6 @@ function App() {
     registerNewUser(newUser)
   }
 
-  //Logging in the user with backend api:
-  const loginUser = pastUser => {
-    axiosWithAuth()
-      .post(`auth/login`, pastUser)
-      .then(res => {
-        setUser(res.data.user)
-
-        if (res.data.message === "Welcome") {
-          return (
-            navigate(`/${res.data.user.user_id}/created-characters`)
-          )
-        }
-
-        return user
-
-      })
-      .catch((err) => {
-        console.log(`Error:`, err)
-
-        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
-      })
-      .finally(setLoginValues(initialLoginValues))
-  }
-
-  const loginSubmit = event => {
-    console.log(event)
-    event.preventDefault()
-
-    const pastUser = {
-      username: loginValues.username,
-      password: loginValues.password
-    }
-
-    loginUser(pastUser)
-  }
 
   // //For "blurring" out the passwords for login/sign up pages:
   const handleShowPassLogin = () => {
@@ -261,6 +266,7 @@ function App() {
   const handleShowConfirmPassSignup = () => {
     setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
   }
+
   return (
     <div className="App">
 
