@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 export default function Login(props) {
-   const { changeLogin, valuesLogin, loginErrors, submitLogin, handleShowPass } = props
+   const { changeLogin, valuesLogin, loginErrors, submitLogin, handleShowPass, user } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -24,7 +24,7 @@ export default function Login(props) {
 
    return (
       <>
-         <Header />
+         <Header user={user} />
 
          <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>
@@ -95,7 +95,7 @@ export default function Login(props) {
             </div>
          </div>
 
-         <Footer />
+         <Footer user={user} />
       </>
    )
 }

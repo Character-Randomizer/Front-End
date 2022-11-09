@@ -12,7 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm } = props
+   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm, user } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -28,7 +28,7 @@ export default function SignUp(props) {
 
    return (
       <>
-         <Header />
+         <Header user={user} />
 
          <StyledForm onSubmit={submitNewUser}>
             <div className='signup-div signupPage'>
@@ -189,7 +189,7 @@ export default function SignUp(props) {
             </div>
          </StyledForm>
 
-         <Footer />
+         <Footer user={user} />
       </>
    )
 }

@@ -6,7 +6,7 @@ import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, Style
 import { StyledForm } from '../styles/loginPageStyles'
 
 export default function Contact(props) {
-   const { changeContact, valuesContact, contactErrors } = props
+   const { changeContact, valuesContact, contactErrors, user } = props
 
    const onChangeContact = event => {
       const { name, value } = event.target
@@ -16,7 +16,7 @@ export default function Contact(props) {
 
    return (
       <>
-         <Header />
+         <Header user={user} />
 
          <StyledForm onSubmit={null}>
             <StyledH2>
@@ -100,7 +100,7 @@ export default function Contact(props) {
             </StyledFormDiv>
          </StyledForm>
 
-         <Footer />
+         <Footer user={user} />
       </>
    )
 }

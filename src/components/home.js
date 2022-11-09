@@ -8,10 +8,12 @@ import { StyledH2 } from '../styles/homeStyles'
 import npcs from '../images/npcs.jpeg'
 
 
-export default function Home() {
+export default function Home(props) {
+   const { user } = props
+
    return (
       <>
-         <Header />
+         <Header user={user} />
 
          <div className="middle">
             <StyledH2>What the Randomizer Does</StyledH2>
@@ -65,7 +67,7 @@ export default function Home() {
             </div>
          </div>
 
-         <Footer />
+         <Footer user={user} />
       </>
    )
 }

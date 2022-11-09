@@ -1,9 +1,21 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFooterNav, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP } from '../styles/header-footerStyles';
 
-function Header() {
+
+function Header(user) {
+   const token = localStorage.getItem('token')
+
+   const navigate = useNavigate()
+   const redirectLogin = () => { return navigate('/login') }
+
+   //Logging out the user:
+   const logout = () => {
+      localStorage.removeItem('token')
+      redirectLogin()
+   }
+
    return (
       <>
          <StyledHeader>
@@ -20,16 +32,37 @@ function Header() {
                      <StyledTopBtnDiv>Randomizer</StyledTopBtnDiv>
                   </NavLink>
                </StyledTopBtns>
-               <StyledTopBtns>
-                  <NavLink to={`/login`}>
-                     <StyledTopBtnDiv>Login</StyledTopBtnDiv>
-                  </NavLink>
-               </StyledTopBtns>
-               <StyledTopBtns>
-                  <NavLink to={`/signup`}>
-                     <StyledTopBtnDiv>Sign Up</StyledTopBtnDiv>
-                  </NavLink>
-               </StyledTopBtns>
+
+               {!token ?
+                  <>
+                     <StyledTopBtns>
+                        <NavLink to={`/login`}>
+                           <StyledTopBtnDiv>Login</StyledTopBtnDiv>
+                        </NavLink>
+                     </StyledTopBtns>
+                     <StyledTopBtns>
+                        <NavLink to={`/signup`}>
+                           <StyledTopBtnDiv>Sign Up</StyledTopBtnDiv>
+                        </NavLink>
+                     </StyledTopBtns>
+                  </>
+                  :
+                  <>
+                     <StyledTopBtns>
+                        <NavLink to={`/${user.user.user_id}/created-characters`}>
+                           <StyledTopBtnDiv>Characters</StyledTopBtnDiv>
+                        </NavLink>
+                     </StyledTopBtns>
+                     <StyledTopBtns>
+                        <NavLink to={`/users/${user.user.user_id}`}>
+                           <StyledTopBtnDiv>Account</StyledTopBtnDiv>
+                        </NavLink>
+                     </StyledTopBtns>
+                     <StyledTopBtns>
+                        <StyledTopBtnDiv id='logout' onClick={logout}>Logout</StyledTopBtnDiv>
+                     </StyledTopBtns>
+                  </>
+               }
             </StyledHeaderNav>
          </StyledHeader>
       </>
@@ -37,7 +70,9 @@ function Header() {
 }
 
 
-function Footer() {
+function Footer(user) {
+   const token = localStorage.getItem('token')
+
    return (
       <>
          <StyledFooter>
@@ -57,17 +92,35 @@ function Footer() {
                      <div>Contact</div>
                   </NavLink>
                </StyledBtmBtns>
-               <StyledBtmBtns>
-                  <NavLink to={`/login`} className='login btmLink'>
-                     <div>Login</div>
-                  </NavLink>
-               </StyledBtmBtns>
-               <StyledBtmBtns>
-                  <NavLink to={`/signup`}>
-                     <div>Sign Up</div>
-                  </NavLink>
-               </StyledBtmBtns>
+               {!token ?
+                  <>
+                     <StyledBtmBtns>
+                        <NavLink to={`/login`} className='login btmLink'>
+                           <div>Login</div>
+                        </NavLink>
+                     </StyledBtmBtns>
+                     <StyledBtmBtns>
+                        <NavLink to={`/signup`}>
+                           <div>Sign Up</div>
+                        </NavLink>
+                     </StyledBtmBtns>
+                  </>
+                  :
+                  <>
+                     <StyledBtmBtns>
+                        <NavLink to={`/${user.user.user_id}/created-characters`} className='contact btmLink'>
+                           <div>Characters</div>
+                        </NavLink>
+                     </StyledBtmBtns>
+                     <StyledBtmBtns>
+                        <NavLink to={`/users/${user.user.user_id}`} className='contact btmLink'>
+                           <div>Account</div>
+                        </NavLink>
+                     </StyledBtmBtns>
+                  </>
+               }
             </StyledFooterNav>
+
             <StyledCopyrightDiv className="copyright">
                <StyledCopyrightP>&copy; Copyright Character Randomizer</StyledCopyrightP>
             </StyledCopyrightDiv>
@@ -75,5 +128,6 @@ function Footer() {
       </>
    )
 }
+
 
 export { Header, Footer }

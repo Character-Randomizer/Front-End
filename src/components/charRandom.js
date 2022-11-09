@@ -5,11 +5,11 @@ import StyledButtons from '../styles/buttonStyles'
 
 
 export default function CharRandomizer(props) {
-   // const { changeRand, valuesRand } = props
+   const { changeRand, valuesRand, user } = props
 
    return (
       <>
-         <Header />
+         <Header user={user} />
 
          <h2>Character Creation Randomizer</h2>
 
@@ -411,7 +411,7 @@ export default function CharRandomizer(props) {
             </div>
          </form>
 
-         <Footer />
+         <Footer user={user} />
       </>
    )
 }

@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import * as yup from 'yup';
 
 import Home from './components/home'
@@ -13,6 +12,9 @@ import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
 import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
+
+import axiosWithAuth from './authorization/axiosWithAuth';
+import PrivateRoute from './authorization/privateRoutes';
 
 
 const initialCharValues = {
@@ -176,12 +178,48 @@ function App() {
   }, [contactFormValues])
 
 
-  //Posting a new user to the user api when Signing Up
-  const registerNewUser = (newUser) => {
-    axios
-      .post('https://character-randomizer-backend.herokuapp.com/api/auth/register', newUser)
+  //Logging in the user with backend api:
+  const loginUser = userInfo => {
+    axiosWithAuth()
+      .post(`auth/login`, userInfo)
       .then(res => {
         setUser(res.data.user)
+        localStorage.setItem('token', res.data.token)
+
+        if (res.data.message === "Welcome") {
+          return (
+            navigate(`/${res.data.user.user_id}/created-characters`)
+          )
+        }
+      })
+      .catch((err) => {
+        console.log(`Login Error:`, err)
+
+        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
+      })
+      //Do I need this?
+      .finally(setLoginValues(initialLoginValues))
+  }
+
+  const loginSubmit = event => {
+    event.preventDefault()
+
+    const user = {
+      username: loginValues.username,
+      password: loginValues.password
+    }
+
+    loginUser(user)
+  }
+
+
+  //Posting a new user to the user api when Signing Up
+  const registerNewUser = (newUser) => {
+    axiosWithAuth()
+      .post('auth/register', newUser)
+      .then(res => {
+        setUser(res.data.user)
+        localStorage.setItem('token', res.data.token)
 
         navigate(`/${res.data.user.user_id}/created-characters`)
 
@@ -211,41 +249,6 @@ function App() {
     registerNewUser(newUser)
   }
 
-  //Logging in the user with backend api:
-  const loginUser = pastUser => {
-    axios
-      .post('https://character-randomizer-backend.herokuapp.com/api/auth/login', pastUser)
-      .then(res => {
-        setUser(res.data.user)
-
-        if (res.data.message === "Welcome") {
-          return (
-            navigate(`/${res.data.user.user_id}/created-characters`)
-          )
-        }
-
-        return user
-
-      })
-      .catch((err) => {
-        console.log(`Error:`, err)
-
-        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
-      })
-      .finally(setLoginValues(initialLoginValues))
-  }
-
-  const loginSubmit = event => {
-    console.log(event)
-    event.preventDefault()
-
-    const pastUser = {
-      username: loginValues.username,
-      password: loginValues.password
-    }
-
-    loginUser(pastUser)
-  }
 
   // //For "blurring" out the passwords for login/sign up pages:
   const handleShowPassLogin = () => {
@@ -259,6 +262,7 @@ function App() {
   const handleShowConfirmPassSignup = () => {
     setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
   }
+
   return (
     <div className="App">
 
@@ -271,6 +275,7 @@ function App() {
             submitNewUser={submitNewUser}
             handleShowPass={handleShowPassSignup}
             handleShowConfirm={handleShowConfirmPassSignup}
+            user={user}
           />} />
 
         <Route path={`/login`}
@@ -280,30 +285,41 @@ function App() {
             loginErrors={loginErrors}
             submitLogin={loginSubmit}
             handleShowPass={handleShowPassLogin}
+            user={user}
           />} />
 
-        {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/account`}
-          element={<Account
-            user={user} />} />
+        {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
+        <Route element={<PrivateRoute />}>
+          {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+          <Route path={`/users/:user_id`}
+            element={
+              <Account
+                user={user} />
+            } />
 
-        {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-        <Route path={`/:user_id/created-characters`}
-          element={<CreatedCharPage
-            user={user} />} />
+          {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+          < Route path={`/:user_id/created-characters`}
+            element={
+              <CreatedCharPage
+                user={user} />
+            } />
+
+        </Route>
 
         <Route path={`/contact`}
           element={<Contact
             changeContact={changeInputContact}
             valuesContact={contactFormValues}
-            contactErrors={contactErrors} />} />
+            contactErrors={contactErrors}
+            user={user} />} />
 
         <Route path={`/character-randomizer`}
           element={<CharRandomizer
             changeRand={changeInputRandomizer}
-            valuesRand={charFormValues} />} />
+            valuesRand={charFormValues}
+            user={user} />} />
 
-        <Route exact path={`/`} element={<Home />} />
+        <Route exact path={`/`} element={<Home user={user} />} />
       </Routes>
 
     </div>
