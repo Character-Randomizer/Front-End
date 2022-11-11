@@ -39,7 +39,7 @@ const initialRandomizerValues = {
   background: ''
 }
 
-const initialUserValues = {
+const initialSignupValues = {
   first_name: '',
   last_name: '',
   username: '',
@@ -81,8 +81,8 @@ function App() {
 
   const [user, setUser] = useState(initialUser)
 
-  const [signupFormValues, setSignupFormValues] = useState(initialUserValues)
-  const [signupErrors, setSignupErrors] = useState(initialUserValues)
+  const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
+  const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
   // const [contactForm, setContactForm] = useState(initialContactForm)
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
@@ -230,7 +230,7 @@ function App() {
 
         setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
       })
-      .finally(setSignupFormValues(initialUserValues))
+      .finally(setSignupFormValues(initialSignupValues))
   }
 
   const submitNewUser = event => {
@@ -251,13 +251,18 @@ function App() {
 
 
   // //For "blurring" out the passwords for login/sign up pages:
-  const handleShowPassLogin = () => {
-    setLoginValues({ ...loginValues, showPass: !loginValues.showPass })
+  const handleShowPass = (id) => {
+    if (window.location.pathname === `/login`) {
+      setLoginValues({ ...loginValues, showPass: !loginValues.showPass })
+    }
+    else if (window.location.pathname === `/signup` && id === 'input-pass-icon') {
+      setSignupFormValues({ ...signupFormValues, showPass: !signupFormValues.showPass })
+    }
+    else if (window.location.pathname === `/signup` && id === 'input-confirm-pass-icon') {
+      setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
+    }
   }
 
-  const handleShowPassSignup = () => {
-    setSignupFormValues({ ...signupFormValues, showPass: !signupFormValues.showPass })
-  }
 
   const handleShowConfirmPassSignup = () => {
     setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
@@ -273,7 +278,7 @@ function App() {
             valuesSignup={signupFormValues}
             signupErrors={signupErrors}
             submitNewUser={submitNewUser}
-            handleShowPass={handleShowPassSignup}
+            handleShowPass={handleShowPass}
             handleShowConfirm={handleShowConfirmPassSignup}
             user={user}
           />} />
@@ -284,7 +289,7 @@ function App() {
             valuesLogin={loginValues}
             loginErrors={loginErrors}
             submitLogin={loginSubmit}
-            handleShowPass={handleShowPassLogin}
+            handleShowPass={handleShowPass}
             user={user}
           />} />
 

@@ -12,7 +12,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 export default function SignUp(props) {
-   const { changeSignup, valuesSignup, signupErrors, submitNewUser, handleShowPass, handleShowConfirm, user } = props
+   const { changeSignup,
+      valuesSignup,
+      signupErrors,
+      submitNewUser,
+      handleShowPass,
+      user } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -104,7 +109,9 @@ export default function SignUp(props) {
                      placeholder='Password'
                   />
                   <VisibilityDiv
-                     onClick={handleShowPass}
+                     onClick={(id) => {
+                        handleShowPass(id = `input-pass-icon`)
+                     }}
                      onMouseDown={handleMouseDownPass}
                   >
                      {valuesSignup.showPass ? <VisibilityOff /> : <Visibility />}
@@ -123,7 +130,9 @@ export default function SignUp(props) {
                      placeholder='Confirm password'
                   />
                   <VisibilityDiv
-                     onClick={handleShowConfirm}
+                     onClick={(id) => {
+                        handleShowPass(id = `input-confirm-pass-icon`)
+                     }}
                      onMouseDown={handleMouseDownPass}
                   >
                      {valuesSignup.showConfirm ? <VisibilityOff /> : <Visibility />}
