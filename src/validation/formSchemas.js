@@ -36,7 +36,7 @@ const formSchemaSignup = yup.object().shape({
       .required('Enter your date of birth')
 })
 
-const formSchemaRandom = yup.object().shape({
+const formSchemaRandomizer = yup.object().shape({
    first_name: yup.string()
       .min(1, 'First name must be at least 1 character')
       .required('First name is required'),
@@ -127,4 +127,4 @@ const formSchemaLogin = yup.object().shape({
       .required('A password is required')
 })
 
-export { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin }
+export { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin }

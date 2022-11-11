@@ -11,13 +11,13 @@ import Contact from './components/contact'
 import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
-import { formSchemaSignup, formSchemaRandom, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
+import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
 import axiosWithAuth from './authorization/axiosWithAuth';
 import PrivateRoute from './authorization/privateRoutes';
 
 
-const initialCharValues = {
+const initialRandomizerValues = {
   first_name: '',
   last_name: '',
   level: 1,
@@ -76,8 +76,8 @@ function App() {
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
   // const [characters, setCharacters] = useState(initialCharacters)
-  const [charFormValues, setCharFormValues] = useState(initialCharValues)
-  const [charErrors, setCharErrors] = useState(initialCharValues)
+  const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
+  const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
 
   const [user, setUser] = useState(initialUser)
 
@@ -138,23 +138,23 @@ function App() {
   //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
     yup
-      .reach(formSchemaRandom, name)
+      .reach(formSchemaRandomizer, name)
       .validate(value)
       .then(() => {
-        setCharErrors({ ...charErrors, [name]: '' })
+        setRandomizerErrors({ ...randomizerErrors, [name]: '' })
       })
       .catch(err => {
-        setCharErrors({ ...charErrors, [name]: err.errors })
+        setRandomizerErrors({ ...randomizerErrors, [name]: err.errors })
       })
 
-    setCharFormValues({ ...charFormValues, [name]: value })
+    setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
   }
 
   useEffect(() => {
-    formSchemaRandom.isValid(charFormValues).then(validate => {
+    formSchemaRandomizer.isValid(randomizerFormValues).then(validate => {
       setDisabled(!validate)
     })
-  }, [charFormValues])
+  }, [randomizerFormValues])
 
   //Validation Errors for Contact Page:
   const changeInputContact = (name, value) => {
@@ -316,7 +316,7 @@ function App() {
         <Route path={`/character-randomizer`}
           element={<CharRandomizer
             changeRand={changeInputRandomizer}
-            valuesRand={charFormValues}
+            valuesRand={randomizerFormValues}
             user={user} />} />
 
         <Route exact path={`/`} element={<Home user={user} />} />
