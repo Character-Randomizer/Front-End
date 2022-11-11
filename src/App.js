@@ -52,6 +52,7 @@ const initialSignupValues = {
   username: '',
   password: '',
   confirm_password: '',
+  dob: '',
   email: '',
   terms: false,
   showPass: false,
@@ -205,7 +206,6 @@ function App() {
 
         setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
       })
-      //Do I need this?
       .finally(setLoginValues(initialLoginValues))
   }
 
