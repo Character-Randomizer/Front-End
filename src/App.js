@@ -302,6 +302,8 @@ function App() {
             <Route path={`/users/:user_id`}
               element={
                 <Account
+                  disabled={disabled}
+                  setDisabled={setDisabled}
                 />
               } />
 

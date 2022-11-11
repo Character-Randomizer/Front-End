@@ -5,8 +5,19 @@ import { Header, Footer } from './header-footer'
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
-export default function Account() {
+export default function Account(props) {
    const userContext = useContext(UserContext)
+
+   //Need to figure out a way to make the 'edit' buttons switch the user info into inputs with user info populated
+   //User can edit the input fields
+   //Create a 'save' button
+   //On the click for 'save', the new information is edited for the user (axios request)
+   //and the input fields return to the information text with the new inputted information from the user
+   const { disabled,
+      setDisabled } = props
+
+   console.log(`Account User:`, userContext.user)
+   console.log(disabled)
 
    const getMonth = month => {
       switch (month) {
@@ -46,10 +57,27 @@ export default function Account() {
    const dobMonth = dobParts[1]
    const dobDay = dobParts[2]
 
-   // const editInfo = (id) => {
-   //    if(id === 'name-edit'){
-
+   // const handleEdit = (id) => {
+   //    if (id === 'name-edit') {
+   //       setDisabled(false)
    //    }
+   //    else if(id === 'un-edit'){
+   //       setDisabled(false)
+   //    }
+   //    else if(id === 'email-edit'){
+   //       setDisabled(false)
+   //    }
+   //    else if(id === 'pw-edit'){
+   //       setDisabled(false)
+   //    }
+   //    else if(id === 'dob-edit'){
+   //       setDisabled(false)
+   //    }
+   // }
+
+   // const handleSave = () => {
+   //    setUser()
+   //    setDisabled(true)
    // }
 
    return (
@@ -67,7 +95,6 @@ export default function Account() {
 
          <p className='account-titles'>Username</p>
          <button className='account-edit-btn un-edit' onClick={null}>Edit</button>
-
          <p className='account-info'>{userContext.user.username}</p>
 
          <p className='account-titles'>Email</p>
@@ -75,7 +102,7 @@ export default function Account() {
          <p className='account-info'>{userContext.user.email}</p>
 
          <p className='account-titles'>Change Password?</p>
-         <button className='changePass pass-edit' onClick={null}>Change Password</button>
+         <button className='changePass pw-edit' onClick={null}>Change Password</button>
 
          <p className='account-titles'>Birthday</p>
          <button className='account-edit-btn dob-edit' onClick={null}>Edit</button>
