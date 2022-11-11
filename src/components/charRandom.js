@@ -7,7 +7,7 @@ import StyledButtons from '../styles/buttonStyles'
 import { UserContext } from '../contextAPI';
 
 export default function CharRandomizer(props) {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
 
    const { changeRand,
@@ -15,7 +15,7 @@ export default function CharRandomizer(props) {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <h2>Character Creation Randomizer</h2>
 
@@ -417,7 +417,7 @@ export default function CharRandomizer(props) {
             </div>
          </form>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

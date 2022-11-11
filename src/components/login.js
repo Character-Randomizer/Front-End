@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { UserContext } from '../contextAPI';
 
 export default function Login(props) {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    const { changeLogin,
       valuesLogin,
@@ -33,7 +33,7 @@ export default function Login(props) {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>
@@ -104,7 +104,7 @@ export default function Login(props) {
             </div>
          </div>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

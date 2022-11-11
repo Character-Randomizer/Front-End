@@ -12,11 +12,11 @@ import { UserContext } from '../contextAPI';
 
 
 export default function Home() {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <div className="middle">
             <StyledH2>What the Randomizer Does</StyledH2>
@@ -70,7 +70,7 @@ export default function Home() {
             </div>
          </div>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

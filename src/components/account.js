@@ -6,16 +6,16 @@ import { Header, Footer } from './header-footer'
 import { UserContext } from '../contextAPI';
 
 export default function Account() {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
-         <h1>{user.user.first_name},</h1>
+         <h1>{userContext.user.first_name},</h1>
          <h1>This page is under construction.</h1>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

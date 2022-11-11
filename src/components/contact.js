@@ -9,7 +9,7 @@ import { StyledForm } from '../styles/loginPageStyles'
 import { UserContext } from '../contextAPI';
 
 export default function Contact(props) {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    const { changeContact,
       valuesContact,
@@ -23,7 +23,7 @@ export default function Contact(props) {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <StyledForm onSubmit={null}>
             <StyledH2>
@@ -107,7 +107,7 @@ export default function Contact(props) {
             </StyledFormDiv>
          </StyledForm>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

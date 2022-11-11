@@ -72,9 +72,9 @@ const initialLoginValues = {
   showPass: false
 }
 
-// const initialCharacters = []
+//intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
+const initialCharacters = []
 const initialUser = {}
-// const initialContactForm = {}
 const initialDisabled = true
 
 
@@ -82,7 +82,9 @@ function App() {
   const [loginValues, setLoginValues] = useState(initialLoginValues)
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
-  // const [characters, setCharacters] = useState(initialCharacters)
+  //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
+  const [characters, setCharacters] = useState(initialCharacters)
+
   const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
   const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
 
@@ -91,7 +93,6 @@ function App() {
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
   const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
-  // const [contactForm, setContactForm] = useState(initialContactForm)
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
@@ -262,11 +263,13 @@ function App() {
     if (window.location.pathname === `/login`) {
       setLoginValues({ ...loginValues, showPass: !loginValues.showPass })
     }
-    else if (window.location.pathname === `/signup` && id === 'input-pass-icon') {
-      setSignupFormValues({ ...signupFormValues, showPass: !signupFormValues.showPass })
-    }
-    else if (window.location.pathname === `/signup` && id === 'input-confirm-pass-icon') {
-      setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
+    else if (window.location.pathname === `/signup`) {
+      if (id === 'input-pass-icon') {
+        setSignupFormValues({ ...signupFormValues, showPass: !signupFormValues.showPass })
+      }
+      else if (id === 'input-confirm-pass-icon') {
+        setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
+      }
     }
   }
 
@@ -282,7 +285,6 @@ function App() {
               signupErrors={signupErrors}
               submitNewUser={submitNewUser}
               handleShowPass={handleShowPass}
-            // user={user}
             />} />
 
           <Route path={`/login`}
@@ -292,7 +294,6 @@ function App() {
               loginErrors={loginErrors}
               submitLogin={loginSubmit}
               handleShowPass={handleShowPass}
-            // user={user}
             />} />
 
           {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
@@ -301,7 +302,6 @@ function App() {
             <Route path={`/users/:user_id`}
               element={
                 <Account
-                // user={user}
                 />
               } />
 
@@ -309,7 +309,6 @@ function App() {
             < Route path={`/:user_id/created-characters`}
               element={
                 <CreatedCharPage
-                // user={user} 
                 />
               } />
 
@@ -320,18 +319,15 @@ function App() {
               changeContact={changeInputContact}
               valuesContact={contactFormValues}
               contactErrors={contactErrors}
-            // user={user} 
             />} />
 
           <Route path={`/character-randomizer`}
             element={<CharRandomizer
               changeRand={changeInputRandomizer}
               valuesRand={randomizerFormValues}
-            // user={user} 
             />} />
 
           <Route exact path={`/`} element={<Home
-          // user={user} 
           />} />
         </Routes>
 

@@ -15,7 +15,7 @@ import { UserContext } from '../contextAPI';
 
 
 export default function SignUp(props) {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    const { changeSignup,
       valuesSignup,
@@ -37,7 +37,7 @@ export default function SignUp(props) {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <StyledForm onSubmit={submitNewUser}>
             <div className='signup-div signupPage'>
@@ -202,7 +202,7 @@ export default function SignUp(props) {
             </div>
          </StyledForm>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

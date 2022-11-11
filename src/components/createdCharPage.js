@@ -7,10 +7,10 @@ import { Header, Footer } from './header-footer'
 import { UserContext } from '../contextAPI';
 
 export default function CreatedCharPage() {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    //After a refresh, the user is no longer in state for some reason. May need to preventDefault()?
-   console.log(`Character Page user refresh issue:`, user)
+   console.log(`Character Page user refresh issue:`, userContext)
 
 
    if (!window.localStorage.getItem('token')) {
@@ -19,12 +19,12 @@ export default function CreatedCharPage() {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
-         <h1>{user.user.first_name},</h1>
+         <h1>{userContext.user.first_name},</h1>
          <h1>This page is under construction.</h1>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

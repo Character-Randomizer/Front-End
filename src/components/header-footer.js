@@ -7,7 +7,7 @@ import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFoot
 import { UserContext } from '../contextAPI';
 
 function Header() {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    const token = localStorage.getItem('token')
 
@@ -53,12 +53,12 @@ function Header() {
                   :
                   <>
                      <StyledTopBtns>
-                        <NavLink to={`/${user.user.user_id}/created-characters`}>
+                        <NavLink to={`/${userContext.user.user_id}/created-characters`}>
                            <StyledTopBtnDiv>Characters</StyledTopBtnDiv>
                         </NavLink>
                      </StyledTopBtns>
                      <StyledTopBtns>
-                        <NavLink to={`/users/${user.user.user_id}`}>
+                        <NavLink to={`/users/${userContext.user.user_id}`}>
                            <StyledTopBtnDiv>Account</StyledTopBtnDiv>
                         </NavLink>
                      </StyledTopBtns>
@@ -75,7 +75,7 @@ function Header() {
 
 
 function Footer() {
-   const user = useContext(UserContext)
+   const userContext = useContext(UserContext)
 
    const token = localStorage.getItem('token')
 
@@ -114,12 +114,12 @@ function Footer() {
                   :
                   <>
                      <StyledBtmBtns>
-                        <NavLink to={`/${user.user.user_id}/created-characters`} className='contact btmLink'>
+                        <NavLink to={`/${userContext.user.user_id}/created-characters`} className='contact btmLink'>
                            <div>Characters</div>
                         </NavLink>
                      </StyledBtmBtns>
                      <StyledBtmBtns>
-                        <NavLink to={`/users/${user.user.user_id}`} className='contact btmLink'>
+                        <NavLink to={`/users/${userContext.user.user_id}`} className='contact btmLink'>
                            <div>Account</div>
                         </NavLink>
                      </StyledBtmBtns>
