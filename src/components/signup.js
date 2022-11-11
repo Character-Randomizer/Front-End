@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
@@ -10,14 +10,18 @@ import { StyledH2, StyledDivWidth60, StyledDivWidth100, StyledTermLabel, StyledI
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
+
 
 export default function SignUp(props) {
+   const user = useContext(UserContext)
+
    const { changeSignup,
       valuesSignup,
       signupErrors,
       submitNewUser,
-      handleShowPass,
-      user } = props
+      handleShowPass } = props
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
 
 import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFooterNav, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP } from '../styles/header-footerStyles';
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
 
-function Header(user) {
+function Header() {
+   const user = useContext(UserContext)
+
    const token = localStorage.getItem('token')
 
    const navigate = useNavigate()
@@ -70,7 +74,9 @@ function Header(user) {
 }
 
 
-function Footer(user) {
+function Footer() {
+   const user = useContext(UserContext)
+
    const token = localStorage.getItem('token')
 
    return (

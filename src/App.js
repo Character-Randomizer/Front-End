@@ -1,8 +1,10 @@
+//Library + css imports
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
+//Components
 import Home from './components/home'
 import Login from './components/login'
 import SignUp from './components/signup'
@@ -11,12 +13,17 @@ import Contact from './components/contact'
 import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
+//Form Validation
 import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
 
+//Authorization
 import axiosWithAuth from './authorization/axiosWithAuth';
 import PrivateRoute from './authorization/privateRoutes';
 
+//State Management - Context API
+import { UserContext } from './contextAPI';
 
+//Initial Variables
 const initialRandomizerValues = {
   first_name: '',
   last_name: '',
@@ -263,71 +270,73 @@ function App() {
     }
   }
 
-
-  const handleShowConfirmPassSignup = () => {
-    setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
-  }
-
   return (
-    <div className="App">
+    <UserContext.Provider value={{ user }}>
+      <div className="App">
 
-      <Routes>
-        <Route path={`/signup`}
-          element={<SignUp
-            changeSignup={changeInputSignup}
-            valuesSignup={signupFormValues}
-            signupErrors={signupErrors}
-            submitNewUser={submitNewUser}
-            handleShowPass={handleShowPass}
-            handleShowConfirm={handleShowConfirmPassSignup}
-            user={user}
+        <Routes>
+          <Route path={`/signup`}
+            element={<SignUp
+              changeSignup={changeInputSignup}
+              valuesSignup={signupFormValues}
+              signupErrors={signupErrors}
+              submitNewUser={submitNewUser}
+              handleShowPass={handleShowPass}
+            // user={user}
+            />} />
+
+          <Route path={`/login`}
+            element={<Login
+              changeLogin={changeInputLogin}
+              valuesLogin={loginValues}
+              loginErrors={loginErrors}
+              submitLogin={loginSubmit}
+              handleShowPass={handleShowPass}
+            // user={user}
+            />} />
+
+          {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
+          <Route element={<PrivateRoute />}>
+            {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+            <Route path={`/users/:user_id`}
+              element={
+                <Account
+                // user={user}
+                />
+              } />
+
+            {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
+            < Route path={`/:user_id/created-characters`}
+              element={
+                <CreatedCharPage
+                // user={user} 
+                />
+              } />
+
+          </Route>
+
+          <Route path={`/contact`}
+            element={<Contact
+              changeContact={changeInputContact}
+              valuesContact={contactFormValues}
+              contactErrors={contactErrors}
+            // user={user} 
+            />} />
+
+          <Route path={`/character-randomizer`}
+            element={<CharRandomizer
+              changeRand={changeInputRandomizer}
+              valuesRand={randomizerFormValues}
+            // user={user} 
+            />} />
+
+          <Route exact path={`/`} element={<Home
+          // user={user} 
           />} />
+        </Routes>
 
-        <Route path={`/login`}
-          element={<Login
-            changeLogin={changeInputLogin}
-            valuesLogin={loginValues}
-            loginErrors={loginErrors}
-            submitLogin={loginSubmit}
-            handleShowPass={handleShowPass}
-            user={user}
-          />} />
-
-        {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
-        <Route element={<PrivateRoute />}>
-          {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-          <Route path={`/users/:user_id`}
-            element={
-              <Account
-                user={user} />
-            } />
-
-          {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
-          < Route path={`/:user_id/created-characters`}
-            element={
-              <CreatedCharPage
-                user={user} />
-            } />
-
-        </Route>
-
-        <Route path={`/contact`}
-          element={<Contact
-            changeContact={changeInputContact}
-            valuesContact={contactFormValues}
-            contactErrors={contactErrors}
-            user={user} />} />
-
-        <Route path={`/character-randomizer`}
-          element={<CharRandomizer
-            changeRand={changeInputRandomizer}
-            valuesRand={randomizerFormValues}
-            user={user} />} />
-
-        <Route exact path={`/`} element={<Home user={user} />} />
-      </Routes>
-
-    </div>
+      </div>
+    </UserContext.Provider>
   );
 }
 

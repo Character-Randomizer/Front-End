@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
 
 export default function CharRandomizer(props) {
-   const { changeRand, valuesRand, user } = props
+   const user = useContext(UserContext)
+
+
+   const { changeRand,
+      valuesRand } = props
 
    return (
       <>

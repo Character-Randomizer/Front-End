@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, StyledH2 } from '../styles/contactFormStyles';
 import { StyledForm } from '../styles/loginPageStyles'
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
+
 export default function Contact(props) {
-   const { changeContact, valuesContact, contactErrors, user } = props
+   const user = useContext(UserContext)
+
+   const { changeContact,
+      valuesContact,
+      contactErrors } = props
 
    const onChangeContact = event => {
       const { name, value } = event.target
