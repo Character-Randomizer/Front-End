@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
@@ -9,8 +9,17 @@ import StyledButtons from '../styles/buttonStyles'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
+
 export default function Login(props) {
-   const { changeLogin, valuesLogin, loginErrors, submitLogin, handleShowPass, user } = props
+   const userContext = useContext(UserContext)
+
+   const { changeLogin,
+      valuesLogin,
+      loginErrors,
+      submitLogin,
+      handleShowPass } = props
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -24,7 +33,7 @@ export default function Login(props) {
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <StyledForm onSubmit={submitLogin}>
             <div className='login-div'>
@@ -95,7 +104,7 @@ export default function Login(props) {
             </div>
          </div>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }

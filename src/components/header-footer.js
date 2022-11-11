@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom'
 
 import { StyledHeader, StyledTopBtns, StyledBtmBtns, StyledHeaderNav, StyledFooterNav, StyledFooter, StyledTopBtnDiv, StyledH1, StyledCopyrightDiv, StyledCopyrightP } from '../styles/header-footerStyles';
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
 
-function Header(user) {
+function Header() {
+   const userContext = useContext(UserContext)
+
    const token = localStorage.getItem('token')
 
    const navigate = useNavigate()
@@ -49,12 +53,12 @@ function Header(user) {
                   :
                   <>
                      <StyledTopBtns>
-                        <NavLink to={`/${user.user.user_id}/created-characters`}>
+                        <NavLink to={`/${userContext.user.user_id}/created-characters`}>
                            <StyledTopBtnDiv>Characters</StyledTopBtnDiv>
                         </NavLink>
                      </StyledTopBtns>
                      <StyledTopBtns>
-                        <NavLink to={`/users/${user.user.user_id}`}>
+                        <NavLink to={`/users/${userContext.user.user_id}`}>
                            <StyledTopBtnDiv>Account</StyledTopBtnDiv>
                         </NavLink>
                      </StyledTopBtns>
@@ -70,7 +74,9 @@ function Header(user) {
 }
 
 
-function Footer(user) {
+function Footer() {
+   const userContext = useContext(UserContext)
+
    const token = localStorage.getItem('token')
 
    return (
@@ -108,12 +114,12 @@ function Footer(user) {
                   :
                   <>
                      <StyledBtmBtns>
-                        <NavLink to={`/${user.user.user_id}/created-characters`} className='contact btmLink'>
+                        <NavLink to={`/${userContext.user.user_id}/created-characters`} className='contact btmLink'>
                            <div>Characters</div>
                         </NavLink>
                      </StyledBtmBtns>
                      <StyledBtmBtns>
-                        <NavLink to={`/users/${user.user.user_id}`} className='contact btmLink'>
+                        <NavLink to={`/users/${userContext.user.user_id}`} className='contact btmLink'>
                            <div>Account</div>
                         </NavLink>
                      </StyledBtmBtns>

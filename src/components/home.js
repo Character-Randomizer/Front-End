@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header, Footer } from './header-footer'
@@ -7,13 +7,16 @@ import { StyledH2 } from '../styles/homeStyles'
 
 import npcs from '../images/npcs.jpeg'
 
+//State Management - Context API
+import { UserContext } from '../contextAPI';
 
-export default function Home(props) {
-   const { user } = props
+
+export default function Home() {
+   const userContext = useContext(UserContext)
 
    return (
       <>
-         <Header user={user} />
+         <Header />
 
          <div className="middle">
             <StyledH2>What the Randomizer Does</StyledH2>
@@ -67,7 +70,7 @@ export default function Home(props) {
             </div>
          </div>
 
-         <Footer user={user} />
+         <Footer />
       </>
    )
 }
