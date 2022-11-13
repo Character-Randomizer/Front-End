@@ -1,9 +1,15 @@
 import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
+import StyledButtons from '../styles/buttonStyles';
+
+//Icons for showing or not showing password:
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 //State Management - Context API
 import { UserContext } from '../contextAPI';
+
 
 export default function Account(props) {
    const userContext = useContext(UserContext)
@@ -57,28 +63,18 @@ export default function Account(props) {
    const dobMonth = dobParts[1]
    const dobDay = dobParts[2]
 
-   // const handleEdit = (id) => {
-   //    if (id === 'name-edit') {
-   //       setDisabled(false)
-   //    }
-   //    else if(id === 'un-edit'){
-   //       setDisabled(false)
-   //    }
-   //    else if(id === 'email-edit'){
-   //       setDisabled(false)
-   //    }
-   //    else if(id === 'pw-edit'){
-   //       setDisabled(false)
-   //    }
-   //    else if(id === 'dob-edit'){
-   //       setDisabled(false)
-   //    }
-   // }
+   const handleEdit = () => {
+      setDisabled(false)
+   }
 
-   // const handleSave = () => {
-   //    setUser()
-   //    setDisabled(true)
-   // }
+   const handleSave = () => {
+      // setUser()
+      setDisabled(true)
+   }
+
+   const handleDelete = () => {
+      return null
+   }
 
    return (
       <>
@@ -89,25 +85,29 @@ export default function Account(props) {
 
          <h1 className='account-welcome'>Welcome back {userContext.user.first_name}</h1>
 
-         <p className='account-titles'>Name</p>
-         <button className='account-edit-btn name-edit' onClick={null}>Edit</button>
-         <p className='account-info'>{userContext.user.first_name} {userContext.user.last_name}</p>
+         {disabled ?
+            <>
+               <p className='account-titles'>Name</p>
+               <p className='account-info'>{userContext.user.first_name} {userContext.user.last_name}</p>
 
-         <p className='account-titles'>Username</p>
-         <button className='account-edit-btn un-edit' onClick={null}>Edit</button>
-         <p className='account-info'>{userContext.user.username}</p>
+               <p className='account-titles'>Username</p>
+               <p className='account-info'>{userContext.user.username}</p>
 
-         <p className='account-titles'>Email</p>
-         <button className='account-edit-btn email-edit' onClick={null}>Edit</button>
-         <p className='account-info'>{userContext.user.email}</p>
+               <p className='account-titles'>Email</p>
+               <p className='account-info'>{userContext.user.email}</p>
 
-         <p className='account-titles'>Change Password?</p>
-         <button className='changePass pw-edit' onClick={null}>Change Password</button>
+               <p className='account-titles'>Birthday</p>
+               <p className='account-info'>{getMonth(dobMonth)} {dobDay}, {dobYear}</p>
 
-         <p className='account-titles'>Birthday</p>
-         <button className='account-edit-btn dob-edit' onClick={null}>Edit</button>
-         <p className='account-info'>{getMonth(dobMonth)} {dobDay}, {dobYear}</p>
-
+               <StyledButtons className='account-edit-btn' onClick={handleEdit}>Edit</StyledButtons>
+            </>
+            :
+            <>
+               <p>Edit button was clicked</p>
+               <StyledButtons onClick={(handleSave)}>Save</StyledButtons>
+               <StyledButtons onClick={null}>Delete</StyledButtons>
+            </>
+         }
 
          <Footer />
       </>
