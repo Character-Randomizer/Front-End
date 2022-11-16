@@ -80,22 +80,26 @@ const initialDisabled = true
 
 
 function App() {
+  const [user, setUser] = useState(initialUser)
+
+  //Form Values + Error States
   const [loginValues, setLoginValues] = useState(initialLoginValues)
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
-  //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
-  const [characters, setCharacters] = useState(initialCharacters)
-
   const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
   const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
-
-  const [user, setUser] = useState(initialUser)
 
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
   const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
+
+  const [accountFormValues, setAccountFormValues] = useState(user)
+  const [accountErrors, setAccountErrors] = useState(initialSignupValues)
+
+  //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
+  const [characters, setCharacters] = useState(initialCharacters)
 
   const [disabled, setDisabled] = useState(initialDisabled)
 
@@ -123,7 +127,7 @@ function App() {
   }, [loginValues])
 
 
-  //Validation Errors for Sign Up Page:
+  //Validation Errors + changing input for Sign Up Page:
   const changeInputSignup = (name, value) => {
     yup
       .reach(formSchemaSignup, name)
@@ -143,6 +147,29 @@ function App() {
       setDisabled(!validate)
     })
   }, [signupFormValues])
+
+  //Validation Errors + changing input for Account Page:
+  const changeInputAccount = (name, value) => {
+    yup
+      .reach(formSchemaSignup, name)
+      .validate(value)
+      .then(() => {
+        setAccountErrors({ ...accountErrors, [name]: '' })
+      })
+      .catch(err => {
+        setAccountErrors({ ...accountErrors, [name]: err.errors })
+      })
+
+    setAccountFormValues({ ...accountFormValues, [name]: value })
+
+    console.log(`Account Form Values?`, accountFormValues)
+  }
+
+  useEffect(() => {
+    formSchemaSignup.isValid(accountFormValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [accountFormValues])
 
   //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
@@ -304,6 +331,9 @@ function App() {
                 <Account
                   disabled={disabled}
                   setDisabled={setDisabled}
+                  setUser={setUser}
+                  changeAccountValues={changeInputAccount}
+                  valuesAccount={user}
                 />
               } />
 

@@ -20,11 +20,15 @@ export default function Account(props) {
    //On the click for 'save', the new information is edited for the user (axios request)
    //and the input fields return to the information text with the new inputted information from the user
    const { disabled,
-      setDisabled } = props
+      setDisabled,
+      setUser,
+      changeAccountValues,
+      valuesAccount } = props
 
    console.log(`Account User:`, userContext.user)
-   console.log(disabled)
+   console.log(`Account input Values:`, valuesAccount)
 
+   //functions for getting birthdate in a correct format (Month Day, Year)
    const getMonth = month => {
       switch (month) {
          case '01':
@@ -63,6 +67,7 @@ export default function Account(props) {
    const dobMonth = dobParts[1]
    const dobDay = dobParts[2]
 
+   //functions for buttons
    const handleEdit = () => {
       setDisabled(false)
    }
@@ -76,12 +81,20 @@ export default function Account(props) {
       return null
    }
 
+   //functions for inputs once user is editing
+   const onChange = (event) => {
+      const { name, value } = event.target
+
+      changeAccountValues(name, value)
+   }
+
+
    return (
       <>
          <Header />
-
+         {/* 
          <h1>{userContext.user.first_name},</h1>
-         <h1>This page is under construction.</h1>
+         <h1>This page is under construction.</h1> */}
 
          <h1 className='account-welcome'>Welcome back {userContext.user.first_name}</h1>
 
@@ -103,8 +116,54 @@ export default function Account(props) {
             </>
             :
             <>
-               <p>Edit button was clicked</p>
+               <p className='account-titles'>First Name</p>
+               <input
+                  className='input-account-first-name'
+                  type='text'
+                  name='first_name'
+                  value={valuesAccount.first_name}
+                  onChange={onChange}
+               />
+
+               <p className='account-titles'>Last Name</p>
+               <input
+                  className='input-account-last-name'
+                  type='text'
+                  name='last_name'
+                  value={valuesAccount.last_name}
+                  onChange={onChange}
+               />
+
+               <p className='account-titles'>Username</p>
+               <input
+                  className='input-account-un'
+                  type='text'
+                  name='username'
+                  value={valuesAccount.username}
+                  onChange={onChange}
+               />
+
+               <p className='account-titles'>Email</p>
+               <input
+                  className='input-account-email'
+                  type='text'
+                  name='email'
+                  value={valuesAccount.email}
+                  onChange={onChange}
+               />
+
+               <p className='account-titles'>Birthday</p>
+               <input
+                  type='date'
+                  id='input-dob'
+                  name='dob'
+                  min='1900-01-01'
+                  value={valuesAccount.dob.split('T')[0]}
+                  onChange={onChange}
+               />
+
                <StyledButtons onClick={(handleSave)}>Save</StyledButtons>
+
                <StyledButtons onClick={null}>Delete</StyledButtons>
             </>
          }
