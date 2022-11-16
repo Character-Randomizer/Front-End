@@ -19,14 +19,19 @@ export default function Account(props) {
    //Create a 'save' button
    //On the click for 'save', the new information is edited for the user (axios request)
    //and the input fields return to the information text with the new inputted information from the user
-   const { disabled,
-      setDisabled,
-      setUser,
-      changeAccountValues,
-      valuesAccount } = props
+   const { disabledButton,
+      setDisabledButton,
+      changeAccount,
+      valuesAccount,
+      accountErrors,
+      saveAccount,
+      deleteAccount } = props
 
-   console.log(`Account User:`, userContext.user)
-   console.log(`Account input Values:`, valuesAccount)
+   const user = userContext.user
+
+   //Console logs for seeing user + input values:
+   // console.log(`Account User:`, userContext.user)
+   // console.log(`Account input Values:`, valuesAccount)
 
    //functions for getting birthdate in a correct format (Month Day, Year)
    const getMonth = month => {
@@ -60,7 +65,7 @@ export default function Account(props) {
       }
    }
 
-   const dobStr = userContext.user.dob
+   const dobStr = user.dob
    const dob = dobStr.split('T')[0]
    const dobParts = dob.split('-')
    const dobYear = dobParts[0]
@@ -69,45 +74,41 @@ export default function Account(props) {
 
    //functions for buttons
    const handleEdit = () => {
-      setDisabled(false)
+      setDisabledButton(false)
    }
 
    const handleSave = () => {
-      // setUser()
-      setDisabled(true)
+      setDisabledButton(true)
    }
 
    const handleDelete = () => {
-      return null
+      setDisabledButton(true)
+
    }
 
    //functions for inputs once user is editing
    const onChange = (event) => {
       const { name, value } = event.target
 
-      changeAccountValues(name, value)
+      changeAccount(name, value)
    }
 
 
    return (
       <>
          <Header />
-         {/* 
-         <h1>{userContext.user.first_name},</h1>
-         <h1>This page is under construction.</h1> */}
+         <h1 className='account-welcome'>Welcome back {user.first_name}</h1>
 
-         <h1 className='account-welcome'>Welcome back {userContext.user.first_name}</h1>
-
-         {disabled ?
+         {disabledButton ?
             <>
                <p className='account-titles'>Name</p>
-               <p className='account-info'>{userContext.user.first_name} {userContext.user.last_name}</p>
+               <p className='account-info'>{user.first_name} {user.last_name}</p>
 
                <p className='account-titles'>Username</p>
-               <p className='account-info'>{userContext.user.username}</p>
+               <p className='account-info'>{user.username}</p>
 
                <p className='account-titles'>Email</p>
-               <p className='account-info'>{userContext.user.email}</p>
+               <p className='account-info'>{user.email}</p>
 
                <p className='account-titles'>Birthday</p>
                <p className='account-info'>{getMonth(dobMonth)} {dobDay}, {dobYear}</p>
@@ -116,55 +117,78 @@ export default function Account(props) {
             </>
             :
             <>
-               <p className='account-titles'>First Name</p>
-               <input
-                  className='input-account-first-name'
-                  type='text'
-                  name='first_name'
-                  value={valuesAccount.first_name}
-                  onChange={onChange}
-               />
+               <form >
+                  <p className='account-titles'>First Name</p>
+                  <div className='errors'>
+                     {accountErrors.first_name}
+                  </div>
+                  <input
+                     className='input-account-first-name'
+                     type='text'
+                     name='first_name'
+                     value={valuesAccount.first_name}
+                     onChange={onChange}
+                  />
 
-               <p className='account-titles'>Last Name</p>
-               <input
-                  className='input-account-last-name'
-                  type='text'
-                  name='last_name'
-                  value={valuesAccount.last_name}
-                  onChange={onChange}
-               />
+                  <p className='account-titles'>Last Name</p>
+                  <div className='errors'>
+                     {accountErrors.last_name}
+                  </div>
+                  <input
+                     className='input-account-last-name'
+                     type='text'
+                     name='last_name'
+                     value={valuesAccount.last_name}
+                     onChange={onChange}
+                  />
 
-               <p className='account-titles'>Username</p>
-               <input
-                  className='input-account-un'
-                  type='text'
-                  name='username'
-                  value={valuesAccount.username}
-                  onChange={onChange}
-               />
+                  <p className='account-titles'>Username</p>
+                  <div className='errors'>
+                     {accountErrors.username}
+                  </div>
+                  <input
+                     className='input-account-un'
+                     type='text'
+                     name='username'
+                     value={valuesAccount.username}
+                     onChange={onChange}
+                  />
 
-               <p className='account-titles'>Email</p>
-               <input
-                  className='input-account-email'
-                  type='text'
-                  name='email'
-                  value={valuesAccount.email}
-                  onChange={onChange}
-               />
+                  <p className='account-titles'>Email</p>
+                  <div className='errors'>
+                     {accountErrors.email}
+                  </div>
+                  <input
+                     className='input-account-email'
+                     type='text'
+                     name='email'
+                     value={valuesAccount.email}
+                     onChange={onChange}
+                  />
 
-               <p className='account-titles'>Birthday</p>
-               <input
-                  type='date'
-                  id='input-dob'
-                  name='dob'
-                  min='1900-01-01'
-                  value={valuesAccount.dob.split('T')[0]}
-                  onChange={onChange}
-               />
+                  <p className='account-titles'>Birthday</p>
+                  <div className='errors'>
+                     {accountErrors.dob}
+                  </div>
+                  <input
+                     type='date'
+                     id='input-dob'
+                     name='dob'
+                     min='1900-01-01'
+                     value={valuesAccount.dob.split('T')[0]}
+                     onChange={onChange}
+                  />
 
-               <StyledButtons onClick={(handleSave)}>Save</StyledButtons>
+                  <div className='errors'>
+                     {accountErrors.request_err}
+                  </div>
+                  <StyledButtons id='save-btn' onClick={saveAccount}>Save</StyledButtons>
 
-               <StyledButtons onClick={null}>Delete</StyledButtons>
+                  <StyledButtons id='delete-btn-1' onClick={(event) => {
+                     deleteAccount(event, user)
+                  }}>Delete</StyledButtons>
+
+               </form>
             </>
          }
 

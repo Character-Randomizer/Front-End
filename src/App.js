@@ -14,7 +14,7 @@ import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
 //Form Validation
-import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
+import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin, formSchemaAccount } from './validation/formSchemas'
 
 //Authorization
 import axiosWithAuth from './authorization/axiosWithAuth';
@@ -95,13 +95,15 @@ function App() {
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
-  const [accountFormValues, setAccountFormValues] = useState(user)
+  const [accountValues, setAccountValues] = useState(initialSignupValues)
   const [accountErrors, setAccountErrors] = useState(initialSignupValues)
 
   //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
   const [characters, setCharacters] = useState(initialCharacters)
 
   const [disabled, setDisabled] = useState(initialDisabled)
+  //For buttons on account page:
+  const [disabledButton, setDisabledButton] = useState(initialDisabled)
 
   const navigate = useNavigate()
 
@@ -151,7 +153,7 @@ function App() {
   //Validation Errors + changing input for Account Page:
   const changeInputAccount = (name, value) => {
     yup
-      .reach(formSchemaSignup, name)
+      .reach(formSchemaAccount, name)
       .validate(value)
       .then(() => {
         setAccountErrors({ ...accountErrors, [name]: '' })
@@ -160,16 +162,14 @@ function App() {
         setAccountErrors({ ...accountErrors, [name]: err.errors })
       })
 
-    setAccountFormValues({ ...accountFormValues, [name]: value })
-
-    console.log(`Account Form Values?`, accountFormValues)
+    setAccountValues({ ...accountValues, [name]: value })
   }
 
   useEffect(() => {
-    formSchemaSignup.isValid(accountFormValues).then(validate => {
+    formSchemaAccount.isValid(accountValues).then(validate => {
       setDisabled(!validate)
     })
-  }, [accountFormValues])
+  }, [accountValues])
 
   //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
@@ -220,6 +220,7 @@ function App() {
       .post(`auth/login`, userInfo)
       .then(res => {
         setUser(res.data.user)
+        setAccountValues(res.data.user)
         localStorage.setItem('token', res.data.token)
 
         if (res.data.message === "Welcome") {
@@ -239,14 +240,13 @@ function App() {
   const loginSubmit = event => {
     event.preventDefault()
 
-    const user = {
+    const userInfo = {
       username: loginValues.username,
       password: loginValues.password
     }
 
-    loginUser(user)
+    loginUser(userInfo)
   }
-
 
   //Posting a new user to the user api when Signing Up
   const registerNewUser = (newUser) => {
@@ -254,6 +254,7 @@ function App() {
       .post('auth/register', newUser)
       .then(res => {
         setUser(res.data.user)
+        setAccountValues(res.data.user)
         localStorage.setItem('token', res.data.token)
 
         navigate(`/${res.data.user.user_id}/created-characters`)
@@ -282,6 +283,74 @@ function App() {
     }
 
     registerNewUser(newUser)
+  }
+
+  //Account submit on save:
+  const accountSave = event => {
+    event.preventDefault()
+
+    console.log(`Save button was clicked`)
+    const updatedUser = {
+      first_name: accountValues.first_name,
+      last_name: accountValues.last_name,
+      username: accountValues.username,
+      password: accountValues.password,
+      email: accountValues.email,
+      dob: accountValues.dob,
+    }
+
+    saveUser(updatedUser)
+  }
+
+  const saveUser = (updatedUser) => {
+    axiosWithAuth()
+      .put(`users/${user.user_id}`, updatedUser)
+      .then(res => {
+        setUser(res.data)
+        setDisabledButton(!disabledButton)
+      })
+      .catch(err => {
+        console.log(`App.js PUT request error:`, err)
+
+        setAccountErrors({ ...accountErrors, ['request_err']: "You must complete all required fields before saving" })
+      })
+  }
+
+  //Account submit on delete:
+  const accountDelete = event => {
+    event.preventDefault()
+
+    console.log(`Delete button was clicked. ${user.first_name} was deleted.`)
+
+    return (
+      <>
+        <form>
+          <h1>Delete this account?</h1>
+          <p>If you are sure you want to delete this account, type in DELETE into the field below and click the Delete button.</p>
+          <input
+            type='text'
+            id='delete-input'
+            name='delete'
+          />
+          <button className='cancel-btn'>Cancel</button>
+          <button className='delete-btn-2'>Delete</button>
+        </form>
+      </>
+    )
+  }
+
+  const deleteUser = (deleteUser) => {
+    axiosWithAuth()
+      .delete(`users/${user.user_id}`, deleteUser)
+      .then(res => {
+        localStorage.removeItem(`token`)
+        setUser(initialUser)
+        setDisabledButton(!disabledButton)
+        navigate(`/`)
+      })
+      .catch(err => {
+        console.log(`App.js DELETE request error:`, err)
+      })
   }
 
 
@@ -329,11 +398,13 @@ function App() {
             <Route path={`/users/:user_id`}
               element={
                 <Account
-                  disabled={disabled}
-                  setDisabled={setDisabled}
-                  setUser={setUser}
-                  changeAccountValues={changeInputAccount}
-                  valuesAccount={user}
+                  disabledButton={disabledButton}
+                  setDisabledButton={setDisabledButton}
+                  changeAccount={changeInputAccount}
+                  valuesAccount={accountValues}
+                  accountErrors={accountErrors}
+                  saveAccount={accountSave}
+                  deleteAccount={accountDelete}
                 />
               } />
 

@@ -127,4 +127,37 @@ const formSchemaLogin = yup.object().shape({
       .required('A password is required')
 })
 
-export { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin }
+const formSchemaAccount = yup.object().shape({
+   first_name: yup.string()
+      .min(1, 'First name must be at least 1 character')
+      .required('First name is required'),
+
+   last_name: yup.string()
+      .min(1, 'Last name must be at least 1 character long')
+      .required('Last name is required'),
+
+   username: yup.string()
+      .min(5, 'Username must be at least 5 characters long')
+      .required('Username is required'),
+
+   password: yup.string()
+      .matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+         "The password must contain at least 8 characters, one uppercase, one number and one special case character")
+      .required('a password is required'),
+
+   confirm_password: yup.string()
+      .oneOf([yup.ref('password'), null], 'Passwords do not match')
+      .required('You must confirm your password'),
+
+   email: yup.string()
+      .email('Enter a valid email')
+      .required('You must enter an email'),
+
+   // DOB will be in the form of "month/day/year 00/00/000", not sure right now how to do this as a validation - possibly with .date() like below, but unsure if this is exactly what I want, need to verify later
+   dob: yup.date()
+      .min('1900-01-01', 'If you are in fact older than 122, please contact the developers. Otherwise, please enter your birthdate.')
+      .max('2016-01-01', 'Are you under 6 years old? If so, are you a genius and please contact the developers. Otherwise please enter your birthdate. ')
+      .required('Enter your date of birth')
+})
+
+export { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin, formSchemaAccount }
