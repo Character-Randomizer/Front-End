@@ -225,7 +225,11 @@ function App() {
 
         if (res.data.message === "Welcome") {
           return (
-            navigate(`/${res.data.user.user_id}/created-characters`)
+            //Real navigate:
+            // navigate(`/${res.data.user.user_id}/created-characters`)
+
+            //Navigate for going to account - delete once done:
+            navigate(`/users/${res.data.user.user_id}`)
           )
         }
       })
@@ -317,29 +321,9 @@ function App() {
   }
 
   //Account submit on delete:
-  const accountDelete = event => {
-    event.preventDefault()
-
+  const accountDelete = deleteUser => {
     console.log(`Delete button was clicked. ${user.first_name} was deleted.`)
 
-    return (
-      <>
-        <form>
-          <h1>Delete this account?</h1>
-          <p>If you are sure you want to delete this account, type in DELETE into the field below and click the Delete button.</p>
-          <input
-            type='text'
-            id='delete-input'
-            name='delete'
-          />
-          <button className='cancel-btn'>Cancel</button>
-          <button className='delete-btn-2'>Delete</button>
-        </form>
-      </>
-    )
-  }
-
-  const deleteUser = (deleteUser) => {
     axiosWithAuth()
       .delete(`users/${user.user_id}`, deleteUser)
       .then(res => {

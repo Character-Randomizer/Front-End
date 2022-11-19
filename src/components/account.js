@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles';
+import DeletePopup from './acctDeletePopup';
 
 //Icons for showing or not showing password:
 import Visibility from '@mui/icons-material/Visibility';
@@ -66,24 +67,15 @@ export default function Account(props) {
    }
 
    const dobStr = user.dob
-   const dob = dobStr.split('T')[0]
-   const dobParts = dob.split('-')
-   const dobYear = dobParts[0]
-   const dobMonth = dobParts[1]
-   const dobDay = dobParts[2]
+   // const dob = dobStr.split('T')[0]
+   // const dobParts = dob.split('-')
+   // const dobYear = dobParts[0]
+   // const dobMonth = dobParts[1]
+   // const dobDay = dobParts[2]
 
    //functions for buttons
    const handleEdit = () => {
       setDisabledButton(false)
-   }
-
-   const handleSave = () => {
-      setDisabledButton(true)
-   }
-
-   const handleDelete = () => {
-      setDisabledButton(true)
-
    }
 
    //functions for inputs once user is editing
@@ -111,7 +103,9 @@ export default function Account(props) {
                <p className='account-info'>{user.email}</p>
 
                <p className='account-titles'>Birthday</p>
-               <p className='account-info'>{getMonth(dobMonth)} {dobDay}, {dobYear}</p>
+               <p className='account-info'>
+                  {/* {getMonth(dobMonth)} {dobDay}, {dobYear} */}
+               </p>
 
                <StyledButtons className='account-edit-btn' onClick={handleEdit}>Edit</StyledButtons>
             </>
@@ -175,7 +169,7 @@ export default function Account(props) {
                      id='input-dob'
                      name='dob'
                      min='1900-01-01'
-                     value={valuesAccount.dob.split('T')[0]}
+                     // value={valuesAccount.dob.split('T')[0]}
                      onChange={onChange}
                   />
 
@@ -184,9 +178,10 @@ export default function Account(props) {
                   </div>
                   <StyledButtons id='save-btn' onClick={saveAccount}>Save</StyledButtons>
 
-                  <StyledButtons id='delete-btn-1' onClick={(event) => {
-                     deleteAccount(event, user)
-                  }}>Delete</StyledButtons>
+                  <DeletePopup
+                     user={user}
+                     deleteAccount={deleteAccount}
+                  />
 
                </form>
             </>

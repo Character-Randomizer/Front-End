@@ -113,6 +113,14 @@
   padding: 2% 0;
 }
 
+/* Account Page */
+
+/* Popup */
+.popup {
+  opacity: 100%;
+  background-color: white;
+}
+
 /* Contact Form */
 .contact-button {
   width: 100%;
