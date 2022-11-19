@@ -15,11 +15,6 @@ import { UserContext } from '../contextAPI';
 export default function Account(props) {
    const userContext = useContext(UserContext)
 
-   //Need to figure out a way to make the 'edit' buttons switch the user info into inputs with user info populated
-   //User can edit the input fields
-   //Create a 'save' button
-   //On the click for 'save', the new information is edited for the user (axios request)
-   //and the input fields return to the information text with the new inputted information from the user
    const { disabledButton,
       setDisabledButton,
       changeAccount,
@@ -29,10 +24,6 @@ export default function Account(props) {
       deleteAccount } = props
 
    const user = userContext.user
-
-   //Console logs for seeing user + input values:
-   // console.log(`Account User:`, userContext.user)
-   // console.log(`Account input Values:`, valuesAccount)
 
    //functions for getting birthdate in a correct format (Month Day, Year)
    const getMonth = month => {
@@ -67,11 +58,11 @@ export default function Account(props) {
    }
 
    const dobStr = user.dob
-   // const dob = dobStr.split('T')[0]
-   // const dobParts = dob.split('-')
-   // const dobYear = dobParts[0]
-   // const dobMonth = dobParts[1]
-   // const dobDay = dobParts[2]
+   const dob = dobStr.split('T')[0]
+   const dobParts = dob.split('-')
+   const dobYear = dobParts[0]
+   const dobMonth = dobParts[1]
+   const dobDay = dobParts[2]
 
    //functions for buttons
    const handleEdit = () => {
@@ -104,7 +95,7 @@ export default function Account(props) {
 
                <p className='account-titles'>Birthday</p>
                <p className='account-info'>
-                  {/* {getMonth(dobMonth)} {dobDay}, {dobYear} */}
+                  {getMonth(dobMonth)} {dobDay}, {dobYear}
                </p>
 
                <StyledButtons className='account-edit-btn' onClick={handleEdit}>Edit</StyledButtons>
@@ -169,7 +160,7 @@ export default function Account(props) {
                      id='input-dob'
                      name='dob'
                      min='1900-01-01'
-                     // value={valuesAccount.dob.split('T')[0]}
+                     value={valuesAccount.dob.split('T')[0]}
                      onChange={onChange}
                   />
 
