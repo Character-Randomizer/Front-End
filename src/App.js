@@ -238,7 +238,10 @@ function App() {
 
         setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
       })
-      .finally(setLoginValues(initialLoginValues))
+      .finally(() => {
+        setLoginValues(initialLoginValues)
+        setLoginErrors(initialLoginValues)
+      })
   }
 
   const loginSubmit = event => {
@@ -263,14 +266,21 @@ function App() {
 
         navigate(`/${res.data.user.user_id}/created-characters`)
 
+        setSignupFormValues(initialSignupValues)
+        setSignupErrors(initialSignupValues)
+
         return user
       })
       .catch(err => {
         console.log(err)
 
-        setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
+        if (err.response.status === 500) {
+          setSignupErrors({ ...signupErrors, username: 'That username already exists. Please pick another one.' })
+        }
+        else if (err.response.status === 400) {
+          setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
+        }
       })
-      .finally(setSignupFormValues(initialSignupValues))
   }
 
   const submitNewUser = event => {
@@ -294,6 +304,7 @@ function App() {
     event.preventDefault()
 
     console.log(`Save button was clicked`)
+
     const updatedUser = {
       first_name: accountValues.first_name,
       last_name: accountValues.last_name,
@@ -303,6 +314,7 @@ function App() {
       dob: accountValues.dob,
     }
 
+    console.log(updatedUser)
     saveUser(updatedUser)
   }
 
@@ -310,6 +322,7 @@ function App() {
     axiosWithAuth()
       .put(`users/${user.user_id}`, updatedUser)
       .then(res => {
+        console.log(res.data)
         setUser(res.data)
         setDisabledButton(!disabledButton)
       })
@@ -351,6 +364,14 @@ function App() {
         setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
       }
     }
+    else if (window.location.pathname === `/users/${user.user_id}`) {
+      if (id === 'input-pass-icon') {
+        setAccountValues({ ...accountValues, showPass: !accountValues.showPass })
+      }
+      else if (id === 'input-confirm-pass-icon') {
+        setAccountValues({ ...accountValues, showConfirm: !accountValues.showConfirm })
+      }
+    }
   }
 
   return (
@@ -386,9 +407,11 @@ function App() {
                   setDisabledButton={setDisabledButton}
                   changeAccount={changeInputAccount}
                   valuesAccount={accountValues}
+                  setValuesAccount={setAccountValues}
                   accountErrors={accountErrors}
                   saveAccount={accountSave}
                   deleteAccount={accountDelete}
+                  handleShowPass={handleShowPass}
                 />
               } />
 

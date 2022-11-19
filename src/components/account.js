@@ -7,6 +7,7 @@ import DeletePopup from './acctDeletePopup';
 //Icons for showing or not showing password:
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { VisibilityDiv } from '../styles/loginPageStyles';
 
 //State Management - Context API
 import { UserContext } from '../contextAPI';
@@ -19,9 +20,11 @@ export default function Account(props) {
       setDisabledButton,
       changeAccount,
       valuesAccount,
+      setValuesAccount,
       accountErrors,
       saveAccount,
-      deleteAccount } = props
+      deleteAccount,
+      handleShowPass } = props
 
    const user = userContext.user
 
@@ -67,6 +70,7 @@ export default function Account(props) {
    //functions for buttons
    const handleEdit = () => {
       setDisabledButton(false)
+      // setValuesAccount({ ...valuesAccount, 'password': '' })
    }
 
    //functions for inputs once user is editing
@@ -76,6 +80,11 @@ export default function Account(props) {
       changeAccount(name, value)
    }
 
+   //Cancel button on Click handler:
+   const handleCancel = () => {
+      setDisabledButton(true)
+      setValuesAccount(user)
+   }
 
    return (
       <>
@@ -164,9 +173,52 @@ export default function Account(props) {
                      onChange={onChange}
                   />
 
+                  <p className='account-titles'>Change your password</p>
+                  <div className='errors'>
+                     {accountErrors.password}
+                  </div>
+                  <input
+                     type={valuesAccount.showPass ? 'text' : 'password'}
+                     id='input-pass'
+                     name='password'
+                     value={valuesAccount.password}
+                     onChange={onChange}
+                     placeholder='Change Password'
+                  />
+                  <VisibilityDiv
+                     onClick={(id) => {
+                        handleShowPass(id = `input-pass-icon`)
+                     }}
+                  >
+                     {valuesAccount.showPass ? <VisibilityOff /> : <Visibility />}
+                  </VisibilityDiv>
+                  <div className='errors'>
+                     {accountErrors.confirm_password}
+                  </div>
+                  <input
+                     type={valuesAccount.showConfirm ? 'text' : 'password'}
+                     id='input-confirm-pass'
+                     name='confirm_password'
+                     value={valuesAccount.confirm_password}
+                     onChange={onChange}
+                     placeholder='Confirm Password'
+                  />
+                  <VisibilityDiv
+                     onClick={(id) => {
+                        handleShowPass(id = `input-confirm-pass-icon`)
+                     }}
+                  >
+                     {valuesAccount.showConfirm ? <VisibilityOff /> : <Visibility />}
+                  </VisibilityDiv>
+
                   <div className='errors'>
                      {accountErrors.request_err}
                   </div>
+
+                  <StyledButtons id='cancel-btn' onClick={() => handleCancel()}>
+                     Cancel
+                  </StyledButtons>
+
                   <StyledButtons id='save-btn' onClick={saveAccount}>Save</StyledButtons>
 
                   <DeletePopup
