@@ -303,39 +303,51 @@ function App() {
     //Maybe make it so that there's another variable where you insert ONLY the changed accountValues + that gets inputted into the axios request for editing the users account information
     event.preventDefault()
 
-    const updatedUser = {}
+    const updatedUser = { user_id: user.user_id }
+    const valueKeys = Object.keys(accountValues).slice(1, 7)
 
-    const update = () => {
-      if (accountValues.first_name !== user.first_name) {
-        updatedUser.first_name = accountValues.first_name
+    valueKeys.forEach(key => {
+      switch (key) {
+        case 'first_name':
+          if (accountValues.first_name !== user.first_name) {
+            updatedUser.first_name = accountValues.first_name
+          }
+          return;
+        case 'last_name':
+          if (accountValues.last_name !== user.last_name) {
+            updatedUser.last_name = accountValues.last_name
+          }
+          return;
+        case 'username':
+          if (accountValues.username !== user.username) {
+            updatedUser.username = accountValues.username
+          }
+          return;
+        case 'email':
+          if (accountValues.email !== user.email) {
+            updatedUser.email = accountValues.email
+          }
+          return;
+        case 'dob':
+          if (accountValues.dob !== user.dob) {
+            updatedUser.dob = accountValues.dob
+          }
+          return;
+        case 'password':
+          if (accountValues.password !== '' && accountValues.password === accountValues.confirm_password) {
+            updatedUser.password = accountValues.password
+          }
+          else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
+            setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
+          }
+          return;
+        default:
+          console.log('Nothing to see here!')
+          return;
       }
+    })
 
-      if (accountValues.last_name !== user.last_name) {
-        updatedUser.last_name = accountValues.last_name
-      }
-
-      if (accountValues.username !== user.username) {
-        updatedUser.username = accountValues.username
-      }
-
-      if (accountValues.password !== '' && accountValues.password === accountValues.confirm_password) {
-        updatedUser.password = accountValues.password
-      }
-      else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
-        setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
-      }
-
-      if (accountValues.email !== user.email) {
-        updatedUser.email = accountValues.email
-      }
-
-      if (accountValues.dob !== user.dob) {
-        updatedUser.dob = accountValues.dob
-      }
-    }
-
-    update()
-
+    console.log(updatedUser)
     saveUser(updatedUser)
   }
 
@@ -350,7 +362,7 @@ function App() {
       .catch(err => {
         console.log(`Error:`, err)
 
-        setAccountErrors({ ...accountErrors, ['request_err']: "You must complete all required fields before saving" })
+        setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. /nIf you clicked edit on accident, feel free to click the cancel button.` })
       })
   }
 

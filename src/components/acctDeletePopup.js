@@ -43,6 +43,7 @@ export const DeletePopup = (props) => {
 
    return (
       <div>
+         <p>Go no further! If you press delete, there is no going back.</p>
          <StyledButtons id='delete-btn-1' onClick={(event) => {
             event.preventDefault()
             handleOpen()
