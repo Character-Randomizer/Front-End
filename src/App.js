@@ -22,6 +22,7 @@ import PrivateRoute from './authorization/privateRoutes';
 
 //State Management - Context API
 import { UserContext } from './contextAPI';
+import axios from 'axios';
 
 //Initial Variables
 const initialRandomizerValues = {
@@ -226,10 +227,7 @@ function App() {
         if (res.data.message === "Welcome") {
           return (
             //Real navigate:
-            // navigate(`/${res.data.user.user_id}/created-characters`)
-
-            //Navigate for going to account - delete once done:
-            navigate(`/users/${res.data.user.user_id}`)
+            navigate(`/${res.data.user.user_id}/created-characters`)
           )
         }
       })
@@ -301,20 +299,43 @@ function App() {
 
   //Account submit on save:
   const accountSave = event => {
+    //make it so that if a field on the form changes, it only changes that key's value in the accountValues object
+    //Maybe make it so that there's another variable where you insert ONLY the changed accountValues + that gets inputted into the axios request for editing the users account information
     event.preventDefault()
 
-    console.log(`Save button was clicked`)
+    const updatedUser = {}
 
-    const updatedUser = {
-      first_name: accountValues.first_name,
-      last_name: accountValues.last_name,
-      username: accountValues.username,
-      password: accountValues.password,
-      email: accountValues.email,
-      dob: accountValues.dob,
+    const update = () => {
+      if (accountValues.first_name !== user.first_name) {
+        updatedUser.first_name = accountValues.first_name
+      }
+
+      if (accountValues.last_name !== user.last_name) {
+        updatedUser.last_name = accountValues.last_name
+      }
+
+      if (accountValues.username !== user.username) {
+        updatedUser.username = accountValues.username
+      }
+
+      if (accountValues.password !== '' && accountValues.password === accountValues.confirm_password) {
+        updatedUser.password = accountValues.password
+      }
+      else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
+        setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
+      }
+
+      if (accountValues.email !== user.email) {
+        updatedUser.email = accountValues.email
+      }
+
+      if (accountValues.dob !== user.dob) {
+        updatedUser.dob = accountValues.dob
+      }
     }
 
-    console.log(updatedUser)
+    update()
+
     saveUser(updatedUser)
   }
 
@@ -322,12 +343,12 @@ function App() {
     axiosWithAuth()
       .put(`users/${user.user_id}`, updatedUser)
       .then(res => {
-        console.log(res.data)
         setUser(res.data)
         setDisabledButton(!disabledButton)
+        setAccountErrors(initialSignupValues)
       })
       .catch(err => {
-        console.log(`App.js PUT request error:`, err)
+        console.log(`Error:`, err)
 
         setAccountErrors({ ...accountErrors, ['request_err']: "You must complete all required fields before saving" })
       })

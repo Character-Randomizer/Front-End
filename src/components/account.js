@@ -70,7 +70,7 @@ export default function Account(props) {
    //functions for buttons
    const handleEdit = () => {
       setDisabledButton(false)
-      // setValuesAccount({ ...valuesAccount, 'password': '' })
+      setValuesAccount({ ...valuesAccount, 'password': '' })
    }
 
    //functions for inputs once user is editing
