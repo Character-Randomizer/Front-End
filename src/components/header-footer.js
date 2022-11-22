@@ -67,6 +67,7 @@ function Header() {
                      </StyledTopBtns>
                   </>
                }
+
             </StyledHeaderNav>
          </StyledHeader>
       </>
@@ -98,6 +99,7 @@ function Footer() {
                      <div>Contact</div>
                   </NavLink>
                </StyledBtmBtns>
+
                {!token ?
                   <>
                      <StyledBtmBtns>
@@ -125,6 +127,7 @@ function Footer() {
                      </StyledBtmBtns>
                   </>
                }
+
             </StyledFooterNav>
 
             <StyledCopyrightDiv className="copyright">

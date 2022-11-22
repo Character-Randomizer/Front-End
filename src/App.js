@@ -14,7 +14,7 @@ import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
 //Form Validation
-import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin } from './validation/formSchemas'
+import { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin, formSchemaAccount } from './validation/formSchemas'
 
 //Authorization
 import axiosWithAuth from './authorization/axiosWithAuth';
@@ -22,6 +22,7 @@ import PrivateRoute from './authorization/privateRoutes';
 
 //State Management - Context API
 import { UserContext } from './contextAPI';
+import axios from 'axios';
 
 //Initial Variables
 const initialRandomizerValues = {
@@ -46,12 +47,13 @@ const initialRandomizerValues = {
   background: ''
 }
 
-const initialSignupValues = {
+export const initialSignupValues = {
   first_name: '',
   last_name: '',
   username: '',
   password: '',
   confirm_password: '',
+  dob: '',
   email: '',
   terms: false,
   showPass: false,
@@ -79,16 +81,14 @@ const initialDisabled = true
 
 
 function App() {
+  const [user, setUser] = useState(initialUser)
+
+  //Form Values + Error States
   const [loginValues, setLoginValues] = useState(initialLoginValues)
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
-  //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
-  const [characters, setCharacters] = useState(initialCharacters)
-
   const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
   const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
-
-  const [user, setUser] = useState(initialUser)
 
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
   const [signupErrors, setSignupErrors] = useState(initialSignupValues)
@@ -96,7 +96,15 @@ function App() {
   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
   const [contactErrors, setContactErrors] = useState(initialContactValues)
 
+  const [accountValues, setAccountValues] = useState(initialSignupValues)
+  const [accountErrors, setAccountErrors] = useState(initialSignupValues)
+
+  //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
+  const [characters, setCharacters] = useState(initialCharacters)
+
   const [disabled, setDisabled] = useState(initialDisabled)
+  //For buttons on account page:
+  const [disabledButton, setDisabledButton] = useState(initialDisabled)
 
   const navigate = useNavigate()
 
@@ -122,7 +130,7 @@ function App() {
   }, [loginValues])
 
 
-  //Validation Errors for Sign Up Page:
+  //Validation Errors + changing input for Sign Up Page:
   const changeInputSignup = (name, value) => {
     yup
       .reach(formSchemaSignup, name)
@@ -142,6 +150,27 @@ function App() {
       setDisabled(!validate)
     })
   }, [signupFormValues])
+
+  //Validation Errors + changing input for Account Page:
+  const changeInputAccount = (name, value) => {
+    yup
+      .reach(formSchemaAccount, name)
+      .validate(value)
+      .then(() => {
+        setAccountErrors({ ...accountErrors, [name]: '' })
+      })
+      .catch(err => {
+        setAccountErrors({ ...accountErrors, [name]: err.errors })
+      })
+
+    setAccountValues({ ...accountValues, [name]: value })
+  }
+
+  useEffect(() => {
+    formSchemaAccount.isValid(accountValues).then(validate => {
+      setDisabled(!validate)
+    })
+  }, [accountValues])
 
   //Validation Errors for Randomizer Page:
   const changeInputRandomizer = (name, value) => {
@@ -192,10 +221,12 @@ function App() {
       .post(`auth/login`, userInfo)
       .then(res => {
         setUser(res.data.user)
+        setAccountValues(res.data.user)
         localStorage.setItem('token', res.data.token)
 
         if (res.data.message === "Welcome") {
           return (
+            //Real navigate:
             navigate(`/${res.data.user.user_id}/created-characters`)
           )
         }
@@ -205,21 +236,22 @@ function App() {
 
         setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
       })
-      //Do I need this?
-      .finally(setLoginValues(initialLoginValues))
+      .finally(() => {
+        setLoginValues(initialLoginValues)
+        setLoginErrors(initialLoginValues)
+      })
   }
 
   const loginSubmit = event => {
     event.preventDefault()
 
-    const user = {
+    const userInfo = {
       username: loginValues.username,
       password: loginValues.password
     }
 
-    loginUser(user)
+    loginUser(userInfo)
   }
-
 
   //Posting a new user to the user api when Signing Up
   const registerNewUser = (newUser) => {
@@ -227,18 +259,26 @@ function App() {
       .post('auth/register', newUser)
       .then(res => {
         setUser(res.data.user)
+        setAccountValues(res.data.user)
         localStorage.setItem('token', res.data.token)
 
         navigate(`/${res.data.user.user_id}/created-characters`)
+
+        setSignupFormValues(initialSignupValues)
+        setSignupErrors(initialSignupValues)
 
         return user
       })
       .catch(err => {
         console.log(err)
 
-        setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
+        if (err.response.status === 500) {
+          setSignupErrors({ ...signupErrors, username: 'That username already exists. Please pick another one.' })
+        }
+        else if (err.response.status === 400) {
+          setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
+        }
       })
-      .finally(setSignupFormValues(initialSignupValues))
   }
 
   const submitNewUser = event => {
@@ -257,6 +297,92 @@ function App() {
     registerNewUser(newUser)
   }
 
+  //Account submit on save:
+  const accountSave = event => {
+    //make it so that if a field on the form changes, it only changes that key's value in the accountValues object
+    //Maybe make it so that there's another variable where you insert ONLY the changed accountValues + that gets inputted into the axios request for editing the users account information
+    event.preventDefault()
+
+    const updatedUser = { user_id: user.user_id }
+    const valueKeys = Object.keys(accountValues).slice(1, 7)
+
+    valueKeys.forEach(key => {
+      switch (key) {
+        case 'first_name':
+          if (accountValues.first_name !== user.first_name) {
+            updatedUser.first_name = accountValues.first_name
+          }
+          return;
+        case 'last_name':
+          if (accountValues.last_name !== user.last_name) {
+            updatedUser.last_name = accountValues.last_name
+          }
+          return;
+        case 'username':
+          if (accountValues.username !== user.username) {
+            updatedUser.username = accountValues.username
+          }
+          return;
+        case 'email':
+          if (accountValues.email !== user.email) {
+            updatedUser.email = accountValues.email
+          }
+          return;
+        case 'dob':
+          if (accountValues.dob !== user.dob) {
+            updatedUser.dob = accountValues.dob
+          }
+          return;
+        case 'password':
+          if (accountValues.password !== '' && accountValues.password === accountValues.confirm_password) {
+            updatedUser.password = accountValues.password
+          }
+          else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
+            setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
+          }
+          return;
+        default:
+          console.log('Nothing to see here!')
+          return;
+      }
+    })
+
+    console.log(updatedUser)
+    saveUser(updatedUser)
+  }
+
+  const saveUser = (updatedUser) => {
+    axiosWithAuth()
+      .put(`users/${user.user_id}`, updatedUser)
+      .then(res => {
+        setUser(res.data)
+        setDisabledButton(!disabledButton)
+        setAccountErrors(initialSignupValues)
+      })
+      .catch(err => {
+        console.log(`Error:`, err)
+
+        setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
+      })
+  }
+
+  //Account submit on delete:
+  const accountDelete = deleteUser => {
+    console.log(`Delete button was clicked. ${user.first_name} was deleted.`)
+
+    axiosWithAuth()
+      .delete(`users/${user.user_id}`, deleteUser)
+      .then(res => {
+        localStorage.removeItem(`token`)
+        setUser(initialUser)
+        setDisabledButton(!disabledButton)
+        navigate(`/`)
+      })
+      .catch(err => {
+        console.log(`App.js DELETE request error:`, err)
+      })
+  }
+
 
   // //For "blurring" out the passwords for login/sign up pages:
   const handleShowPass = (id) => {
@@ -269,6 +395,14 @@ function App() {
       }
       else if (id === 'input-confirm-pass-icon') {
         setSignupFormValues({ ...signupFormValues, showConfirm: !signupFormValues.showConfirm })
+      }
+    }
+    else if (window.location.pathname === `/users/${user.user_id}`) {
+      if (id === 'input-pass-icon') {
+        setAccountValues({ ...accountValues, showPass: !accountValues.showPass })
+      }
+      else if (id === 'input-confirm-pass-icon') {
+        setAccountValues({ ...accountValues, showConfirm: !accountValues.showConfirm })
       }
     }
   }
@@ -302,6 +436,16 @@ function App() {
             <Route path={`/users/:user_id`}
               element={
                 <Account
+                  disabledButton={disabledButton}
+                  setDisabledButton={setDisabledButton}
+                  changeAccount={changeInputAccount}
+                  valuesAccount={accountValues}
+                  setValuesAccount={setAccountValues}
+                  accountErrors={accountErrors}
+                  setAccountErrors={setAccountErrors}
+                  saveAccount={accountSave}
+                  deleteAccount={accountDelete}
+                  handleShowPass={handleShowPass}
                 />
               } />
 
