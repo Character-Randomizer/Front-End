@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles';
 import DeletePopup from './acctDeletePopup';
+import { initialSignupValues } from '../App';
 
 //Icons for showing or not showing password:
 import Visibility from '@mui/icons-material/Visibility';
@@ -22,6 +23,7 @@ export default function Account(props) {
       valuesAccount,
       setValuesAccount,
       accountErrors,
+      setAccountErrors,
       saveAccount,
       deleteAccount,
       handleShowPass } = props
@@ -84,6 +86,7 @@ export default function Account(props) {
    const handleCancel = () => {
       setDisabledButton(true)
       setValuesAccount(user)
+      setAccountErrors(initialSignupValues)
    }
 
    return (

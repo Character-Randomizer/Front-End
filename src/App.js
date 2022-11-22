@@ -47,7 +47,7 @@ const initialRandomizerValues = {
   background: ''
 }
 
-const initialSignupValues = {
+export const initialSignupValues = {
   first_name: '',
   last_name: '',
   username: '',
@@ -362,7 +362,7 @@ function App() {
       .catch(err => {
         console.log(`Error:`, err)
 
-        setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. /nIf you clicked edit on accident, feel free to click the cancel button.` })
+        setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
       })
   }
 
@@ -442,6 +442,7 @@ function App() {
                   valuesAccount={accountValues}
                   setValuesAccount={setAccountValues}
                   accountErrors={accountErrors}
+                  setAccountErrors={setAccountErrors}
                   saveAccount={accountSave}
                   deleteAccount={accountDelete}
                   handleShowPass={handleShowPass}
