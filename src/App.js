@@ -55,7 +55,7 @@ function App() {
 
   const navigate = useNavigate()
 
-  //Validation Errors for Login Page:
+  //Validation Errors + changing input for Login Page:
   const changeInputLogin = (name, value) => {
     yup
       .reach(formSchemaLogin, name)
