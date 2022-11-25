@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Header, Footer } from './header-footer'
@@ -9,12 +9,8 @@ import StyledButtons from '../styles/buttonStyles'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-//State Management - Context API
-import { UserContext } from '../contextAPI';
 
 export default function Login(props) {
-   const userContext = useContext(UserContext)
-
    const { changeLogin,
       valuesLogin,
       loginErrors,

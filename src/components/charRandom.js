@@ -7,8 +7,8 @@ import StyledButtons from '../styles/buttonStyles'
 import { UserContext } from '../contextAPI';
 
 export default function CharRandomizer(props) {
+   //Not getting rid of this yet, just in case I need it in the future to post the character created to the user's account
    const userContext = useContext(UserContext)
-
 
    const { changeRand,
       valuesRand } = props

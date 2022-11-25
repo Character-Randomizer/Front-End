@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles';
 import DeletePopup from './acctDeletePopup';
-import { initialSignupValues } from '../App';
+import { initialSignupValues } from '../variables/stateVariables';
 
 //Icons for showing or not showing password:
 import Visibility from '@mui/icons-material/Visibility';

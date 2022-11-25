@@ -7,13 +7,8 @@ import { StyledH2 } from '../styles/homeStyles'
 
 import npcs from '../images/npcs.jpeg'
 
-//State Management - Context API
-import { UserContext } from '../contextAPI';
-
 
 export default function Home() {
-   const userContext = useContext(UserContext)
-
    return (
       <>
          <Header />
