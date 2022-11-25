@@ -246,8 +246,6 @@ function App() {
 
   //Account submit on save:
   const accountSave = event => {
-    //make it so that if a field on the form changes, it only changes that key's value in the accountValues object
-    //Maybe make it so that there's another variable where you insert ONLY the changed accountValues + that gets inputted into the axios request for editing the users account information
     event.preventDefault()
 
     const updatedUser = { user_id: user.user_id }
@@ -294,7 +292,6 @@ function App() {
       }
     })
 
-    console.log(updatedUser)
     saveUser(updatedUser)
   }
 
@@ -315,7 +312,7 @@ function App() {
 
   //Account submit on delete:
   const accountDelete = deleteUser => {
-    console.log(`Delete button was clicked. ${user.first_name} was deleted.`)
+    console.log(`Delete button was clicked. ${user.username} was deleted.`)
 
     axiosWithAuth()
       .delete(`users/${user.user_id}`, deleteUser)
@@ -331,7 +328,7 @@ function App() {
   }
 
 
-  // //For "blurring" out the passwords for login/sign up pages:
+  // //For "blurring" out the passwords for account, login, and signup up pages:
   const handleShowPass = (id) => {
     if (window.location.pathname === `/login`) {
       setLoginValues({ ...loginValues, showPass: !loginValues.showPass })
@@ -377,9 +374,8 @@ function App() {
               handleShowPass={handleShowPass}
             />} />
 
-          {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in */}
+          {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in (has a token) */}
           <Route element={<PrivateRoute />}>
-            {/* Below is a path to the account page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
             <Route path={`/users/:user_id`}
               element={
                 <Account
@@ -399,8 +395,7 @@ function App() {
             {/* Below is a path to the created character(s) page - I made a component for it, but I will not be working on it unless I have time as a stretch */}
             < Route path={`/:user_id/created-characters`}
               element={
-                <CreatedCharPage
-                />
+                <CreatedCharPage />
               } />
 
           </Route>
