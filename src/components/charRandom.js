@@ -1,17 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+import * as yup from 'yup';
+
 
 import { Header, Footer } from './header-footer'
 import StyledButtons from '../styles/buttonStyles'
 
+import { initialRandomizerValues } from '../variables/stateVariables';
+import { formSchemaRandomizer } from '../validation/formSchemas';
+
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
-export default function CharRandomizer(props) {
+export default function CharRandomizer() {
    //Not getting rid of this yet, just in case I need it in the future to post the character created to the user's account
    const userContext = useContext(UserContext)
 
-   const { changeRand,
-      valuesRand } = props
+   // const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
+   // const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
+   // const [disabled, setDisabled] = useState(false)
+
+   // //Validation Errors for Randomizer Page:
+   // const changeInputRandomizer = (name, value) => {
+   //    yup
+   //       .reach(formSchemaRandomizer, name)
+   //       .validate(value)
+   //       .then(() => {
+   //          setRandomizerErrors({ ...randomizerErrors, [name]: '' })
+   //       })
+   //       .catch(err => {
+   //          setRandomizerErrors({ ...randomizerErrors, [name]: err.errors })
+   //       })
+
+   //    setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
+   // }
+
+   // useEffect(() => {
+   //    formSchemaRandomizer.isValid(randomizerFormValues).then(validate => {
+   //       setDisabled(!validate)
+   //    })
+   // }, [randomizerFormValues])
 
    return (
       <>
@@ -106,6 +134,17 @@ export default function CharRandomizer(props) {
                   // value={}
                   // onChange={}
                   >
+                     {/* trying to map out the options with the API */}
+                     {/* {
+                        axios
+                           .get(`https://character-randomizer-backend.herokuapp.com/api/classes`)
+                           .then(res => {
+                              console.log(res)
+                           })
+                           .catch(err => {
+                              console.log(err)
+                           })
+                     } */}
                      <option value='You may select a class'>Select Class</option>
                      <option value='artificer'>Artificer</option>
                      <option value='barbarian'>Barbarian</option>
