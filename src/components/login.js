@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
+
+//Authorization:
 import axiosWithAuth from '../authorization/axiosWithAuth';
 
 import { Header, Footer } from './header-footer'
+
+//intial values for state:
 import { initialDisabled, initialLoginValues } from '../variables/stateVariables';
+
+//Form Validation:
 import { formSchemaLogin } from '../validation/formSchemas';
 
 //Styles:

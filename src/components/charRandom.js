@@ -1,16 +1,19 @@
-import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import * as yup from 'yup';
-
+import React, { useContext } from 'react';
 
 import { Header, Footer } from './header-footer'
+
+// styles:
 import StyledButtons from '../styles/buttonStyles'
 
+//initial values for state:
 import { initialRandomizerValues } from '../variables/stateVariables';
+
+//form validation:
 import { formSchemaRandomizer } from '../validation/formSchemas';
 
 //State Management - Context API
 import { UserContext } from '../contextAPI';
+
 
 export default function CharRandomizer() {
    //Not getting rid of this yet, just in case I need it in the future to post the character created to the user's account

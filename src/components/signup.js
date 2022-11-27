@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import * as yup from 'yup'
 
+//Authorization:
 import axiosWithAuth from '../authorization/axiosWithAuth';
+
 import { Header, Footer } from './header-footer'
+
+//For the terms of service:
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
+
+//initial Values for state:
 import { initialSignupValues, initialDisabled } from '../variables/stateVariables';
+
+//Form Validation:
 import { formSchemaSignup } from '../validation/formSchemas';
 
 //Styles:

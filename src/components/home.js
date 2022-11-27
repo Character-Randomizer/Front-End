@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header, Footer } from './header-footer'
+
+//Styles:
 import StyledButtons from '../styles/buttonStyles'
 import { StyledH2 } from '../styles/homeStyles'
 

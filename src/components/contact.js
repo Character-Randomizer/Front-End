@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup'
 
 import { Header, Footer } from './header-footer'
+
+//initial values for state:
 import { initialContactValues } from '../variables/stateVariables';
+
+//form validation:
 import { formSchemaContact } from '../validation/formSchemas';
 
+//Styles:
 import StyledButtons from '../styles/buttonStyles'
 import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, StyledH2 } from '../styles/contactFormStyles';
 import { StyledForm } from '../styles/loginPageStyles'

@@ -1,8 +1,7 @@
 //Library + css imports
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 
 //Components
 import Home from './components/home'
@@ -13,18 +12,14 @@ import Contact from './components/contact'
 import Account from './components/account'
 import CreatedCharPage from './components/createdCharPage'
 
-//Form Validation
-import { formSchemaSignup, formSchemaContact, formSchemaLogin, formSchemaAccount } from './validation/formSchemas'
-
-//Authorization
-import axiosWithAuth from './authorization/axiosWithAuth';
+//Private Routes:
 import PrivateRoute from './authorization/privateRoutes';
 
 //State Management - Context API
 import { UserContext } from './contextAPI';
 
 //importing state variables:
-import { initialCharacters, initialContactValues, initialDisabled, initialLoginValues, initialUser, initialSignupValues } from './variables/stateVariables'
+import { initialCharacters, initialLoginValues, initialUser, initialSignupValues } from './variables/stateVariables'
 
 
 function App() {

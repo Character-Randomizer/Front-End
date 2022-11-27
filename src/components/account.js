@@ -1,11 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
 import * as yup from 'yup'
 
+//authorization:
 import axiosWithAuth from '../authorization/axiosWithAuth';
 
 import { Header, Footer } from './header-footer'
+
+//Popup once the user hits the delete button:
 import DeletePopup from './acctDeletePopup';
+
+//initial values for state:
 import { initialSignupValues, initialDisabled, initialUser } from '../variables/stateVariables';
+
+//form validaiton:
 import { formSchemaAccount } from '../validation/formSchemas';
 
 //Icons for showing or not showing password:
