@@ -30,79 +30,15 @@ import { initialCharacters, initialContactValues, initialDisabled, initialLoginV
 function App() {
   const [user, setUser] = useState(initialUser)
 
-  //Form Values + Error States
+  //Form Values:
   const [loginValues, setLoginValues] = useState(initialLoginValues)
-  const [loginErrors, setLoginErrors] = useState(initialLoginValues)
-
   const [accountValues, setAccountValues] = useState(initialSignupValues)
-
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
 
   //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
   const [characters, setCharacters] = useState(initialCharacters)
 
-  const [disabled, setDisabled] = useState(initialDisabled)
-
   const navigate = useNavigate()
-
-  //Validation Errors + changing input for Login Page:
-  const changeInputLogin = (name, value) => {
-    yup
-      .reach(formSchemaLogin, name)
-      .validate(value)
-      .then(() => {
-        setLoginErrors({ ...loginErrors, [name]: '' })
-      })
-      .catch(err => {
-        setLoginErrors({ ...loginErrors, [name]: err.errors })
-      })
-
-    setLoginValues({ ...loginValues, [name]: value })
-  }
-
-  useEffect(() => {
-    formSchemaLogin.isValid(loginValues).then(validate => {
-      setDisabled(!validate)
-    })
-  }, [loginValues])
-
-  //Logging in the user with backend api:
-  const loginUser = userInfo => {
-    axiosWithAuth()
-      .post(`auth/login`, userInfo)
-      .then(res => {
-        setUser(res.data.user)
-        setAccountValues(res.data.user)
-        localStorage.setItem('token', res.data.token)
-
-        if (res.data.message === "Welcome") {
-          return (
-            //Real navigate:
-            navigate(`/${res.data.user.user_id}/created-characters`)
-          )
-        }
-      })
-      .catch((err) => {
-        console.log(`Login Error:`, err)
-
-        setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
-      })
-      .finally(() => {
-        setLoginValues(initialLoginValues)
-        setLoginErrors(initialLoginValues)
-      })
-  }
-
-  const loginSubmit = event => {
-    event.preventDefault()
-
-    const userInfo = {
-      username: loginValues.username,
-      password: loginValues.password
-    }
-
-    loginUser(userInfo)
-  }
 
 
   // //For "blurring" out the passwords for account, login, and signup up pages:
@@ -145,11 +81,12 @@ function App() {
 
           <Route path={`/login`}
             element={<Login
-              changeLogin={changeInputLogin}
-              valuesLogin={loginValues}
-              loginErrors={loginErrors}
-              submitLogin={loginSubmit}
+              setUser={setUser}
+              navigate={navigate}
               handleShowPass={handleShowPass}
+              loginValues={loginValues}
+              setLoginValues={setLoginValues}
+              setAccountValues={setAccountValues}
             />} />
 
           {/* Private Routes for account and created character pages - can only access if the user has a login and is logged in (has a token) */}
