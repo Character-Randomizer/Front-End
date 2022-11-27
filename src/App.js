@@ -37,7 +37,6 @@ function App() {
   const [accountValues, setAccountValues] = useState(initialSignupValues)
 
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
-  const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
   //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
   const [characters, setCharacters] = useState(initialCharacters)
@@ -66,28 +65,6 @@ function App() {
       setDisabled(!validate)
     })
   }, [loginValues])
-
-
-  //Validation Errors + changing input for Sign Up Page:
-  const changeInputSignup = (name, value) => {
-    yup
-      .reach(formSchemaSignup, name)
-      .validate(value)
-      .then(() => {
-        setSignupErrors({ ...signupErrors, [name]: '' })
-      })
-      .catch(err => {
-        setSignupErrors({ ...signupErrors, [name]: err.errors })
-      })
-
-    setSignupFormValues({ ...signupFormValues, [name]: value })
-  }
-
-  useEffect(() => {
-    formSchemaSignup.isValid(signupFormValues).then(validate => {
-      setDisabled(!validate)
-    })
-  }, [signupFormValues])
 
   //Logging in the user with backend api:
   const loginUser = userInfo => {
@@ -127,50 +104,6 @@ function App() {
     loginUser(userInfo)
   }
 
-  //Posting a new user to the user api when Signing Up
-  const registerNewUser = (newUser) => {
-    axiosWithAuth()
-      .post('auth/register', newUser)
-      .then(res => {
-        setUser(res.data.user)
-        setAccountValues(res.data.user)
-        localStorage.setItem('token', res.data.token)
-
-        navigate(`/${res.data.user.user_id}/created-characters`)
-
-        setSignupFormValues(initialSignupValues)
-        setSignupErrors(initialSignupValues)
-
-        return user
-      })
-      .catch(err => {
-        console.log(err)
-
-        if (err.response.status === 500) {
-          setSignupErrors({ ...signupErrors, username: 'That username already exists. Please pick another one.' })
-        }
-        else if (err.response.status === 400) {
-          setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
-        }
-      })
-  }
-
-  const submitNewUser = event => {
-    event.preventDefault()
-
-    const newUser = {
-      first_name: signupFormValues.first_name,
-      last_name: signupFormValues.last_name,
-      username: signupFormValues.username,
-      password: signupFormValues.password,
-      email: signupFormValues.email,
-      accepted_terms: signupFormValues.terms,
-      dob: signupFormValues.dob,
-    }
-
-    registerNewUser(newUser)
-  }
-
 
   // //For "blurring" out the passwords for account, login, and signup up pages:
   const handleShowPass = (id) => {
@@ -202,11 +135,12 @@ function App() {
         <Routes>
           <Route path={`/signup`}
             element={<SignUp
-              changeSignup={changeInputSignup}
-              valuesSignup={signupFormValues}
-              signupErrors={signupErrors}
-              submitNewUser={submitNewUser}
+              setUser={setUser}
+              setAccountValues={setAccountValues}
               handleShowPass={handleShowPass}
+              signupFormValues={signupFormValues}
+              setSignupFormValues={setSignupFormValues}
+              navigate={navigate}
             />} />
 
           <Route path={`/login`}
