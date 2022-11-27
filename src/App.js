@@ -34,18 +34,15 @@ function App() {
   const [loginValues, setLoginValues] = useState(initialLoginValues)
   const [loginErrors, setLoginErrors] = useState(initialLoginValues)
 
+  const [accountValues, setAccountValues] = useState(initialSignupValues)
+
   const [signupFormValues, setSignupFormValues] = useState(initialSignupValues)
   const [signupErrors, setSignupErrors] = useState(initialSignupValues)
-
-  const [accountValues, setAccountValues] = useState(initialSignupValues)
-  const [accountErrors, setAccountErrors] = useState(initialSignupValues)
 
   //intialCharacters will probably be needed later on when I implement JSX in createdCharPage for the user's created characters
   const [characters, setCharacters] = useState(initialCharacters)
 
   const [disabled, setDisabled] = useState(initialDisabled)
-  //For buttons on account page:
-  const [disabledButton, setDisabledButton] = useState(initialDisabled)
 
   const navigate = useNavigate()
 
@@ -91,28 +88,6 @@ function App() {
       setDisabled(!validate)
     })
   }, [signupFormValues])
-
-  //Validation Errors + changing input for Account Page:
-  const changeInputAccount = (name, value) => {
-    yup
-      .reach(formSchemaAccount, name)
-      .validate(value)
-      .then(() => {
-        setAccountErrors({ ...accountErrors, [name]: '' })
-      })
-      .catch(err => {
-        setAccountErrors({ ...accountErrors, [name]: err.errors })
-      })
-
-    setAccountValues({ ...accountValues, [name]: value })
-  }
-
-  useEffect(() => {
-    formSchemaAccount.isValid(accountValues).then(validate => {
-      setDisabled(!validate)
-    })
-  }, [accountValues])
-
 
   //Logging in the user with backend api:
   const loginUser = userInfo => {
@@ -196,89 +171,6 @@ function App() {
     registerNewUser(newUser)
   }
 
-  //Account submit on save:
-  const accountSave = event => {
-    event.preventDefault()
-
-    const updatedUser = { user_id: user.user_id }
-    const valueKeys = Object.keys(accountValues).slice(1, 7)
-
-    valueKeys.forEach(key => {
-      switch (key) {
-        case 'first_name':
-          if (accountValues.first_name !== user.first_name) {
-            updatedUser.first_name = accountValues.first_name
-          }
-          return;
-        case 'last_name':
-          if (accountValues.last_name !== user.last_name) {
-            updatedUser.last_name = accountValues.last_name
-          }
-          return;
-        case 'username':
-          if (accountValues.username !== user.username) {
-            updatedUser.username = accountValues.username
-          }
-          return;
-        case 'email':
-          if (accountValues.email !== user.email) {
-            updatedUser.email = accountValues.email
-          }
-          return;
-        case 'dob':
-          if (accountValues.dob !== user.dob) {
-            updatedUser.dob = accountValues.dob
-          }
-          return;
-        case 'password':
-          if (accountValues.password !== '' && accountValues.password === accountValues.confirm_password) {
-            updatedUser.password = accountValues.password
-          }
-          else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
-            setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
-          }
-          return;
-        default:
-          console.log('Nothing to see here!')
-          return;
-      }
-    })
-
-    saveUser(updatedUser)
-  }
-
-  const saveUser = (updatedUser) => {
-    axiosWithAuth()
-      .put(`users/${user.user_id}`, updatedUser)
-      .then(res => {
-        setUser(res.data)
-        setDisabledButton(!disabledButton)
-        setAccountErrors(initialSignupValues)
-      })
-      .catch(err => {
-        console.log(`Error:`, err)
-
-        setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
-      })
-  }
-
-  //Account submit on delete:
-  const accountDelete = deleteUser => {
-    console.log(`Delete button was clicked. ${user.username} was deleted.`)
-
-    axiosWithAuth()
-      .delete(`users/${user.user_id}`, deleteUser)
-      .then(res => {
-        localStorage.removeItem(`token`)
-        setUser(initialUser)
-        setDisabledButton(!disabledButton)
-        navigate(`/`)
-      })
-      .catch(err => {
-        console.log(`App.js DELETE request error:`, err)
-      })
-  }
-
 
   // //For "blurring" out the passwords for account, login, and signup up pages:
   const handleShowPass = (id) => {
@@ -331,16 +223,11 @@ function App() {
             <Route path={`/users/:user_id`}
               element={
                 <Account
-                  disabledButton={disabledButton}
-                  setDisabledButton={setDisabledButton}
-                  changeAccount={changeInputAccount}
-                  valuesAccount={accountValues}
-                  setValuesAccount={setAccountValues}
-                  accountErrors={accountErrors}
-                  setAccountErrors={setAccountErrors}
-                  saveAccount={accountSave}
-                  deleteAccount={accountDelete}
+                  accountValues={accountValues}
+                  setAccountValues={setAccountValues}
                   handleShowPass={handleShowPass}
+                  navigate={navigate}
+                  setUser={setUser}
                 />
               } />
 
