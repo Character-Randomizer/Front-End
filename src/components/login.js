@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 
@@ -8,7 +8,7 @@ import axiosWithAuth from '../authorization/axiosWithAuth';
 import { Header, Footer } from './header-footer'
 
 //intial values for state:
-import { initialDisabled, initialLoginValues } from '../variables/stateVariables';
+import { initialLoginValues } from '../variables/stateVariables';
 
 //Form Validation:
 import { formSchemaLogin } from '../validation/formSchemas';
@@ -31,7 +31,6 @@ export default function Login(props) {
       setAccountValues } = props
 
    const [loginErrors, setLoginErrors] = useState(initialLoginValues)
-   const [disabled, setDisabled] = useState(initialDisabled)
 
    const onChangeLogin = event => {
       const { name, value } = event.target
@@ -58,11 +57,6 @@ export default function Login(props) {
       setLoginValues({ ...loginValues, [name]: value })
    }
 
-   useEffect(() => {
-      formSchemaLogin.isValid(loginValues).then(validate => {
-         setDisabled(!validate)
-      })
-   }, [loginValues])
 
    //Logging in the user with backend api:
    const loginUser = userInfo => {

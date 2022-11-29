@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import * as yup from 'yup'
 
 //Authorization:
@@ -10,7 +10,7 @@ import { Header, Footer } from './header-footer'
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
 
 //initial Values for state:
-import { initialSignupValues, initialDisabled } from '../variables/stateVariables';
+import { initialSignupValues } from '../variables/stateVariables';
 
 //Form Validation:
 import { formSchemaSignup } from '../validation/formSchemas';
@@ -27,6 +27,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
+
+// Want to make sure that the sign up form gets scrubbed when clicking on another link
+
 export default function SignUp(props) {
    const userContext = useContext(UserContext)
    const user = userContext.user
@@ -39,7 +42,6 @@ export default function SignUp(props) {
       navigate } = props
 
    const [signupErrors, setSignupErrors] = useState(initialSignupValues)
-   const [disabled, setDisabled] = useState(initialDisabled)
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
@@ -67,12 +69,6 @@ export default function SignUp(props) {
 
       setSignupFormValues({ ...signupFormValues, [name]: value })
    }
-
-   useEffect(() => {
-      formSchemaSignup.isValid(signupFormValues).then(validate => {
-         setDisabled(!validate)
-      })
-   }, [signupFormValues])
 
    //Posting a new user to the user api when Signing Up
    const registerNewUser = (newUser) => {

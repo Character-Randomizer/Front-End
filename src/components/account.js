@@ -32,6 +32,7 @@ import { UserContext } from '../contextAPI';
 
 export default function Account(props) {
    const userContext = useContext(UserContext)
+   const user = userContext.user
 
    const [accountErrors, setAccountErrors] = useState(initialSignupValues)
    const [disabledButton, setDisabledButton] = useState(initialDisabled)
@@ -41,8 +42,6 @@ export default function Account(props) {
       handleShowPass,
       navigate,
       setUser } = props
-
-   const user = userContext.user
 
    //functions for buttons
    const handleEdit = () => {

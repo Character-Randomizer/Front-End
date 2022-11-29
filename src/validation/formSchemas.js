@@ -19,7 +19,7 @@ const formSchemaSignup = yup.object().shape({
       .required('a password is required'),
 
    confirm_password: yup.string()
-      .oneOf([yup.ref('password'), null], 'Passwords do not match')
+      // .oneOf([yup.ref('password'), null], 'Passwords do not match')
       .required('You must confirm your password'),
 
    email: yup.string()

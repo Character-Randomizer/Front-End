@@ -6,7 +6,7 @@ const getDOB = (userDob) => {
    const dobMonth = dobParts[1]
    const dobDay = dobParts[2]
 
-   return ([getMonth(dobMonth), ' ', dobDay, ',', dobYear])
+   return ([getMonth(dobMonth), ' ', dobDay, ',', ' ', dobYear])
 }
 
 const getMonth = month => {
