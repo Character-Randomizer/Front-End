@@ -83,7 +83,7 @@ export default function Login(props) {
          .catch((err) => {
             console.log(`Login Error:`, err)
 
-            setLoginErrors({ ...loginErrors, ['request_err']: 'Invalid Credentials, please try again or sign up' })
+            setLoginErrors({ ...loginErrors, 'request_err': 'Invalid Credentials, please try again or sign up' })
          })
          .finally(() => {
             setLoginValues(initialLoginValues)

@@ -83,10 +83,10 @@ export default function SignUp(props) {
             setAccountValues(res.data.user)
             localStorage.setItem('token', res.data.token)
 
-            navigate(`/${res.data.user.user_id}/created-characters`)
-
             setSignupFormValues(initialSignupValues)
             setSignupErrors(initialSignupValues)
+
+            navigate(`/${res.data.user.user_id}/created-characters`)
 
             return user
          })
@@ -97,7 +97,7 @@ export default function SignUp(props) {
                setSignupErrors({ ...signupErrors, username: 'That username already exists. Please pick another one.' })
             }
             else if (err.response.status === 400) {
-               setSignupErrors({ ...signupErrors, ['request_err']: "You must complete all required fields before submitting" })
+               setSignupErrors({ ...signupErrors, 'request_err': "You must complete all required fields before submitting" })
             }
          })
    }

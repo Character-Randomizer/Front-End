@@ -183,7 +183,7 @@ export default function Account(props) {
          .catch(err => {
             console.log(`Error:`, err)
 
-            setAccountErrors({ ...accountErrors, ['request_err']: `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
+            setAccountErrors({ ...accountErrors, 'request_err': `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
          })
    }
 
