@@ -15,6 +15,9 @@ import { initialSignupValues, initialDisabled, initialUser } from '../variables/
 //form validaiton:
 import { formSchemaAccount } from '../validation/formSchemas';
 
+//Function for getting dob in the correct format:
+import { getDOB } from './accountUtils.js/getMonthFunc';
+
 //Icons for showing or not showing password:
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -24,12 +27,13 @@ import StyledButtons from '../styles/buttonStyles';
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
+//Need to figure out why the user can only save one changed password instead of being able to change it multiple times if wanted while logged in - it can change the password again after the user logs out and back in
+
 
 export default function Account(props) {
    const userContext = useContext(UserContext)
 
    const [accountErrors, setAccountErrors] = useState(initialSignupValues)
-   const [disabled, setDisabled] = useState(initialDisabled)
    const [disabledButton, setDisabledButton] = useState(initialDisabled)
 
    const { accountValues,
@@ -39,45 +43,6 @@ export default function Account(props) {
       setUser } = props
 
    const user = userContext.user
-
-   //functions for getting birthdate in a correct format (Month Day, Year)
-   const getMonth = month => {
-      switch (month) {
-         case '01':
-            return 'January';
-         case '02':
-            return 'February';
-         case '03':
-            return 'March';
-         case '04':
-            return 'April';
-         case '05':
-            return 'May';
-         case '06':
-            return 'June';
-         case '07':
-            return 'July';
-         case '08':
-            return 'August';
-         case '09':
-            return 'September';
-         case '10':
-            return 'October';
-         case '11':
-            return 'November';
-         case '12':
-            return 'December';
-         default:
-            return ''
-      }
-   }
-
-   const dobStr = user.dob
-   const dob = dobStr.split('T')[0]
-   const dobParts = dob.split('-')
-   const dobYear = dobParts[0]
-   const dobMonth = dobParts[1]
-   const dobDay = dobParts[2]
 
    //functions for buttons
    const handleEdit = () => {
@@ -99,12 +64,6 @@ export default function Account(props) {
 
       setAccountValues({ ...accountValues, [name]: value })
    }
-
-   useEffect(() => {
-      formSchemaAccount.isValid(accountValues).then(validate => {
-         setDisabled(!validate)
-      })
-   }, [accountValues])
 
 
    //functions for inputs once user is editing
@@ -146,7 +105,7 @@ export default function Account(props) {
                }
                return;
             case 'email':
-               if (accountValues.email !== user.email) {
+               if (accountValues.email !== user.email && accountErrors.email === '') {
                   updatedUser.email = accountValues.email
                }
                return;
@@ -161,6 +120,9 @@ export default function Account(props) {
                }
                else if (accountValues.password !== '' && accountValues.password !== accountValues.confirm_password) {
                   setAccountErrors({ ...accountErrors, confirm_password: `Passwords do not match` })
+               }
+               else if (accountValues.password === '') {
+                  setAccountErrors({ ...accountErrors, passowrd: '' })
                }
                return;
             default:
@@ -179,11 +141,25 @@ export default function Account(props) {
             setUser(res.data)
             setDisabledButton(!disabledButton)
             setAccountErrors(initialSignupValues)
+            setAccountValues(res.data)
          })
-         .catch(err => {
+         .catch((err) => {
             console.log(`Error:`, err)
 
-            setAccountErrors({ ...accountErrors, 'request_err': `You must change something before saving. \n If you clicked edit on accident, feel free to click the cancel button.` })
+            if
+               (accountErrors.first_name !== '' || accountErrors.last_name !== '' || accountErrors.username !== '' || accountErrors.email !== '' || accountErrors.dob !== '' || accountErrors.password !== '' || accountErrors.confirm_password !== '') {
+               setAccountErrors({ ...accountErrors, request_err: `You must complete the required field(s) before saving. If you deleted something on accident, feel free to click the cancel button.` })
+            }
+            else if (err.response.status === 500) {
+               setAccountErrors({
+                  ...accountErrors,
+                  username: 'That username already exists. Please pick another one.',
+                  request_err: `You must complete the required field(s) before saving. If you deleted something on accident, feel free to click the cancel button.`
+               })
+            }
+            else {
+               setAccountErrors({ ...accountErrors, request_err: `You must change something before saving. If you clicked edit on accident, feel free to click the cancel button.` })
+            }
          })
    }
 
@@ -222,7 +198,7 @@ export default function Account(props) {
 
                <p className='account-titles'>Birthday</p>
                <p className='account-info'>
-                  {getMonth(dobMonth)} {dobDay}, {dobYear}
+                  {getDOB(user.dob)}
                </p>
 
                <StyledButtons className='account-edit-btn' onClick={handleEdit}>Edit</StyledButtons>
