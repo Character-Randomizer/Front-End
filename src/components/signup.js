@@ -1,7 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import * as yup from 'yup'
+
+//Authorization:
+import axiosWithAuth from '../authorization/axiosWithAuth';
 
 import { Header, Footer } from './header-footer'
+
+//For the terms of service:
 import { termsText1, termsText2, termsText3, termsText4, termsText5 } from './termsText';
+
+//initial Values for state:
+import { initialSignupValues } from '../variables/stateVariables';
+
+//Form Validation:
+import { formSchemaSignup } from '../validation/formSchemas';
+
+//Styles:
 import StyledButtons from '../styles/buttonStyles';
 import { StyledForm, VisibilityDiv } from '../styles/loginPageStyles'
 import { StyledH2, StyledDivWidth60, StyledDivWidth100, StyledTermLabel, StyledInputs, StyledTermInput, StyledDobInput, StyledLabels } from '../styles/signup-page'
@@ -14,25 +28,90 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { UserContext } from '../contextAPI';
 
 
+// Want to make sure that the sign up form gets scrubbed when clicking on another link
+
 export default function SignUp(props) {
    const userContext = useContext(UserContext)
+   const user = userContext.user
 
-   const { changeSignup,
-      valuesSignup,
-      signupErrors,
-      submitNewUser,
-      handleShowPass } = props
+   const { setAccountValues,
+      handleShowPass,
+      setUser,
+      signupFormValues,
+      setSignupFormValues,
+      navigate } = props
+
+   const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
    const onChangeSignup = event => {
       const { name, value, checked, type } = event.target
 
       const valueUsed = type === 'checkbox' ? checked : value;
 
-      changeSignup(name, valueUsed)
+      changeInputSignup(name, valueUsed)
    }
 
    const handleMouseDownPass = (event) => {
       event.preventDefault()
+   }
+
+   //Validation Errors + changing input for Sign Up Page:
+   const changeInputSignup = (name, value) => {
+      yup
+         .reach(formSchemaSignup, name)
+         .validate(value)
+         .then(() => {
+            setSignupErrors({ ...signupErrors, [name]: '' })
+         })
+         .catch(err => {
+            setSignupErrors({ ...signupErrors, [name]: err.errors })
+         })
+
+      setSignupFormValues({ ...signupFormValues, [name]: value })
+   }
+
+   //Posting a new user to the user api when Signing Up
+   const registerNewUser = (newUser) => {
+      axiosWithAuth()
+         .post('auth/register', newUser)
+         .then(res => {
+            setUser(res.data.user)
+            setAccountValues(res.data.user)
+            localStorage.setItem('token', res.data.token)
+
+            setSignupFormValues(initialSignupValues)
+            setSignupErrors(initialSignupValues)
+
+            navigate(`/${res.data.user.user_id}/created-characters`)
+
+            return user
+         })
+         .catch(err => {
+            console.log(err)
+
+            if (err.response.status === 500) {
+               setSignupErrors({ ...signupErrors, username: 'That username already exists. Please pick another one.' })
+            }
+            else if (err.response.status === 400) {
+               setSignupErrors({ ...signupErrors, 'request_err': "You must complete all required fields before submitting" })
+            }
+         })
+   }
+
+   const submitNewUser = event => {
+      event.preventDefault()
+
+      const newUser = {
+         first_name: signupFormValues.first_name,
+         last_name: signupFormValues.last_name,
+         username: signupFormValues.username,
+         password: signupFormValues.password,
+         email: signupFormValues.email,
+         accepted_terms: signupFormValues.terms,
+         dob: signupFormValues.dob,
+      }
+
+      registerNewUser(newUser)
    }
 
    return (
@@ -56,7 +135,7 @@ export default function SignUp(props) {
                      type='text'
                      id='input-first-name'
                      name='first_name'
-                     value={valuesSignup.first_name}
+                     value={signupFormValues.first_name}
                      onChange={onChangeSignup}
                      placeholder='First Name'
                   />
@@ -69,7 +148,7 @@ export default function SignUp(props) {
                      type='text'
                      id='input-last-name'
                      name='last_name'
-                     value={valuesSignup.last_name}
+                     value={signupFormValues.last_name}
                      onChange={onChangeSignup}
                      placeholder='Last Name'
                   />
@@ -82,7 +161,7 @@ export default function SignUp(props) {
                      type='text'
                      id='input-un'
                      name='username'
-                     value={valuesSignup.username}
+                     value={signupFormValues.username}
                      onChange={onChangeSignup}
                      placeholder='Username'
                   />
@@ -95,7 +174,7 @@ export default function SignUp(props) {
                      type='email'
                      id='input-email'
                      name='email'
-                     value={valuesSignup.email}
+                     value={signupFormValues.email}
                      onChange={onChangeSignup}
                      placeholder='Email'
                   />
@@ -105,10 +184,10 @@ export default function SignUp(props) {
                      {signupErrors.password}
                   </div>
                   <StyledInputs
-                     type={valuesSignup.showPass ? 'text' : 'password'}
+                     type={signupFormValues.showPass ? 'text' : 'password'}
                      id='input-pass'
                      name='password'
-                     value={valuesSignup.password}
+                     value={signupFormValues.password}
                      onChange={onChangeSignup}
                      placeholder='Password'
                   />
@@ -118,7 +197,7 @@ export default function SignUp(props) {
                      }}
                      onMouseDown={handleMouseDownPass}
                   >
-                     {valuesSignup.showPass ? <VisibilityOff /> : <Visibility />}
+                     {signupFormValues.showPass ? <VisibilityOff /> : <Visibility />}
                   </VisibilityDiv>
                </StyledDivWidth60>
                <StyledDivWidth60>
@@ -126,10 +205,10 @@ export default function SignUp(props) {
                      {signupErrors.confirm_password}
                   </div>
                   <StyledInputs
-                     type={valuesSignup.showConfirm ? 'text' : 'password'}
+                     type={signupFormValues.showConfirm ? 'text' : 'password'}
                      id='input-confirm-pass'
                      name='confirm_password'
-                     value={valuesSignup.confirm_password}
+                     value={signupFormValues.confirm_password}
                      onChange={onChangeSignup}
                      placeholder='Confirm password'
                   />
@@ -139,7 +218,7 @@ export default function SignUp(props) {
                      }}
                      onMouseDown={handleMouseDownPass}
                   >
-                     {valuesSignup.showConfirm ? <VisibilityOff /> : <Visibility />}
+                     {signupFormValues.showConfirm ? <VisibilityOff /> : <Visibility />}
                   </VisibilityDiv>
                </StyledDivWidth60>
                <StyledDivWidth100>
@@ -154,7 +233,7 @@ export default function SignUp(props) {
                      id='input-dob'
                      name='dob'
                      min='1900-01-01'
-                     value={valuesSignup.dob}
+                     value={signupFormValues.dob}
                      onChange={onChangeSignup}
                   />
                </StyledDivWidth100>
@@ -187,7 +266,7 @@ export default function SignUp(props) {
                      type='checkbox'
                      id='input-terms'
                      name='terms'
-                     value={valuesSignup.terms}
+                     value={signupFormValues.terms}
                      onChange={onChangeSignup}
                   />
 

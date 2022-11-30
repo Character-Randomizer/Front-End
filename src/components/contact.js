@@ -1,25 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as yup from 'yup'
 
 import { Header, Footer } from './header-footer'
+
+//initial values for state:
+import { initialContactValues } from '../variables/stateVariables';
+
+//form validation:
+import { formSchemaContact } from '../validation/formSchemas';
+
+//Styles:
 import StyledButtons from '../styles/buttonStyles'
 import { StyledFormDiv, StyledInputDiv, StyledContactLabels, StyledInputs, StyledH2 } from '../styles/contactFormStyles';
 import { StyledForm } from '../styles/loginPageStyles'
 
-//State Management - Context API
-import { UserContext } from '../contextAPI';
 
-export default function Contact(props) {
-   const userContext = useContext(UserContext)
-
-   const { changeContact,
-      valuesContact,
-      contactErrors } = props
+export default function Contact() {
+   const [contactFormValues, setContactFormValues] = useState(initialContactValues)
+   const [contactErrors, setContactErrors] = useState(initialContactValues)
+   const [disabled, setDisabled] = useState(false)
 
    const onChangeContact = event => {
       const { name, value } = event.target
 
-      changeContact(name, value)
+      changeInputContact(name, value)
    }
+
+   //Validation Errors for Contact Page:
+   const changeInputContact = (name, value) => {
+      yup
+         .reach(formSchemaContact, name)
+         .validate(value)
+         .then(() => {
+            setContactErrors({ ...contactErrors, [name]: '' })
+         })
+         .catch(err => {
+            setContactErrors({ ...contactErrors, [name]: err.errors })
+         })
+
+      setContactFormValues({ ...contactFormValues, [name]: value })
+   }
+
+   useEffect(() => {
+      formSchemaContact.isValid(contactFormValues).then(validate => {
+         setDisabled(!validate)
+      })
+   }, [contactFormValues])
 
    return (
       <>
@@ -40,7 +66,7 @@ export default function Contact(props) {
                   <StyledInputs
                      type='text'
                      name='first_name'
-                     value={valuesContact.first_name}
+                     value={contactFormValues.first_name}
                      onChange={onChangeContact}
                   />
                   <div className='errors'>
@@ -54,7 +80,7 @@ export default function Contact(props) {
                   <StyledInputs
                      type='text'
                      name='last_name'
-                     value={valuesContact.last_name}
+                     value={contactFormValues.last_name}
                      onChange={onChangeContact}
                   />
                   <div className='errors'>
@@ -68,7 +94,7 @@ export default function Contact(props) {
                   <StyledInputs
                      type='text'
                      name='username'
-                     value={valuesContact.username}
+                     value={contactFormValues.username}
                      onChange={onChangeContact}
                   />
                </StyledInputDiv>
@@ -79,7 +105,7 @@ export default function Contact(props) {
                   <StyledInputs
                      type='text'
                      name='subject'
-                     value={valuesContact.subject}
+                     value={contactFormValues.subject}
                      onChange={onChangeContact}
                   />
                   <div className='errors'>
@@ -94,7 +120,7 @@ export default function Contact(props) {
                      type='text area'
                      className='message-input'
                      name='message'
-                     value={valuesContact.message}
+                     value={contactFormValues.message}
                      onChange={onChangeContact}
                   />
                   <div className='errors'>

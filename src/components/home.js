@@ -1,19 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Header, Footer } from './header-footer'
+
+//Styles:
 import StyledButtons from '../styles/buttonStyles'
 import { StyledH2 } from '../styles/homeStyles'
 
 import npcs from '../images/npcs.jpeg'
 
-//State Management - Context API
-import { UserContext } from '../contextAPI';
-
 
 export default function Home() {
-   const userContext = useContext(UserContext)
-
    return (
       <>
          <Header />

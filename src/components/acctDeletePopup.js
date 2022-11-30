@@ -1,14 +1,18 @@
 import React, { useState } from "react"
 import Popup from "reactjs-popup"
 
+//initial value for state:
+import { initialDisabled } from "../variables/stateVariables"
+
+//styles:
 import StyledButtons from "../styles/buttonStyles"
 
 export const DeletePopup = (props) => {
    const { deleteAccount,
       user } = props
 
-   const [popup, setPopup] = useState(false)
-   const [disable, setDisable] = useState(true)
+   const [popup, setPopup] = useState(!initialDisabled)
+   const [disable, setDisable] = useState(initialDisabled)
    const [deleteValue, setDeleteValue] = useState({ delete: '' })
 
    const body = document.querySelector('body')
