@@ -67,7 +67,7 @@ export default function Login(props) {
             setAccountValues(res.data.user)
             localStorage.setItem('token', res.data.token)
 
-            if (res.data.message === "Welcome") {
+            if (res.data.message === `Welcome back ${res.data.user.username}`) {
                return (
                   //Real navigate:
                   navigate(`/${res.data.user.user_id}/created-characters`)
@@ -75,8 +75,6 @@ export default function Login(props) {
             }
          })
          .catch((err) => {
-            console.log(`Login Error:`, err)
-
             setLoginErrors({ ...loginErrors, 'request_err': 'Invalid Credentials, please try again or sign up' })
          })
          .finally(() => {
