@@ -7,7 +7,7 @@ const axiosWithAuth = () => {
       headers: {
          Authorization: token
       },
-      baseURL: 'https://character-randomizer-backend.herokuapp.com/api/'
+      baseURL: process.env.BASE_URL
    })
 }
 

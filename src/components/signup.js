@@ -107,7 +107,7 @@ export default function SignUp(props) {
          username: signupFormValues.username,
          password: signupFormValues.password,
          email: signupFormValues.email,
-         accepted_terms: signupFormValues.terms,
+         terms: signupFormValues.terms,
          dob: signupFormValues.dob,
       }
 
