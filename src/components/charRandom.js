@@ -140,7 +140,7 @@ export default function CharRandomizer() {
                      {/* trying to map out the options with the API */}
                      {/* {
                         axios
-                           .get(`https://character-randomizer-backend.herokuapp.com/api/classes`)
+                           .get(`process.env.BASE_URL`)
                            .then(res => {
                               console.log(res)
                            })

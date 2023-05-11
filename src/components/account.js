@@ -135,7 +135,7 @@ export default function Account(props) {
 
    const saveUser = (updatedUser) => {
       axiosWithAuth()
-         .put(`users/${user.user_id}`, updatedUser)
+         .put(`/users/${user.user_id}`, updatedUser)
          .then(res => {
             setUser(res.data)
             setDisabledButton(!disabledButton)
@@ -167,7 +167,7 @@ export default function Account(props) {
       console.log(`Delete button was clicked. ${user.username} was deleted.`)
 
       axiosWithAuth()
-         .delete(`users/${user.user_id}`, deleteUser)
+         .delete(`/users/${user.user_id}`, deleteUser)
          .then(res => {
             localStorage.removeItem(`token`)
             setUser(initialUser)

@@ -73,7 +73,7 @@ export default function SignUp(props) {
    //Posting a new user to the user api when Signing Up
    const registerNewUser = (newUser) => {
       axiosWithAuth()
-         .post('auth/register', newUser)
+         .post('/auth/register', newUser)
          .then(res => {
             setUser(res.data.user)
             setAccountValues(res.data.user)

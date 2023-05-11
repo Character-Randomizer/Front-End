@@ -61,7 +61,7 @@ export default function Login(props) {
    //Logging in the user with backend api:
    const loginUser = userInfo => {
       axiosWithAuth()
-         .post(`auth/login`, userInfo)
+         .post(`/auth/login`, userInfo)
          .then(res => {
             setUser(res.data.user)
             setAccountValues(res.data.user)
