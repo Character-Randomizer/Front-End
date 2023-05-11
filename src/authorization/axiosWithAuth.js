@@ -7,7 +7,7 @@ const axiosWithAuth = () => {
       headers: {
          Authorization: token
       },
-      baseURL: `https://character-randomizer-api.onrender.com`
+      baseURL: process.env.BASE_URL
    })
 }
 
