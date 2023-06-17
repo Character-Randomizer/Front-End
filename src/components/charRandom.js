@@ -50,10 +50,17 @@ export default function CharRandomizer() {
    }, [randomizerFormValues])
 
    const onChangeForm = event => {
-      const { name, value } = event.target
+      let { name, value } = event.target
+
+      //If a value is only a number string(ex: "4", "4.5") it changes it to a number (ex: 4, 4.5) + rounds it (ex: 4.3 -> 4, 4.6 -> 5):
+      if(/^(\d+.)*(\d+)$/.test(value) === true){
+         value = Math.round(parseFloat(value))
+      }
 
       changeInputRandomizer(name, value)
    }
+
+   // console.log(`Change?`, randomizerFormValues)
 
    return (
       <>
@@ -90,6 +97,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.first_name}
+               </div>
             </div>
             <div className='charLastName'>
                <label>
@@ -109,6 +119,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm} 
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.last_name}
+               </div>
             </div>
             <div className='charLevel'>
                <label>
@@ -128,6 +141,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.level}
+               </div>
             </div>
             <div className='charRace'>
                <label>
@@ -147,6 +163,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.race}
+               </div>
             </div>
             <div className='charClass'>
                <label>
@@ -192,6 +211,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.class}
+               </div>
             </div>
             <div className='charClassFocus'>
                <label>
@@ -212,6 +234,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.class_focus}
+               </div>
             </div>
             <div className='charAlignment'>
                <label>
@@ -233,6 +258,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   />
                </label>
+               <div className='errors'>
+                     {randomizerErrors.alignment}
+               </div>
             </div>
             <div className='charStats'>
                <div className='strength-div'>
@@ -253,6 +281,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.strength}
+               </div>
                </div>
                <div className='dexterity-div'>
                   <label>
@@ -272,6 +303,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.dexterity}
+               </div>
                </div>
                <div className='constitution-div'>
                   <label>
@@ -279,8 +313,8 @@ export default function CharRandomizer() {
                      <input
                         type='number'
                         id='constitution random-btn'
-                        name='strength'
-                        value={randomizerFormValues.consitution}
+                        name='constitution'
+                        value={randomizerFormValues.constitution}
                         onChange={onChangeForm}
                      />
                      <input
@@ -291,6 +325,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.constitution}
+               </div>
                </div>
                <div className='intelligence-div'>
                   <label>
@@ -310,6 +347,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.intelligence}
+               </div>
                </div>
                <div className='wisdom-div'>
                   <label>
@@ -329,6 +369,9 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.wisdom}
+               </div>
                </div>
                <div className='charisma-div'>
                   <label>
@@ -348,6 +391,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.charisma}
+               </div>
                </div>
                <div className='charGender'>
                   <label>
@@ -372,6 +418,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.gender}
+               </div>
                </div>
                <div className='charHeight'>
                   <label>
@@ -392,6 +441,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.height}
+               </div>
                </div>
                <div className='charAge'>
                   <label>
@@ -411,6 +463,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.age}
+               </div>
                </div>
                <div className='charWeight'>
                   <label>
@@ -430,6 +485,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.weight}
+               </div>
                </div>
                <div className='charPhysicalDescription'>
                   <label>
@@ -450,6 +508,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.description}
+               </div>
                </div>
                <div className='charBackground'>
                   <label>
@@ -470,6 +531,9 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      />
                   </label>
+                  <div className='errors'>
+                     {randomizerErrors.background}
+               </div>
                </div>
                {/* Stopped here - need to continue form options */}
             </div>
