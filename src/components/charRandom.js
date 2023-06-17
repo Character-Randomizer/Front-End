@@ -49,6 +49,7 @@ export default function CharRandomizer() {
          <Header />
 
          <h2>Character Creation Randomizer</h2>
+         <h3>** Disclaimer ** <br></br>This is still being worked on and is not currently working</h3>
 
          <form id='charactor-randomizer-form' onSubmit={null}>
             <p className='randomizer-prompt'>Use the prompts below and click Create to get your randomized (or not) character!</p>

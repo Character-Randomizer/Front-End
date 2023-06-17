@@ -36,13 +36,6 @@
   flex-wrap: wrap;
 }
 
-.middle h2 {
-  display: flex;
-  justify-content: center;
-  padding: 2% 0;
-  width: 100%;
-}
-
 .product,
 .saving {
   display: flex;
@@ -67,7 +60,7 @@
 }
 
 .image img {
-  height: 75vh;
+  height: 50rem;
 }
 
 .img-text,
@@ -78,7 +71,7 @@
 
 .img-text {
   padding-top: .5%;
-  width: 49%;
+  width:70rem;
 }
 
 .button {

@@ -5,7 +5,11 @@ import { Header, Footer } from './header-footer'
 
 //Styles:
 import StyledButtons from '../styles/buttonStyles'
-import { StyledH2 } from '../styles/homeStyles'
+import { 
+   AboutRandomizerH2, 
+   DisclaimerP,
+   SaveCharH2, 
+   SaveCharH3, } from '../styles/homeStyles'
 
 import npcs from '../images/npcs.jpeg'
 
@@ -16,26 +20,11 @@ export default function Home() {
          <Header />
 
          <div className="middle">
-            <StyledH2>What the Randomizer Does</StyledH2>
+            <AboutRandomizerH2>About the Randomizer</AboutRandomizerH2>
             <p className="product">
-               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia porro, commodi explicabo incidunt
-               doloremque dicta ipsa expedita aperiam nostrum ad libero harum aliquam officia, alias tenetur optio
-               repellendus necessitatibus animi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero tempora
-               perspiciatis accusamus? Doloribus corporis molestiae cum voluptatibus ea. Officia ut porro quas mollitia
-               iusto suscipit, quia magnam minus vitae repellat. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-               Itaque tempora molestiae porro asperiores fugiat similique incidunt voluptatum rem enim dignissimos nihil
-               neque cumque, temporibus ipsum aperiam accusantium laborum qui! Voluptatem? Lorem ipsum dolor sit amet
-               consectetur adipisicing elit. Quaerat nostrum reiciendis repudiandae, expedita numquam neque sapiente libero
-               non. Dolorem accusantium veritatis commodi assumenda repudiandae cupiditate fugiat culpa necessitatibus
-               natus vitae.
+               The character randomizer is designed for game masters (GMs) who need more NPC options in the table top role playing game, Dungeons and Dragons. The randomizer is designed for GMs to either fully randomize the NPC or to customize them. 
                <br /> <br />
-               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad cumque unde rerum, iure cupiditate illum quo?
-               Qui, nulla hic, voluptatibus fuga nihil minus adipisci numquam dolorum doloremque porro dignissimos quaerat.
-               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi aspernatur error architecto, sit
-               exercitationem enim eius aperiam reprehenderit consequuntur esse nam, molestias ea quas? Aliquid nam
-               repellendus possimus odio rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis ipsum
-               eligendi dicta consequatur sit dolor libero sequi, cumque corporis placeat autem totam impedit soluta hic
-               repellat inventore illum sapiente explicabo?
+               The full character randomizer can be used by either GMs or players who are looking to make characters easily. 
             </p>
 
             <div className="image">
@@ -46,16 +35,11 @@ export default function Home() {
                target="_blank">thenerdd.com</a></p>
 
 
-            <StyledH2>Saving Characters</StyledH2>
+            <SaveCharH2 className='save-char'>Saving Characters</SaveCharH2>
+            <SaveCharH3>** Disclaimer ** <br></br> This is still being worked on </SaveCharH3>
+            <DisclaimerP> You can sign up, but you will not be able to save your characters. <br></br>We are working on this feature. </DisclaimerP>
             <p className="saving">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt incidunt quae, nihil reiciendis aliquid in
-               saepe alias voluptates, accusamus sed dolor velit nisi iusto aliquam odio, eius debitis assumenda soluta.
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere alias nobis incidunt laboriosam voluptas
-               blanditiis error ex, reprehenderit, enim eveniet debitis et magni beatae amet maxime sint. Incidunt, libero?
-               Asperiores?
-               <br /> <br />
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, labore architecto velit nisi deserunt
-               laudantium maxime hic magni laborum eius numquam non iure optio eaque totam error quibusdam culpa omnis!
+               If you would like to save your characters on our website, you can create a free account with us.
             </p>
 
             <div className="button">
