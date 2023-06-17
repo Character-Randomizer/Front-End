@@ -43,12 +43,7 @@ export default function CharRandomizer() {
       setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
    }
 
-   useEffect(() => {
-      formSchemaRandomizer.isValid(randomizerFormValues).then(validate => {
-         setDisabled(!validate)
-      })
-   }, [randomizerFormValues])
-
+   //Gets the typed change on the form + sends it to the validation function above:
    const onChangeForm = event => {
       let { name, value } = event.target
 
@@ -57,6 +52,28 @@ export default function CharRandomizer() {
          value = Math.round(parseFloat(value))
       }
 
+      changeInputRandomizer(name, value)
+   }
+
+   //Randomized level (1-20):
+   const randomLevel = (event) => {
+      let { name, value } = event.target
+      value = Math.ceil(Math.random() * 20)
+      
+      changeInputRandomizer(name, value)
+   }
+
+     //Randomized ability score (3-18):
+      //When rolling for these, you would roll 4d6s and take the higher 3 numbers
+         //This means that the minimum would be 3 and the max would be 18
+     const randomAbilityScore = (event) => {
+      let { name, value } = event.target
+      value = Math.ceil(Math.random() * 18)
+
+      if(value < 3){
+         value = 3
+      }
+      
       changeInputRandomizer(name, value)
    }
 
@@ -94,7 +111,7 @@ export default function CharRandomizer() {
                      id='first-name random-btn'
                      name='first_name'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -116,7 +133,7 @@ export default function CharRandomizer() {
                      id='last-name random-btn'
                      name='last_name'
                      value='Randomize'
-                     onChange={onChangeForm} 
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -138,7 +155,7 @@ export default function CharRandomizer() {
                      id='level random-btn'
                      name='level'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={(event, value) => randomLevel(event, value)}
                   />
                </label>
                <div className='errors'>
@@ -160,7 +177,7 @@ export default function CharRandomizer() {
                      id='race random-btn'
                      name='race'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -208,7 +225,7 @@ export default function CharRandomizer() {
                      id='level random-btn'
                      name='level'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -231,7 +248,7 @@ export default function CharRandomizer() {
                      id='class-focus random-btn'
                      name='race'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -255,7 +272,7 @@ export default function CharRandomizer() {
                      id='alignment random-btn'
                      name='alignment'
                      value='Randomize'
-                     onChange={onChangeForm}
+                     onClick={null}
                   />
                </label>
                <div className='errors'>
@@ -278,7 +295,7 @@ export default function CharRandomizer() {
                         id='strength random-btn'
                         name='strength'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -300,7 +317,7 @@ export default function CharRandomizer() {
                         id='dexterity random-btn'
                         name='dexterity'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -322,7 +339,7 @@ export default function CharRandomizer() {
                         id='constitution random-btn'
                         name='constitution'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -344,7 +361,7 @@ export default function CharRandomizer() {
                         id='intelligence random-btn'
                         name='intelligence'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -366,7 +383,7 @@ export default function CharRandomizer() {
                         id='wisdom random-btn'
                         name='wisdom'
                         value='Randomize'
-                     onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -388,7 +405,7 @@ export default function CharRandomizer() {
                         id='charisma random-btn'
                         name='charisma'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={event => randomAbilityScore(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -415,7 +432,7 @@ export default function CharRandomizer() {
                         id='alignment random-btn'
                         name='alignment'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
@@ -438,7 +455,7 @@ export default function CharRandomizer() {
                         id='height random-btn'
                         name='height'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
@@ -460,7 +477,7 @@ export default function CharRandomizer() {
                         id='age random-btn'
                         name='age'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
@@ -481,8 +498,7 @@ export default function CharRandomizer() {
                         type='button'
                         id='weight random-btn'
                         name='weight'
-                        value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
@@ -505,7 +521,7 @@ export default function CharRandomizer() {
                         id='physical-description random-btn'
                         name='physical_description'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
@@ -528,7 +544,7 @@ export default function CharRandomizer() {
                         id='background random-btn'
                         name='background'
                         value='Randomize'
-                        onChange={onChangeForm}
+                        onClick={null}
                      />
                   </label>
                   <div className='errors'>
