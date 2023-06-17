@@ -3,6 +3,7 @@ import '../App.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
+import axios from 'axios';
 
 import { Header, Footer } from './header-footer'
 
@@ -75,6 +76,32 @@ export default function CharRandomizer() {
       }
       
       changeInputRandomizer(name, value)
+   }
+
+   //Randomizes class:
+   const randomClass = async (event) => {
+      let { name, value } = event.target
+
+      await axios.get(`${process.env.BE_URL}/classes`)
+         .then(res => {
+            let randomNumId = Math.ceil(Math.random * res.length)
+
+            for(let num = 0; num < res.length; num++){
+               if(res[num].class_id === randomNumId){
+                  let value = res[num].class
+
+                  return changeInputRandomizer(name, value)
+               }
+               else{
+                  value = null
+
+                  return changeInputRandomizer(name, value)
+               }
+            }
+         })
+         .catch(err => {
+            setRandomizerErrors({...randomizerErrors, [name]: err.errors})
+      })
    }
 
    // console.log(`Change?`, randomizerFormValues)
@@ -225,7 +252,7 @@ export default function CharRandomizer() {
                      id='level random-btn'
                      name='level'
                      value='Randomize'
-                     onClick={null}
+                     onClick={event => randomClass(event)}
                   />
                </label>
                <div className='errors'>
