@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+//Library, form validation, + css imports
+import '../App.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import * as yup from 'yup'
 
 import { Header, Footer } from './header-footer'
 
 // styles:
 import StyledButtons from '../styles/buttonStyles'
+import { SaveCharH3 } from '../styles/homeStyles'
 
 //initial values for state:
 import { initialRandomizerValues } from '../variables/stateVariables';
@@ -19,40 +24,54 @@ export default function CharRandomizer() {
    //Not getting rid of this yet, just in case I need it in the future to post the character created to the user's account
    const userContext = useContext(UserContext)
 
-   // const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
-   // const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
-   // const [disabled, setDisabled] = useState(false)
+   const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
+   const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
+   const [disabled, setDisabled] = useState(false)
 
-   // //Validation Errors for Randomizer Page:
-   // const changeInputRandomizer = (name, value) => {
-   //    yup
-   //       .reach(formSchemaRandomizer, name)
-   //       .validate(value)
-   //       .then(() => {
-   //          setRandomizerErrors({ ...randomizerErrors, [name]: '' })
-   //       })
-   //       .catch(err => {
-   //          setRandomizerErrors({ ...randomizerErrors, [name]: err.errors })
-   //       })
+   //Validation Errors for Randomizer Page:
+   const changeInputRandomizer = (name, value) => {
+      yup
+         .reach(formSchemaRandomizer, name)
+         .validate(value)
+         .then(() => {
+            setRandomizerErrors({ ...randomizerErrors, [name]: '' })
+         })
+         .catch(err => {
+            setRandomizerErrors({ ...randomizerErrors, [name]: err.errors })
+         })
 
-   //    setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
-   // }
+      setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
+   }
 
-   // useEffect(() => {
-   //    formSchemaRandomizer.isValid(randomizerFormValues).then(validate => {
-   //       setDisabled(!validate)
-   //    })
-   // }, [randomizerFormValues])
+   useEffect(() => {
+      formSchemaRandomizer.isValid(randomizerFormValues).then(validate => {
+         setDisabled(!validate)
+      })
+   }, [randomizerFormValues])
+
+   const onChangeForm = event => {
+      const { name, value } = event.target
+
+      changeInputRandomizer(name, value)
+   }
 
    return (
       <>
          <Header />
 
          <h2>Character Creation Randomizer</h2>
-         <h3>** Disclaimer ** <br></br>This is still being worked on and is not currently working</h3>
+         <SaveCharH3>
+            ** Disclaimer ** 
+            <br></br>
+            This is still being worked on and is not currently working
+         </SaveCharH3>
 
          <form id='charactor-randomizer-form' onSubmit={null}>
-            <p className='randomizer-prompt'>Use the prompts below and click Create to get your randomized (or not) character!</p>
+            <p className='randomizer-prompt'>
+               Use the prompts below and click Create to get your randomized character! You can also fill out the prompts or mix and match to get a random character. 
+               <br></br>
+               This is a choose your own adventure character creation!
+            </p>
             <div className='charFirstName'>
                <label>
                   First Name
@@ -60,15 +79,15 @@ export default function CharRandomizer() {
                      type='text'
                      id='char-first-name'
                      name='first_name'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.first_name}
+                     onChange={onChangeForm}
                   />
                   <input
                      type='button'
                      id='first-name random-btn'
                      name='first_name'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -79,15 +98,15 @@ export default function CharRandomizer() {
                      type='text'
                      id='char-last-name'
                      name='last_name'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.last_name}
+                     onChange={onChangeForm}
                   />
                   <input
                      type='button'
                      id='last-name random-btn'
                      name='last_name'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm} 
                   />
                </label>
             </div>
@@ -98,15 +117,15 @@ export default function CharRandomizer() {
                      type='number'
                      id='char-level'
                      name='level'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.level}
+                     onChange={onChangeForm}
                   />
                   <input
                      type='button'
                      id='level random-btn'
                      name='level'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -117,15 +136,15 @@ export default function CharRandomizer() {
                      type='text'
                      id='char-race'
                      name='race'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.race}
+                     onChange={onChangeForm}
                   />
                   <input
                      type='button'
                      id='race random-btn'
                      name='race'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -135,8 +154,8 @@ export default function CharRandomizer() {
                   <select
                      name='class'
                      id='char-class'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.class}
+                     onChange={onChangeForm}
                   >
                      {/* trying to map out the options with the API */}
                      {/* {
@@ -170,7 +189,7 @@ export default function CharRandomizer() {
                      id='level random-btn'
                      name='level'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -182,15 +201,15 @@ export default function CharRandomizer() {
                      type='text'
                      id='char-class-focus'
                      name='class_focus'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.class_focus}
+                     onChange={onChangeForm}
                   />
                   <input
                      type='button'
                      id='class-focus random-btn'
                      name='race'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -200,8 +219,8 @@ export default function CharRandomizer() {
                   <select
                      name='alignment'
                      id='char-alignment'
-                  // value={}
-                  // onChange={}
+                     value={randomizerFormValues.alignment}
+                     onChange={onChangeForm}
                   >
                      <option value='You may select an alignment'>Select Alignment</option>
                      {/* Want to map through the alignment array to get the different options */}
@@ -211,7 +230,7 @@ export default function CharRandomizer() {
                      id='alignment random-btn'
                      name='alignment'
                      value='Randomize'
-                  //onChange={}
+                     onChange={onChangeForm}
                   />
                </label>
             </div>
@@ -223,15 +242,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='strength random-btn'
                         name='strength'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.strength}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='strength random-btn'
                         name='strength'
                         value='Randomize'
-                     // onChange={ }
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -242,15 +261,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='dexterity random-btn'
                         name='dexterity'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.dexterity}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='dexterity random-btn'
                         name='dexterity'
                         value='Randomize'
-                     // onChange={ }
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -261,15 +280,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='constitution random-btn'
                         name='strength'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.consitution}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='constitution random-btn'
                         name='constitution'
                         value='Randomize'
-                     // onChange={ }
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -280,15 +299,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='intelligence random-btn'
                         name='intelligence'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.intelligence}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='intelligence random-btn'
                         name='intelligence'
                         value='Randomize'
-                     // onChange={ }
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -299,15 +318,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='wisdom random-btn'
                         name='wisdom'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.wisdom}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='wisdom random-btn'
                         name='wisdom'
                         value='Randomize'
-                     // onChange={ }
+                     onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -318,15 +337,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='charisma random-btn'
                         name='charisma'
-                     // value={}
-                     //onChange={}
+                        value={randomizerFormValues.charisma}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='charisma random-btn'
                         name='charisma'
                         value='Randomize'
-                     // onChange={ }
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -336,8 +355,8 @@ export default function CharRandomizer() {
                      <select
                         name='gender'
                         id='char-gender'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.gender}
+                        onChange={onChangeForm}
                      >
                         <option value='You may select a gender'>Select Gender</option>
                         <option value='female'>Female</option>
@@ -350,7 +369,7 @@ export default function CharRandomizer() {
                         id='alignment random-btn'
                         name='alignment'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -362,15 +381,15 @@ export default function CharRandomizer() {
                         type='text'
                         id='char-height'
                         name='height'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.height}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='height random-btn'
                         name='height'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -381,15 +400,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='char-age'
                         name='age'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.age}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='age random-btn'
                         name='age'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -400,15 +419,15 @@ export default function CharRandomizer() {
                         type='number'
                         id='char-weight'
                         name='weight'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.weight}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='weight random-btn'
                         name='weight'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -420,15 +439,15 @@ export default function CharRandomizer() {
                         type='text'
                         id='char-phys-description'
                         name='physical_description'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.description}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='physical-description random-btn'
                         name='physical_description'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>
@@ -440,15 +459,15 @@ export default function CharRandomizer() {
                         type='text'
                         id='char-background'
                         name='background'
-                     // value={}
-                     // onChange={}
+                        value={randomizerFormValues.background}
+                        onChange={onChangeForm}
                      />
                      <input
                         type='button'
                         id='background random-btn'
                         name='background'
                         value='Randomize'
-                     //onChange={}
+                        onChange={onChangeForm}
                      />
                   </label>
                </div>

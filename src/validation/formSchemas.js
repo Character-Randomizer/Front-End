@@ -160,4 +160,10 @@ const formSchemaAccount = yup.object().shape({
       .required('Enter your date of birth')
 })
 
-export { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin, formSchemaAccount }
+export { 
+   formSchemaSignup, 
+   formSchemaRandomizer, 
+   formSchemaContact, 
+   formSchemaLogin, 
+   formSchemaAccount, 
+}

@@ -34,12 +34,14 @@ export default function SignUp(props) {
    const userContext = useContext(UserContext)
    const user = userContext.user
 
-   const { setAccountValues,
+   const { 
+      setAccountValues,
       handleShowPass,
       setUser,
       signupFormValues,
       setSignupFormValues,
-      navigate } = props
+      navigate 
+   } = props
 
    const [signupErrors, setSignupErrors] = useState(initialSignupValues)
 
@@ -75,7 +77,7 @@ export default function SignUp(props) {
       axiosWithAuth()
          .post('/auth/register', newUser)
          .then(res => {
-            console.log(`HERE:`, res.data)
+            // console.log(`HERE:`, res.data)
             setUser(res.data.user)
             setAccountValues(res.data.user)
             localStorage.setItem('token', res.data.token)
@@ -129,9 +131,6 @@ export default function SignUp(props) {
                   <br />
                </p>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.first_name}
-                  </div>
                   <StyledInputs
                      type='text'
                      id='input-first-name'
@@ -140,11 +139,11 @@ export default function SignUp(props) {
                      onChange={onChangeSignup}
                      placeholder='First Name'
                   />
+                  <div className='errors'>
+                     {signupErrors.first_name}
+                  </div>
                </StyledDivWidth60>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.last_name}
-                  </div>
                   <StyledInputs
                      type='text'
                      id='input-last-name'
@@ -153,11 +152,11 @@ export default function SignUp(props) {
                      onChange={onChangeSignup}
                      placeholder='Last Name'
                   />
+                  <div className='errors'>
+                     {signupErrors.last_name}
+                  </div>
                </StyledDivWidth60>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.username}
-                  </div>
                   <StyledInputs
                      type='text'
                      id='input-un'
@@ -166,11 +165,11 @@ export default function SignUp(props) {
                      onChange={onChangeSignup}
                      placeholder='Username'
                   />
+                  <div className='errors'>
+                     {signupErrors.username}
+                  </div>                  
                </StyledDivWidth60>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.email}
-                  </div>
                   <StyledInputs
                      type='email'
                      id='input-email'
@@ -179,11 +178,11 @@ export default function SignUp(props) {
                      onChange={onChangeSignup}
                      placeholder='Email'
                   />
+                  <div className='errors'>
+                     {signupErrors.email}
+                  </div>
                </StyledDivWidth60>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.password}
-                  </div>
                   <StyledInputs
                      type={signupFormValues.showPass ? 'text' : 'password'}
                      id='input-pass'
@@ -200,11 +199,11 @@ export default function SignUp(props) {
                   >
                      {signupFormValues.showPass ? <VisibilityOff /> : <Visibility />}
                   </VisibilityDiv>
+                  <div className='errors'>
+                     {signupErrors.password}
+                  </div>
                </StyledDivWidth60>
                <StyledDivWidth60>
-                  <div className='errors'>
-                     {signupErrors.confirm_password}
-                  </div>
                   <StyledInputs
                      type={signupFormValues.showConfirm ? 'text' : 'password'}
                      id='input-confirm-pass'
@@ -221,11 +220,11 @@ export default function SignUp(props) {
                   >
                      {signupFormValues.showConfirm ? <VisibilityOff /> : <Visibility />}
                   </VisibilityDiv>
+                  <div className='errors'>
+                     {signupErrors.confirm_password}
+                  </div>
                </StyledDivWidth60>
                <StyledDivWidth100>
-                  <div className='errors'>
-                     {signupErrors.dob}
-                  </div>
                   <StyledLabels>
                      Date of Birth
                   </StyledLabels>
@@ -237,11 +236,11 @@ export default function SignUp(props) {
                      value={signupFormValues.dob}
                      onChange={onChangeSignup}
                   />
+                  <div className='errors'>
+                     {signupErrors.dob}
+                  </div>
                </StyledDivWidth100>
                <StyledDivWidth100>
-                  <div className='errors'>
-                     {signupErrors.terms}
-                  </div>
                   <StyledTermLabel>
                      Terms of Service
                   </StyledTermLabel>
@@ -262,7 +261,7 @@ export default function SignUp(props) {
                         {termsText5}
                      </p>
                   </div>
-                  <p>By clicking the box, I agree to the terms of service</p>
+                  <div className='terms_checkbox'>
                   <StyledTermInput
                      type='checkbox'
                      id='input-terms'
@@ -270,7 +269,11 @@ export default function SignUp(props) {
                      value={signupFormValues.terms}
                      onChange={onChangeSignup}
                   />
-
+                  <p> By clicking the box, I agree to the terms of service </p>
+                  </div>
+                  <div className='errors'>
+                     {signupErrors.terms}
+                  </div>
                </StyledDivWidth100>
 
                <div className='errors'>
