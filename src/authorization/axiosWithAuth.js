@@ -7,7 +7,7 @@ const axiosWithAuth = () => {
       headers: {
          Authorization: token
       },
-      baseURL: process.env.BE_URL
+      baseURL: process.env.REACT_APP_BE_URL
    })
 }
 

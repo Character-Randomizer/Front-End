@@ -1,7 +1,7 @@
 //Library, form validation, + css imports
 import '../App.css';
 import React, { useState, useEffect, useContext } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+// import { Route, Routes, useNavigate } from 'react-router-dom'; 
 import * as yup from 'yup'
 import axios from 'axios';
 
@@ -28,6 +28,27 @@ export default function CharRandomizer() {
    const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
    const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
    const [disabled, setDisabled] = useState(false)
+   const [classArr, setClassArr] = useState([])
+
+   //Getting classes from backend API:
+   useEffect(() => {
+      async function fetchData() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/classes`)
+         const result = []
+
+         data.forEach(value => {
+            result.push({
+               class_id: value.class_id,
+               class: value.class
+            })
+         })
+
+         setClassArr([
+            ...result
+         ])
+   }
+      fetchData()
+   }, [])
 
    //Validation Errors for Randomizer Page:
    const changeInputRandomizer = (name, value) => {
@@ -81,27 +102,12 @@ export default function CharRandomizer() {
    //Randomizes class:
    const randomClass = async (event) => {
       let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * classArr.length)
 
-      await axios.get(`${process.env.BE_URL}/classes`)
-         .then(res => {
-            let randomNumId = Math.ceil(Math.random * res.length)
-
-            for(let num = 0; num < res.length; num++){
-               if(res[num].class_id === randomNumId){
-                  let value = res[num].class
-
-                  return changeInputRandomizer(name, value)
-               }
-               else{
-                  value = null
-
-                  return changeInputRandomizer(name, value)
-               }
-            }
-         })
-         .catch(err => {
-            setRandomizerErrors({...randomizerErrors, [name]: err.errors})
-      })
+      let randClass = classArr.find(item => item.class_id === randomNumId)
+      value = randClass.class
+            
+      return changeInputRandomizer(name, value)
    }
 
    // console.log(`Change?`, randomizerFormValues)
@@ -220,37 +226,16 @@ export default function CharRandomizer() {
                      value={randomizerFormValues.class}
                      onChange={onChangeForm}
                   >
-                     {/* trying to map out the options with the API */}
-                     {/* {
-                        axios
-                           .get(`process.env.BASE_URL`)
-                           .then(res => {
-                              console.log(res)
-                           })
-                           .catch(err => {
-                              console.log(err)
-                           })
-                     } */}
                      <option value='You may select a class'>Select Class</option>
-                     <option value='artificer'>Artificer</option>
-                     <option value='barbarian'>Barbarian</option>
-                     <option value='bard'>Bard</option>
-                     <option value='blood hunter'>Blood Hunter</option>
-                     <option value='cleric'>Cleric</option>
-                     <option value='druid'>Druid</option>
-                     <option value='fighter'>Fighter</option>
-                     <option value='monk'>Monk</option>
-                     <option value='paladin'>Paladin</option>
-                     <option value='ranger'>Ranger</option>
-                     <option value='rogue'>Rogue</option>
-                     <option value='sorcerer'>Sorcerer</option>
-                     <option value='warlock'>Warlock</option>
-                     <option value='wizard'>Wizard</option>
+                     {/* Mapping the class options with the API - allows randomizer to change option on form */}
+                     {
+                        classArr.map(item => <option value={item.class}>{item.class}</option>)
+                     }
                   </select>
                   <input
                      type='button'
-                     id='level random-btn'
-                     name='level'
+                     id='class random-btn'
+                     name='class'
                      value='Randomize'
                      onClick={event => randomClass(event)}
                   />
@@ -525,6 +510,7 @@ export default function CharRandomizer() {
                         type='button'
                         id='weight random-btn'
                         name='weight'
+                        value='Randomize'
                         onClick={null}
                      />
                   </label>
