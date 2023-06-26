@@ -27,29 +27,206 @@ export default function CharRandomizer() {
 
    const [randomizerFormValues, setRandomizerFormValues] = useState(initialRandomizerValues)
    const [randomizerErrors, setRandomizerErrors] = useState(initialRandomizerValues)
-   const [disabled, setDisabled] = useState(false)
+   // const [disabled, setDisabled] = useState(false)
+   //Setting API items:
+   const [alignArr, setAlignArr] = useState([])
+   const [backgroundArr, setBackgroundArr] = useState([])
    const [classArr, setClassArr] = useState([])
+   const [classFocusArr, setClassFocusArr] = useState([])
+   const [genderArr, setGenderArr] = useState([])
+   const [raceArr, setRaceArr] = useState([])
 
    //Getting classes from backend API:
    useEffect(() => {
-      async function fetchData() {
-         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/classes`)
-         const result = []
+      async function fetchAlignment() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/alignment`)
+            const alignResult = []
+
+            data.forEach(value => {
+               alignResult.push({
+                  alignment: value.alignment,
+                  align_id: value.alignment_id,
+                  acronym: value.alignment_acronym,
+                  description: value.alignment_description
+               })
+            })
+
+            setAlignArr([
+               ...alignResult.sort((a, b) => {
+                  let aa = a.alignment.toLowerCase()
+                  let ab = b.alignment.toLowerCase()
+   
+                  if(aa < ab){
+                     return -1
+                  }
+                  else if(aa > ab){
+                     return 1
+                  }
+                  else{
+                     return 0
+                  }
+               })
+            ])
+      }
+
+      async function fetchBackground() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/background`)
+         const backgroundResult = []
 
          data.forEach(value => {
-            result.push({
+            backgroundResult.push({
+               background_id: value.background_id,
+               background: value.background_name,
+               description: value.background_description
+            })
+         })
+
+         setBackgroundArr([
+            ...backgroundResult.sort((a, b) => {
+               let ba = a.background.toLowerCase()
+               let bb = b.background.toLowerCase()
+
+               if(ba < bb){
+                  return -1
+               }
+               else if(ba > bb){
+                  return 1
+               }
+               else{
+                  return 0
+               }
+            })
+         ])
+      }
+
+      async function fetchClass() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/class`)
+         const classResult = []
+
+         data.forEach(value => {
+            classResult.push({
                class_id: value.class_id,
-               class: value.class
+               class: value.class,
+               description: value.class_description
             })
          })
 
          setClassArr([
-            ...result
+            ...classResult.sort((a, b) => {
+               let ca = a.class.toLowerCase()
+               let cb = b.class.toLowerCase()
+
+               if(ca < cb){
+                  return -1
+               }
+               else if(ca > cb){
+                  return 1
+               }
+               else{
+                  return 0
+               }
+            })
          ])
-   }
-      fetchData()
+      }
+
+      // async function fetchClassFocus() {
+      //    const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/class_focus`)
+      //    const focusResult = []
+
+      //    data.forEach(value => {
+      //       focusResult.push({
+      //          focus_id: value.focus_id,
+      //          class_focus: value.class_focus,
+      //          class_id: value.class_id,
+      //          focus_description: value.focus_description
+      //       })
+      //    })
+
+      //    setFocusArr([
+      //       ...focusResult.sort((a, b) => {
+            //    let fa = a.class_focus.toLowerCase()
+            //    let fb = b.class_focus.toLowerCase()
+
+            //    if(fa < fb){
+            //       return -1
+            //    }
+            //    else if(fa > fb){
+            //       return 1
+            //    }
+            //    else{
+            //       return 0
+            //    }
+            // })
+      //    ])
+      // }
+
+      async function fetchGender() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/gender`)
+         const genderResult = []
+
+         data.forEach(value => {
+            genderResult.push({
+               gender_id: value.gender_id,
+               gender: value.gender
+            })
+         })
+
+         setGenderArr([
+            ...genderResult.sort((a, b) => {
+               let ga = a.gender.toLowerCase()
+               let gb = b.gender.toLowerCase()
+
+               if(ga < gb){
+                  return -1
+               }
+               else if(ga > gb){
+                  return 1
+               }
+               else{
+                  return 0
+               }
+            })
+         ])
+      }
+
+      async function fetchRace() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/race`)
+         const raceResult = []
+
+         data.forEach(value => {
+            raceResult.push({
+               race_id: value.race_id,
+               race: value.race_name
+            })
+         })
+
+         setRaceArr([
+            ...raceResult.sort((a, b) => {
+               let ra = a.race.toLowerCase()
+               let rb = b.race.toLowerCase()
+
+               if(ra < rb){
+                  return -1
+               }
+               else if(ra > rb){
+                  return 1
+               }
+               else{
+                  return 0
+               }
+            })
+         ])
+      }
+
+      fetchAlignment()
+      fetchBackground()
+      fetchClass()
+      // fetchClassFocus()
+      fetchGender()
+      fetchRace()
    }, [])
 
+   console.log(backgroundArr)
    //Validation Errors for Randomizer Page:
    const changeInputRandomizer = (name, value) => {
       yup
@@ -99,8 +276,30 @@ export default function CharRandomizer() {
       changeInputRandomizer(name, value)
    }
 
-   //Randomizes class:
-   const randomClass = async (event) => {
+   //Randomizes Alignment:
+   const randomAlignment = event => {
+      let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * alignArr.length)
+
+      let randAlign = alignArr.find(item => item.align_id === randomNumId)
+      value = randAlign.alignment
+            
+      return changeInputRandomizer(name, value)
+   } 
+
+   //Randomizes Background:
+   const randomBackground = event => {
+      let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * backgroundArr.length)
+
+      let randBackground = backgroundArr.find(item => item.background_id === randomNumId)
+      value = randBackground.background
+            
+      return changeInputRandomizer(name, value)
+   } 
+
+   //Randomizes Class:
+   const randomClass = (event) => {
       let { name, value } = event.target
       let randomNumId = Math.ceil(Math.random() * classArr.length)
 
@@ -110,7 +309,38 @@ export default function CharRandomizer() {
       return changeInputRandomizer(name, value)
    }
 
-   // console.log(`Change?`, randomizerFormValues)
+   //Randomizes Class Focus:
+   const randomFocus = (event) => {
+      let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * classFocusArr.length)
+
+      let randFocus = classFocusArr.find(item => item.focus_id === randomNumId)
+      value = randFocus.class_focus
+            
+      return changeInputRandomizer(name, value)
+   }
+
+   //Randomizes Gender:
+   const randomGender = (event) => {
+      let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * genderArr.length)
+
+      let randGender = genderArr.find(item => item.gender_id === randomNumId)
+      value = randGender.gender
+            
+      return changeInputRandomizer(name, value)
+   }
+
+     //Randomizes Race:
+     const randomRace = (event) => {
+      let { name, value } = event.target
+      let randomNumId = Math.ceil(Math.random() * raceArr.length)
+
+      let randRace = raceArr.find(item => item.race_id === randomNumId)
+      value = randRace.race
+            
+      return changeInputRandomizer(name, value)
+   }
 
    return (
       <>
@@ -120,7 +350,7 @@ export default function CharRandomizer() {
          <SaveCharH3>
             ** Disclaimer ** 
             <br></br>
-            This is still being worked on and is not currently working
+            This is still being worked on and is not working
          </SaveCharH3>
 
          <form id='charactor-randomizer-form' onSubmit={null}>
@@ -198,19 +428,24 @@ export default function CharRandomizer() {
             <div className='charRace'>
                <label>
                   Race
-                  <input
-                     type='text'
-                     id='char-race'
+                  <select
                      name='race'
+                     id='char-race'
                      value={randomizerFormValues.race}
                      onChange={onChangeForm}
-                  />
+                  >
+                     <option value='You may select a race'>Select Race</option>
+                     {/* Mapping the class options with the API - allows randomizer to change option on form */}
+                     {
+                        raceArr.map(item => <option value={item.race}>{item.race}</option>)
+                     }
+                  </select>
                   <input
                      type='button'
                      id='race random-btn'
                      name='race'
                      value='Randomize'
-                     onClick={null}
+                     onClick={event => randomRace(event)}
                   />
                </label>
                <div className='errors'>
@@ -248,19 +483,25 @@ export default function CharRandomizer() {
                <label>
                   Class Focus
                   {/* Want to change this to a select that changes what focus choices are based on the class selected (above) */}
-                  <input
+                  <select
                      type='text'
                      id='char-class-focus'
                      name='class_focus'
                      value={randomizerFormValues.class_focus}
                      onChange={onChangeForm}
-                  />
+                  >
+                     <option value='You may select a class focus'>Select Class Focus</option>
+                     {/* Mapping the class focus options with the API - allows randomizer to change option on form */}
+                     {
+                        classFocusArr.map(item => <option value={item.class_focus}>{item.class_focus}</option>)
+                     }
+                  </select>
                   <input
                      type='button'
                      id='class-focus random-btn'
-                     name='race'
+                     name='class-focus'
                      value='Randomize'
-                     onClick={null}
+                     onClick={event => randomFocus(event)}
                   />
                </label>
                <div className='errors'>
@@ -277,14 +518,17 @@ export default function CharRandomizer() {
                      onChange={onChangeForm}
                   >
                      <option value='You may select an alignment'>Select Alignment</option>
-                     {/* Want to map through the alignment array to get the different options */}
+                     {/* Mapping the alignment options with the API - allows randomizer to change option on form */}
+                     {
+                        alignArr.map(item => <option value={item.alignment}>{item.alignment} ({item.acronym})</option>)
+                     }                     
                   </select>
                   <input
                      type='button'
                      id='alignment random-btn'
                      name='alignment'
                      value='Randomize'
-                     onClick={null}
+                     onClick={event => randomAlignment(event)}
                   />
                </label>
                <div className='errors'>
@@ -434,17 +678,17 @@ export default function CharRandomizer() {
                         onChange={onChangeForm}
                      >
                         <option value='You may select a gender'>Select Gender</option>
-                        <option value='female'>Female</option>
-                        <option value='male'>Male</option>
-                        <option value='nonbinary'>Nonbinary</option>
-
+                        {/* Mapping the gender options with the API - allows randomizer to change option on form */}
+                        {
+                           genderArr.map(item => <option value={item.gender}>{item.gender}</option>)
+                        }   
                      </select>
                      <input
                         type='button'
-                        id='alignment random-btn'
-                        name='alignment'
+                        id='gender random-btn'
+                        name='gender'
                         value='Randomize'
-                        onClick={null}
+                        onClick={event => randomGender(event)}
                      />
                   </label>
                   <div className='errors'>
@@ -544,20 +788,24 @@ export default function CharRandomizer() {
                <div className='charBackground'>
                   <label>
                      Background
-                     {/* This should be a select with it's own databse - but for right now I am making it a text field for simplicity */}
-                     <input
-                        type='text'
+                     <select
                         id='char-background'
                         name='background'
                         value={randomizerFormValues.background}
                         onChange={onChangeForm}
-                     />
+                     >
+                        <option value='You may select a background'>Select Background</option>
+                        {/* Mapping the gender options with the API - allows randomizer to change option on form */}
+                        {
+                           backgroundArr.map(item => <option value={item.background}>{item.background}</option>)
+                        }   
+                     </select>
                      <input
                         type='button'
                         id='background random-btn'
                         name='background'
                         value='Randomize'
-                        onClick={null}
+                        onClick={event => randomBackground(event)}
                      />
                   </label>
                   <div className='errors'>

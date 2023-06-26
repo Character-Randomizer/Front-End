@@ -91,7 +91,7 @@ const formSchemaRandomizer = yup.object().shape({
       .max(20, 'Charisma must be between 1 and 20')
       .required('Charisma score is required'),
 
-   gender: yup.string().matches(/(female|male|nonbinary)/, 'Please select a gender'),
+   gender: yup.string().matches(/(female||male||nonbinary)/, 'Please select a gender'),
 
    height: yup.string(),
 
