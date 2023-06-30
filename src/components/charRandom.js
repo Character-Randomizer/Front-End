@@ -32,7 +32,7 @@ export default function CharRandomizer() {
    const [alignArr, setAlignArr] = useState([])
    const [backgroundArr, setBackgroundArr] = useState([])
    const [classArr, setClassArr] = useState([])
-   const [classFocusArr, setClassFocusArr] = useState([])
+   const [classFocusArr, setFocusArr] = useState([])
    const [genderArr, setGenderArr] = useState([])
    const [raceArr, setRaceArr] = useState([])
 
@@ -129,36 +129,36 @@ export default function CharRandomizer() {
          ])
       }
 
-      // async function fetchClassFocus() {
-      //    const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/class_focus`)
-      //    const focusResult = []
+      async function fetchClassFocus() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/class-focus`)
+         const focusResult = []
 
-      //    data.forEach(value => {
-      //       focusResult.push({
-      //          focus_id: value.focus_id,
-      //          class_focus: value.class_focus,
-      //          class_id: value.class_id,
-      //          focus_description: value.focus_description
-      //       })
-      //    })
+         data.forEach(value => {
+            focusResult.push({
+               focus_id: value.focus_id,
+               class_focus: value.class_focus,
+               class_id: value.class_id,
+               focus_description: value.focus_description
+            })
+         })
 
-      //    setFocusArr([
-      //       ...focusResult.sort((a, b) => {
-            //    let fa = a.class_focus.toLowerCase()
-            //    let fb = b.class_focus.toLowerCase()
+         setFocusArr([
+            ...focusResult.sort((a, b) => {
+               let fa = a.class_focus.toLowerCase()
+               let fb = b.class_focus.toLowerCase()
 
-            //    if(fa < fb){
-            //       return -1
-            //    }
-            //    else if(fa > fb){
-            //       return 1
-            //    }
-            //    else{
-            //       return 0
-            //    }
-            // })
-      //    ])
-      // }
+               if(fa < fb){
+                  return -1
+               }
+               else if(fa > fb){
+                  return 1
+               }
+               else{
+                  return 0
+               }
+            })
+         ])
+      }
 
       async function fetchGender() {
          const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/gender`)
@@ -221,12 +221,11 @@ export default function CharRandomizer() {
       fetchAlignment()
       fetchBackground()
       fetchClass()
-      // fetchClassFocus()
+      fetchClassFocus()
       fetchGender()
       fetchRace()
    }, [])
 
-   console.log(backgroundArr)
    //Validation Errors for Randomizer Page:
    const changeInputRandomizer = (name, value) => {
       yup
@@ -341,6 +340,8 @@ export default function CharRandomizer() {
             
       return changeInputRandomizer(name, value)
    }
+
+   // console.log(`All Class Array:`,  classArr)
 
    return (
       <>
@@ -490,10 +491,16 @@ export default function CharRandomizer() {
                      value={randomizerFormValues.class_focus}
                      onChange={onChangeForm}
                   >
-                     <option value='You may select a class focus'>Select Class Focus</option>
+                     {/* <option value='You may select a class focus'>Select Class Focus</option> */}
                      {/* Mapping the class focus options with the API - allows randomizer to change option on form */}
                      {
-                        classFocusArr.map(item => <option value={item.class_focus}>{item.class_focus}</option>)
+                        randomizerFormValues.class ?  
+                           classFocusArr.filter(item => {
+                              return item.class_id === classArr.filter(clss => clss.class === randomizerFormValues.class)[0].class_id
+                           }).map(focus => {
+                              return <option value={focus.class_focus}>{focus.class_focus}</option>
+                           })
+                           : <option value='select class'>First, select a class</option>
                      }
                   </select>
                   <input
