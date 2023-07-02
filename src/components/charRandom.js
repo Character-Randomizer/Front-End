@@ -1,6 +1,6 @@
 //Library, form validation, + css imports
 import '../App.css';
-import React, { useState, useEffect, useContext, Component } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import { Route, Routes, useNavigate } from 'react-router-dom'; 
 import * as yup from 'yup'
 import axios from 'axios';
@@ -9,7 +9,7 @@ import { Header, Footer } from './header-footer'
 
 // styles:
 import StyledButtons from '../styles/buttonStyles'
-import { SaveCharH3 } from '../styles/homeStyles'
+import { SaveCharH3, SaveCharP } from '../styles/homeStyles'
 
 //initial values for state:
 import { initialRandomizerValues } from '../variables/stateVariables';
@@ -375,8 +375,11 @@ export default function CharRandomizer() {
          <SaveCharH3>
             ** Disclaimer ** 
             <br></br>
-            This is still being worked on and is not working
+            This is still being worked on and is not fully functioning.
+            <br></br>
+            <SaveCharP>You can input values and most of the randomize buttons are working, but you cannot save your character yet.</SaveCharP>
          </SaveCharH3>
+         <br></br>
 
          <form id='charactor-randomizer-form' onSubmit={null}>
             <p className='randomizer-prompt'>
@@ -384,6 +387,8 @@ export default function CharRandomizer() {
                <br></br>
                This is a choose your own adventure character creation!
             </p>
+            <br></br>
+            <br></br>
             <div className='charFirstName'>
                <label>
                   First Name
