@@ -35,9 +35,19 @@ export default function Home() {
                target="_blank">thenerdd.com</a></p>
 
 
-            <SaveCharH2 className='save-char'>Saving Characters</SaveCharH2>
-            <SaveCharH3>** Disclaimer ** <br></br> This is still being worked on </SaveCharH3>
-            <DisclaimerP> You can sign up, but you will not be able to save your characters. <br></br>We are working on this feature. </DisclaimerP>
+            <SaveCharH2>
+               Saving Characters
+            </SaveCharH2>
+            <SaveCharH3>
+               ** Disclaimer ** 
+               <br></br> 
+               This is still being worked on 
+            </SaveCharH3>
+            <DisclaimerP> 
+               You can sign up, but you will not be able to save your characters. 
+               <br></br> 
+               We are working on this feature. 
+            </DisclaimerP>
             <p className="saving">
                If you would like to save your characters on our website, you can create a free account with us.
             </p>

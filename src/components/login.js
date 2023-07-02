@@ -105,9 +105,6 @@ export default function Login(props) {
                   Login
                </StyledH2>
                <div className='loginDivInput'>
-                  <div className='errors'>
-                     {loginErrors.username}
-                  </div>
                   <StyledLabels>
                      Username
                   </StyledLabels>
@@ -118,12 +115,12 @@ export default function Login(props) {
                      value={loginValues.username}
                      onChange={onChangeLogin}
                   />
-
-               </div>
-               <div className='loginDivInput'>
                   <div className='errors'>
-                     {loginErrors.password}
+                     {loginErrors.username}
                   </div>
+               </div>
+
+               <div className='loginDivInput'>
                   <StyledLabels>
                      Password
                   </StyledLabels>
@@ -140,15 +137,18 @@ export default function Login(props) {
                   >
                      {loginValues.showPass ? <VisibilityOff /> : <Visibility />}
                   </VisibilityDiv>
+                  <div className='errors'>
+                     {loginErrors.password}
+                  </div>
                </div>
 
                <StyledLoginSignupBtnDiv>
-                  <div className='errors'>
-                     {loginErrors.request_err}
-                  </div>
                   <StyledButtons>
                      Login
                   </StyledButtons>
+                  <div className='errors'>
+                     {loginErrors.request_err}
+                  </div>
                </StyledLoginSignupBtnDiv>
             </div>
          </StyledForm>

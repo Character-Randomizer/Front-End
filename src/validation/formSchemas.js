@@ -43,7 +43,7 @@ const formSchemaRandomizer = yup.object().shape({
 
    last_name: yup.string(),
 
-   level: yup.number(),
+   level: yup.number().positive().integer(),
 
    class: yup.string(),
 
@@ -56,11 +56,13 @@ const formSchemaRandomizer = yup.object().shape({
    physical_description: yup.string(),
 
    strength: yup.number()
+      .positive().integer()
       .min(1, 'Strength must be between 1 and 20')
       .max(20, 'Strength must be between 1 and 20')
       .required('Strength score is required'),
 
    dexterity: yup.number()
+      .positive().integer()
       .min(1, 'Dexterity must be between 1 and 20')
       .max(20, 'Dexterity must be between 1 and 20')
       .required('Dexterity score is required'),
@@ -68,30 +70,34 @@ const formSchemaRandomizer = yup.object().shape({
    constitution: yup.number()
       .min(1, 'Constitution must be between 1 and 20')
       .max(20, 'Constitution must be between 1 and 20')
-      .required('Constitution score is required'),
+      .required('Constitution score is required')
+      .positive().integer(),
 
    intelligence: yup.number()
       .min(1, 'Intelligence must be between 1 and 20')
       .max(20, 'Intelligence must be between 1 and 20')
-      .required('Intelligence score is required'),
+      .required('Intelligence score is required')
+      .positive().integer(),
 
    wisdom: yup.number()
       .min(1, 'Wisdom must be between 1 and 20')
       .max(20, 'Wisdom must be between 1 and 20')
-      .required('Wisdom score is required'),
+      .required('Wisdom score is required')
+      .positive().integer(),
 
    charisma: yup.number()
+      .positive().integer()
       .min(1, 'Charisma must be between 1 and 20')
       .max(20, 'Charisma must be between 1 and 20')
       .required('Charisma score is required'),
 
-   gender: yup.string(),
+   gender: yup.string().matches(/(female||male||nonbinary)/, 'Please select a gender'),
 
    height: yup.string(),
 
-   age: yup.number(),
+   age: yup.number().positive().integer(),
 
-   weight: yup.number(),
+   weight: yup.number().positive().integer(),
 
    background: yup.string()
 })
@@ -160,4 +166,10 @@ const formSchemaAccount = yup.object().shape({
       .required('Enter your date of birth')
 })
 
-export { formSchemaSignup, formSchemaRandomizer, formSchemaContact, formSchemaLogin, formSchemaAccount }
+export { 
+   formSchemaSignup, 
+   formSchemaRandomizer, 
+   formSchemaContact, 
+   formSchemaLogin, 
+   formSchemaAccount, 
+}

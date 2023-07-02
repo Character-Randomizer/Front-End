@@ -6,6 +6,9 @@ import { Header, Footer } from './header-footer'
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
+//Styles
+import { SaveCharH3 } from '../styles/homeStyles';
+
 export default function CreatedCharPage() {
    const userContext = useContext(UserContext)
 
@@ -23,6 +26,12 @@ export default function CreatedCharPage() {
 
          <h1>{userContext.user.first_name},</h1>
          <h1>This page is under construction.</h1>
+
+         <SaveCharH3>
+            ** Disclaimer ** 
+            <br></br>
+            This is still being worked on and is not currently working
+         </SaveCharH3>
 
          <Footer />
       </>

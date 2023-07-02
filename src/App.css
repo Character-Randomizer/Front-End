@@ -106,6 +106,18 @@
   padding: 2% 0;
 }
 
+.terms_checkbox {
+  display: flex;
+  width: 51rem;
+  /* border: 2px solid green; */
+  align-items: center;
+}
+
+.terms_checkbox p {
+  width: 100%;
+  /* border: 2px solid red; */
+}
+
 /* Account Page */
 
 /* Popup */

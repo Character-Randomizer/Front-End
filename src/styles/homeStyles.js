@@ -30,9 +30,18 @@ const SaveCharH3 = styled.h3`
    font-weight: bold;
 `
 
+const SaveCharP = styled.p`
+   font-size: 1.9rem;
+   padding: 1%;
+   width: 100%;
+   color: #900C3F;
+   font-weight: bold;
+`
+
 export { 
    AboutRandomizerH2,
    DisclaimerP,
    SaveCharH2, 
    SaveCharH3, 
+   SaveCharP,
 }

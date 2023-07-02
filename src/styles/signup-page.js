@@ -46,13 +46,9 @@ const StyledDobInput = styled.input`
 `
 
 const StyledTermInput = styled.input`
-   margin-left: 3%;
-   width:100%;
-   display: flex;
-   height: 4vh;
-   font-size: 1.8rem;
-   padding: 0.5% 1.5% 0.5% 1.5%;
-   margin: 2% 0 4% 0;
+   width: 15%;
+   height: 2.1rem;
+   margin: 4% 0;
 `
 const StyledLabels = styled.label`
    font-size: 2rem;
