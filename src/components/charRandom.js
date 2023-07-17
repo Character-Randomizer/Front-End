@@ -468,50 +468,6 @@ export default function CharRandomizer() {
             </p>
             <br></br>
             <br></br>
-            <div className='charFirstName'>
-               <label>
-                  First Name
-                  <input
-                     type='text'
-                     id='char-first-name'
-                     name='first_name'
-                     value={randomizerFormValues.first_name}
-                     onChange={changeInput}
-                  />
-                  <input
-                     type='button'
-                     id='first-name random-btn'
-                     name='first_name'
-                     value='Randomize'
-                     onClick={null}
-                  />
-               </label>
-               <div className='errors'>
-                     {randomizerErrors.first_name}
-               </div>
-            </div>
-            <div className='charLastName'>
-               <label>
-                  Last Name
-                  <input
-                     type='text'
-                     id='char-last-name'
-                     name='last_name'
-                     value={randomizerFormValues.last_name}
-                     onChange={changeInput}
-                  />
-                  <input
-                     type='button'
-                     id='last-name random-btn'
-                     name='last_name'
-                     value='Randomize'
-                     onClick={null}
-                  />
-               </label>
-               <div className='errors'>
-                     {randomizerErrors.last_name}
-               </div>
-            </div>
             <div className='charLevel'>
                <label>
                   Level
@@ -559,6 +515,50 @@ export default function CharRandomizer() {
                </label>
                <div className='errors'>
                      {randomizerErrors.race}
+               </div>
+            </div>
+            <div className='charFirstName'>
+               <label>
+                  First Name
+                  <input
+                     type='text'
+                     id='char-first-name'
+                     name='first_name'
+                     value={randomizerFormValues.first_name}
+                     onChange={changeInput}
+                  />
+                  <input
+                     type='button'
+                     id='first-name random-btn'
+                     name='first_name'
+                     value='Randomize'
+                     onClick={null}
+                  />
+               </label>
+               <div className='errors'>
+                     {randomizerErrors.first_name}
+               </div>
+            </div>
+            <div className='charLastName'>
+               <label>
+                  Last Name
+                  <input
+                     type='text'
+                     id='char-last-name'
+                     name='last_name'
+                     value={randomizerFormValues.last_name}
+                     onChange={changeInput}
+                  />
+                  <input
+                     type='button'
+                     id='last-name random-btn'
+                     name='last_name'
+                     value='Randomize'
+                     onClick={null}
+                  />
+               </label>
+               <div className='errors'>
+                     {randomizerErrors.last_name}
                </div>
             </div>
             <div className='charClass'>
