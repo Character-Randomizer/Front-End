@@ -4,6 +4,16 @@ import React, { useState, useEffect, useContext } from 'react';
 // import { Route, Routes, useNavigate } from 'react-router-dom'; 
 import * as yup from 'yup'
 import axios from 'axios';
+// Name generator is limited, see link below for more details:
+   // https://npm.io/package/fantasy-name-generator
+   // Example: nameByRace("elf", { gender: "female" })
+import { nameByRace } from 'fantasy-name-generator';
+
+// Fantasy Names npm package generator is not currently working.
+// Keeping here to remind myself to look into this at another date.
+//Below name generator example:
+   // generateFantasyName('dungeons_and_dragons')
+// import generateFantasyName from 'fantasy-names';
 
 import { Header, Footer } from './header-footer'
 
@@ -20,7 +30,6 @@ import { formSchemaRandomizer } from '../validation/formSchemas';
 //State Management - Context API
 import { UserContext } from '../contextAPI';
 
-
 export default function CharRandomizer() {
    //Not getting rid of this yet, just in case I need it in the future to post the character created to the user's account
    const userContext = useContext(UserContext)
@@ -32,11 +41,15 @@ export default function CharRandomizer() {
    const [alignArr, setAlignArr] = useState([])
    const [backgroundArr, setBackgroundArr] = useState([])
    const [classArr, setClassArr] = useState([])
-   const [classFocusArr, setFocusArr] = useState([])
+   const [focusArr, setFocusArr] = useState([])
+   const [fnameArr, setFnameArr] = useState([])
+   const [lnameArr, setLnameArr] = useState([])
    const [genderArr, setGenderArr] = useState([])
+   const [physArr, setPhysArr] = useState([])
    const [raceArr, setRaceArr] = useState([])
 
    //Getting classes from backend API upon render:
+      //Most arrays will be ordered alphabetically for the dropdown options:
    useEffect(() => {
       async function fetchAlignment() {
          const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/alignment`)
@@ -160,6 +173,25 @@ export default function CharRandomizer() {
          ])
       }
 
+      //Not ordering array b/c not going to be a dropdown:
+      async function fetchFirstName() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/firstname`)
+         const fnameResult = []
+
+         data.forEach(value => {
+            fnameResult.push({
+               fname_id: value.fname_id,
+               fname: value.fname,
+               gender: value.gender,
+               race: value.race
+            })
+         })
+
+         setFnameArr([
+            ...fnameResult
+         ])
+      }
+
       async function fetchGender() {
          const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/gender`)
          const genderResult = []
@@ -186,6 +218,45 @@ export default function CharRandomizer() {
                   return 0
                }
             })
+         ])
+      }
+
+      //Not ordering array b/c not going to be a dropdown:
+      async function fetchLastName() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/lastname`)
+         const lnameResult = []
+
+         data.forEach(value => {
+            lnameResult.push({
+               lname_id: value.fname_id,
+               lname: value.fname,
+               gender: value.gender,
+               race: value.race
+            })
+         })
+
+         setLnameArr([
+            ...lnameResult
+         ])
+      }
+
+      //Not ordering array b/c not going to be a dropdown:
+      async function fetchPhys() {
+         const { data } = await axios.get(`${process.env.REACT_APP_BE_URL}/phys-description`)
+         const physResult = []
+
+         data.forEach(value => {
+            physResult.push({
+               phys_id: value.phys_id,
+               sentence_num: value.sentence_num,
+               gender: value.gender,
+               race: value.race,
+               description: value.description
+            })
+         })
+
+         setPhysArr([
+            ...physResult
          ])
       }
 
@@ -247,7 +318,7 @@ export default function CharRandomizer() {
       setRandomizerFormValues({ ...randomizerFormValues, [name]: value })
    }
 
-   //Randomized level (1-20):
+   //Randomized level (1-20): 
    const randomLevel = (event) => {
       event.target.value = Math.ceil(Math.random() * 20)
       
@@ -267,6 +338,10 @@ export default function CharRandomizer() {
       changeInput(event)
    }
 
+   //Randomizes Age based on race:
+   const randomAge = event => {
+
+   }
    //Randomizes Alignment:
    const randomAlignment = event => {
       let randomNumId = Math.ceil(Math.random() * alignArr.length)
@@ -298,10 +373,10 @@ export default function CharRandomizer() {
 
    //Randomizes Class Focus:
    const randomFocus = async (event) => {
-      let randomNumId = Math.ceil(Math.random() * classFocusArr.length)
-      let randFocus = classFocusArr.find(item => item.focus_id === randomNumId)
+      let randomNumId = Math.ceil(Math.random() * focusArr.length)
+      let randFocus = focusArr.find(item => item.focus_id === randomNumId)
          
-      let randFocuses = classFocusArr.filter(item => (item.class_id === classArr.filter(clss => clss.class === randomizerFormValues.class)[0].class_id))
+      let randFocuses = focusArr.filter(item => (item.class_id === classArr.filter(clss => clss.class === randomizerFormValues.class)[0].class_id))
 
       //There is more than one class focus:
       if(randFocuses.length > 1){
@@ -328,8 +403,13 @@ export default function CharRandomizer() {
       return changeInput(event)
    }
 
-     //Randomizes Race:
-     const randomRace = (event) => {
+   //Randomizes first name based on race (if no race selected, it picks a random name):
+   const randomFname = (event) => {
+
+   }
+
+   //Randomizes Race:
+   const randomRace = (event) => {
       let randomNumId = Math.ceil(Math.random() * raceArr.length)
 
       let randRace = raceArr.find(item => item.race_id === randomNumId)
@@ -349,7 +429,7 @@ export default function CharRandomizer() {
       } 
       // If there is a class selected:
       else if (randomizerFormValues.class){
-         classFocuses = classFocusArr.filter(item => {
+         classFocuses = focusArr.filter(item => {
             return item.class_id === classArr.filter(clss => clss.class === randomizerFormValues.class)[0].class_id
          })
          .map(focus => 
@@ -365,7 +445,6 @@ export default function CharRandomizer() {
    }
 
    console.log(`BOTTOM OF PAGE (before return), current form values:`, randomizerFormValues)
-
 
    return (
       <>
